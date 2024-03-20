@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fieldset name="articlestash" label="COM_JDOCMANUAL_ARTICLE_DETAILS_TAB"
+    	addfieldprefix="Cefjdemos\Component\Jdocmanual\Administrator\Field"
+    >
+
+		<field
+			name="display_title"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLES_DISPLAY_TITLE"
+			required="true"
+		 />
+
+		<field
+			name="jdoc_key"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLES_INDEX_KEY"
+			required="true"
+			class="readonly"
+			readonly="true"
+		 />
+
+		<field
+			name="manual"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLES_MANUAL"
+			required="true"
+			class="readonly"
+			readonly="true"
+		/>
+
+		<field
+			name="language"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLES_STASH_LANGUAGE"
+			required="true"
+			class="readonly"
+			readonly="true"
+		/>
+
+		<field
+			name="heading"
+			type="heading"
+			label="COM_JDOCMANUAL_ARTICLE_HEADING"
+			required="true"
+			class="readonly"
+			readonly="true"
+		/>
+
+		<field
+			name="filename"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLES_STASH_FILENAME"
+			required="true"
+			class="readonly"
+			readonly="true"
+		/>
+
+		<field
+			name="id"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLE_STASH_ID"
+			class="readonly"
+			default="0"
+			readonly="true"
+		/>
+
+		<field
+			name="page_id"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLE_PAGE_ID_LABEL"
+			class="readonly"
+			default="0"
+			readonly="true"
+		/>
+
+		<field
+			name="original_english"
+			type="editor"
+			label="COM_JDOCMANUAL_ARTICLE_ORIGINAL_ENGLISH_LABEL"
+			editor="codemirror|none"
+			buttons="no"
+			syntax="markdown"
+			filter="raw"
+			class="mdsource"
+			hidden="true"
+			rows="18"
+            readonly="true"
+		/>
+
+		<field
+			name="source"
+			type="editor"
+			editor="codemirror|none"
+			buttons="no"
+			syntax="markdown"
+			filter="raw"
+			class="mdsource"
+			hidden="true"
+			rows="18"
+			readonly="true"
+		/>
+
+		<field
+			name="commit_message"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLE_COMMIT_MESSAGE_LABEL"
+		/>
+
+		<field
+			name="comments"
+			type="textarea"
+			label="COM_JDOCMANUAL_ARTICLE_COMMENTS_LABEL"
+			rows="10"
+		/>
+
+		<field
+			name="markdown_text"
+			type="editor"
+			label="COM_JDOCMANUAL_ARTICLE_STASH_LABEL"
+			editor="codemirror|none"
+			buttons="no"
+			syntax="markdown"
+			filter="raw"
+			class="mdsource"
+			hidden="true"
+			rows="18"
+		/>
+
+	</fieldset>
+
+</form>

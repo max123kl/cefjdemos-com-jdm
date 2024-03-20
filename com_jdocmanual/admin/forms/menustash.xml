@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fieldset name="language" label="COM_JDOCMANUAL_ARTICLE_DETAILS_TAB">
+
+		<field
+			name="manual"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLES_MANUAL"
+			required="true"
+			class="readonly"
+			readonly="true"
+		/>
+
+		<field
+			name="id"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLE_STASH_ID"
+			class="readonly"
+			default="0"
+			readonly="true"
+		/>
+
+		<field
+			name="menu_text"
+			type="editor"
+			editor="codemirror|none"
+			buttons="no"
+			syntax="text"
+			filter="raw"
+			rows="18"
+		/>
+
+		<field
+			name="source"
+			type="editor"
+			label="COM_JDOCMANUAL_ARTICLE_SOURCE_LABEL"
+			editor="codemirror|none"
+			buttons="no"
+			syntax="markdown"
+			filter="raw"
+			rows="18"
+			readonly="readonly"
+		/>
+
+		<field
+			name="commit_message"
+			type="text"
+			label="COM_JDOCMANUAL_ARTICLE_COMMIT_MESSAGE_LABEL"
+		/>
+
+		<field
+			name="comments"
+			type="textarea"
+			label="COM_JDOCMANUAL_ARTICLE_COMMENTS_LABEL"
+			rows="10"
+		/>
+
+	</fieldset>
+
+</form>
