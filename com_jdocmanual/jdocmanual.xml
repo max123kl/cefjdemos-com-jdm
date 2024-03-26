@@ -103,6 +103,6 @@
 	</administration>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="extension" priority="2" name="Jdocmanual Update Site">https://raw.githubusercontent.com/ceford/cefjdemos-com-jdm/main/update.xml</server>
+		<server type="extension" priority="2" name="Jdocmanual Update Site">https://raw.githubusercontent.com/ceford/cefjdemos-com-jdm/main/jdocmanual.xml</server>
 	</updateservers>
 </extension>
