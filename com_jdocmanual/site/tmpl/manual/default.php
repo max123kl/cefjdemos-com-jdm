@@ -44,9 +44,9 @@ $activeMenuitem = $sitemenu->getActive();
 <?php include JPATH_ADMINISTRATOR . '/components/com_jdocmanual/tmpl/manual/form.php'; ?>
 
 <?php if (empty($this->menu)) : ?>
-    <?php
-        echo Text::_('COM_JDOCMANUAL_MANUAL_FIRST_FETCH_INDEX');
-    ?>
+    <p class="alert alert-warning">
+        <?php echo Text::_('COM_JDOCMANUAL_MANUAL_MANUAL_SELECT_MISSING'); ?>
+    </p>
 <?php else : ?>
     <h1><?php echo $this->source->title; ?></h1>
 

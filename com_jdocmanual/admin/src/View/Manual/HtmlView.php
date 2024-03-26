@@ -157,6 +157,7 @@ class HtmlView extends BaseHtmlView
 
         if (!empty($this->dbisgood)) {
             ToolbarHelper::title($this->source->title . ' (' . $this->page_language_code . ')', 'book');
+
             $dropdown = $toolbar->dropdownButton('select-manual')
             ->text('COM_JDOCMANUAL_MANUAL_MANUAL_SELECT')
             ->toggleSplit(false)
@@ -235,7 +236,7 @@ class HtmlView extends BaseHtmlView
             ->icon('icon-share')
             ->message("Update HTML for this Manual and Language.\n This may take a long time!");
         } else {
-            ToolbarHelper::title('Setup Notes', 'book');
+            ToolbarHelper::title('Installation Notes', 'book');
         }
 
         $user  = $this->getCurrentUser();

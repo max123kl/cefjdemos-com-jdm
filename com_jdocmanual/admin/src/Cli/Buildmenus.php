@@ -58,6 +58,14 @@ class Buildmenus
     protected $languagetodo;
 
     /**
+     * Accumulate a summary to return to caller.
+     *
+     * @var     string
+     * @since  1.0.0
+     */
+    protected $summary = '';
+
+    /**
      * Entry point to convert menu-index.txt to htmal and save.
      *
      * @param   $manual     The path fragment of the manual to process.
@@ -72,21 +80,18 @@ class Buildmenus
         $time_start = microtime(true);
 
         // The echo items appear in the CLI but not in Joomla.
-        echo "\n\nBegin Build Menu in Database\n";
 
         $this->manualtodo = $manual;
         $this->languagetodo = $language;
 
-        $summary = $this->build();
+        $this->build();
 
-        echo "\nEnd Build Menu\n\n";
-
-        $time_end = microtime(true);
+        $time_end = \microtime(true);
         $execution_time = $time_end - $time_start;
 
-        $summary .= 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
+        $this->summary .= 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
 
-        return $summary;
+        return $this->summary;
     }
 
     /**
@@ -101,12 +106,11 @@ class Buildmenus
         // Get the data source path from the component parameters
         $this->gfmfiles_path = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('gfmfiles_path', ',');
         if (empty($this->gfmfiles_path)) {
-            return "\nThe Git Source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
+            $this->summary .= "\nThe Markdown source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
         }
 
         // Get a list of manual folders in /Users/ceford/data/manuals/
         $manuals = array_diff(scandir($this->gfmfiles_path), array('..', '.', '.DS_Store'));
-        $summary = '';
 
         foreach ($manuals as $manual) {
             // Skip of not all manuals are being updated
@@ -115,22 +119,22 @@ class Buildmenus
             }
             $count = 0;
             // Read in menu-index.txt
-            $menu_index = $this->gfmfiles_path . $manual . '/menu-index.txt';
+            $menu_index = $this->gfmfiles_path . $manual . '/articles/menu-index.txt';
             if (!file_exists($menu_index)) {
-                $summary .= "Skipping {$manual} - file does not exists: {$menu_index}\n";
+                $this->summary .= "Skipping {$manual} - file does not exists: {$menu_index}\n";
                 continue;
             }
             // Read in the menu_index
             $this->menu_index = file_get_contents($menu_index);
 
             // Get a list of the language folders in a manual
-            $languages = array_diff(scandir($this->gfmfiles_path . $manual), array('..', '.', '.DS_Store'));
+            $languages = array_diff(scandir($this->gfmfiles_path . $manual . '/articles'), array('..', '.', '.DS_Store'));
             foreach ($languages as $language) {
                 // Skip of not all languages are being updated
                 if (!($this->languagetodo === 'all' || $this->languagetodo === $language)) {
                     continue;
                 }
-                if (is_dir($this->gfmfiles_path . $manual . '/' . $language)) {
+                if (is_dir($this->gfmfiles_path . $manual . '/articles/' . $language)) {
                     $count += $this->menu4lingo($manual, $language);
                 }
                 // For testing
@@ -156,11 +160,11 @@ class Buildmenus
         $db = Factory::getContainer()->get('DatabaseDriver');
 
         // Read in the menu-headings.ini file for this language
-        $menu_headings = $this->gfmfiles_path . $manual . '/' . $language . '/menu-headings.ini';
+        $menu_headings = $this->gfmfiles_path . $manual . '/articles/' . $language . '/menu-headings.ini';
         if (!file_exists($menu_headings)) {
             // If the language menu headings file is missing use the English menu headings
-            echo "Warning {$manual}/{$language} - file does not exists: {$menu_headings}\n";
-            $menu_headings = $this->gfmfiles_path . $manual . '/en/menu-headings.ini';
+            $this->summary .=  "Warning {$manual}/{$language} - file does not exist: {$menu_headings}\n";
+            $menu_headings = $this->gfmfiles_path . $manual . '/articles/en/menu-headings.ini';
         }
 
         // Read in the menu_index, format: advanced-administrator=Erweiterter Administrator
@@ -201,7 +205,7 @@ class Buildmenus
                 if (empty($display_titles[$heading])) {
                     $alt = ucwords(str_replace('-', ' ', $heading));
                     // Output a warning
-                    echo "No translated heading for {$heading}. Using {$alt}\n";
+                    $this->summary .=  "No translated heading for {$heading}. Using {$alt}\n";
                     // Output an accordion heading.
                     $html .= $this->accordionStart($accordionid, $alt);
                 } else {
@@ -239,7 +243,7 @@ class Buildmenus
                 }
                 if (empty($row)) {
                     // There is a menu item but no article - issue a warning and skip?
-                    echo "Skipping: there is no article for {$manual}/{$language}/{$filename}\n";
+                    $this->summary .=  "Skipping: there is no article for {$manual}/{$language}/{$filename}\n";
                     continue;
                 }
                 $total_articles += 1;
@@ -251,7 +255,7 @@ class Buildmenus
         }
         $html .= $this->accordionEnd();
 
-        echo "Summary: {$manual}/{$language} translated/total: {$total_translated}/{$total_articles}\n";
+        $this->summary .=  "Summary: {$manual}/{$language} translated/total: {$total_translated}/{$total_articles}\n";
         $this->saveMenu($manual, $language, $html);
         return 1;
     }

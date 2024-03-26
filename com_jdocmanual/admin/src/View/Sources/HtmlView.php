@@ -88,6 +88,8 @@ class HtmlView extends BaseHtmlView
      */
     protected $tree;
 
+    protected $plugin_status;
+
     /**
      * Method to display the view.
      *
@@ -107,6 +109,8 @@ class HtmlView extends BaseHtmlView
         $this->state         = $model->getState();
         $this->filterForm    = $model->getFilterForm();
         $this->activeFilters = $model->getActiveFilters();
+        $this->plugin_status = $model->checkplugin();
+
         //$this->categorynames = $model->getCategorynames();
 
         // Check for errors.

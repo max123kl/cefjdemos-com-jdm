@@ -46,9 +46,9 @@ $gfmfiles_path = ComponentHelper::getComponent('com_jdocmanual')->getParams()->g
     <?php include __DIR__ . '/form.php'; ?>
 
     <?php if (empty($this->menu)) : ?>
-        <?php
-        echo Text::_('COM_JDOCMANUAL_MANUAL_FIRST_FETCH_INDEX');
-        ?>
+        <p class="alert alert-warning">
+            <?php echo Text::_('COM_JDOCMANUAL_MANUAL_MANUAL_SELECT_MISSING'); ?>
+        </p>
     <?php else : ?>
         <?php include JPATH_SITE . '/components/com_jdocmanual/tmpl/manual/site-layout.php'; ?>
     <?php endif; ?>

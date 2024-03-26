@@ -109,7 +109,7 @@ class DisplayController extends BaseController
         }
         $ba = new Buildarticles();
         $summary = $ba->go($manual, $page_language_code);
-        $this->app->enqueueMessage($summary);
+        $this->app->enqueueMessage(nl2br($summary, true));
 
         return parent::display();
     }

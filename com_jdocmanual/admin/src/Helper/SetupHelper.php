@@ -11,6 +11,7 @@
 namespace Cefjdemos\Component\Jdocmanual\Administrator\Helper;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\Database\ParameterType;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -68,9 +69,15 @@ class SetupHelper
     public function setup()
     {
         $app = Factory::getApplication();
+        $db = Factory::getContainer()->get('DatabaseDriver');
 
         // Defaults when there is no form or cookie.
-        $manual = 'user';
+        $query = $db->getQuery(true);
+        $query->select($db->quoteName('manual'))
+        ->from($db->quotename('#__jdm_manuals'))
+        ->where($db->quoteName('home') . ' = 1');
+        $db->setQuery($query);
+        $manual = $db->loadResult();
         $index_language_code = 'en';
         $page_language_code = 'en';
 
@@ -179,6 +186,9 @@ class SetupHelper
 
             $db->setQuery($query);
             $menu = $db->loadResult();
+            if (empty($menu)) {
+                return;
+            }
         }
         $pattern = '/<li id="article-(\d{1,}).*/';
         $result = preg_match($pattern, $menu, $matches);

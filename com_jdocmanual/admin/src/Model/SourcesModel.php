@@ -139,4 +139,26 @@ class SourcesModel extends ListModel
 
         return $query;
     }
+    /**
+     * Check that the jdocmanual plugin has been enabled.
+     *
+     * @return int The enabled value, 0 or 1.
+     */
+    public function checkplugin()
+    {
+        $db = $this->getDatabase();
+        $query = $db->getQuery(true);
+        $query->select($db->quoteName(array('extension_id', 'enabled')))
+        ->from($db->quoteName('#__extensions'))
+        ->where($db->quoteName('name') . ' = ' . $db->quote('plg_system_jdocmanualcli'));
+        $db->setQuery($query);
+        $row = $db->loadObject();
+        if (empty($row)) {
+            return 0;
+        }
+        if (empty($row->enabled)) {
+            return 1;
+        }
+        return 2;
+    }
 }

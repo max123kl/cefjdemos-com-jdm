@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -100,6 +101,41 @@ class HtmlView extends BaseHtmlView
 
         if (empty($isNew)) {
             ToolbarHelper::cancel('source.cancel', 'JTOOLBAR_CLOSE');
+
+            // Get the toolbar object instance
+            $toolbar = Toolbar::getInstance('toolbar');
+
+            $dropdown = $toolbar->dropdownButton('select-actions')
+            ->text('COM_JDOCMANUAL_MANUAL_ACTIONS')
+            ->toggleSplit(false)
+            ->icon('icon-ellipsis-h')
+            ->buttonClass('btn btn-action');
+
+            $childBar = $dropdown->getChildToolbar();
+            $childBar->confirmButton('update-html')
+            ->text('COM_JDOCMANUAL_UPDATE_HTML')
+            ->buttonClass('update-html')
+            ->task('source.buildhtml')
+            ->icon('icon-share')
+            ->message("Build HTML for this Manual.\n This may take a long time!");
+
+            $childBar = $dropdown->getChildToolbar();
+            $childBar->confirmButton('update-menus')
+            ->text('COM_JDOCMANUAL_UPDATE_MENUS')
+            ->buttonClass('update-html')
+            ->task('source.buildmenus')
+            ->icon('icon-share')
+            ->message("Build menus for this Manual.\n This may take a long time!");
+
+            if ($this->item->manual == 'help') {
+                $childBar = $dropdown->getChildToolbar();
+                $childBar->confirmButton('update-proxy')
+                ->text('COM_JDOCMANUAL_UPDATE_PROXY')
+                ->buttonClass('update-html')
+                ->task('source.buildproxy')
+                ->icon('icon-share')
+                ->message("Build proxy server data for this Manual.\n This may take a long time!");
+            }
         } else {
             ToolbarHelper::cancel('source.cancel');
         }

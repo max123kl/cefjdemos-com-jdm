@@ -12,8 +12,8 @@ namespace Cefjdemos\Component\Jdocmanual\Administrator\Cli;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
-use Cefjdemos\Component\Jdocmanual\Administrator\Helper\Markdown2html;
 use Joomla\CMS\Filesystem\File;
+use Joomla\Database\ParameterType;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('JPATH_PLATFORM') or die;
@@ -91,6 +91,14 @@ class Buildproxy
     protected $tmp;
 
     /**
+     * Accumulate a summary to return to caller.
+     *
+     * @var     string
+     * @since  1.0.0
+     */
+    protected $summary = '';
+
+    /**
      * Entry point to convert md to html and save.
      *
      * @param   $manual     The path fragment of the manual to process.
@@ -104,16 +112,13 @@ class Buildproxy
     {
         $time_start = microtime(true);
 
-        echo "\n\nBegin Build Articles for Proxy server\n";
-
         $this->manualtodo = 'help';
         $this->languagetodo = $language;
 
         $memlimit = ini_get('memory_limit');
         ini_set("memory_limit", "2048M");
-        echo $this->build();
+        $this->build();
 
-        echo "\nEnd Build Articles for Proxy\n\n";
         //ini_set("memory_limit", $memlimit);
         // Warning: Failed to set memory limit to 536870912 bytes
         //(Current memory usage is 1470103552 bytes) in [redacted]/Buildhtml.php on line 139
@@ -121,7 +126,8 @@ class Buildproxy
         $time_end = microtime(true);
         $execution_time = $time_end - $time_start;
 
-        echo 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
+        $this->summary.= 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
+        return $this->summary;
     }
 
     /**
@@ -137,40 +143,21 @@ class Buildproxy
         // Get the data source path from the component parameters
         $this->gfmfiles_path = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('gfmfiles_path', ',');
         if (empty($this->gfmfiles_path)) {
-            return "\nThe Git Source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
+            return "\nThe Markdown source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
         }
         $this->settop();
         $this->setbottom();
-
-        // Get a list of manual folders in /Users/ceford/data/manuals/
-        $manuals = array_diff(scandir($this->gfmfiles_path), array('..', '.', '.DS_Store'));
-        foreach ($manuals as $manual) {
-            // Skip of not all manuals are being updated
-            if (!($this->manualtodo === 'all' || $this->manualtodo === $manual)) {
-                continue;
-            }
-            // Read in articles-index.txt
-            $articles_index = $this->gfmfiles_path . $manual . '/articles-index.txt';
-            if (!file_exists($articles_index)) {
-                echo "Skipping {$manual} - file does not exists: {$articles_index}\n";
-                continue;
-            }
-            // Read in the articles_index
-            $this->tmp = file_get_contents($articles_index);
-
-            // Get a list of the language folders in a manual
-            $languages = array_diff(scandir($this->gfmfiles_path . $manual), array('..', '.', '.DS_Store'));
-            foreach ($languages as $language) {
-                // Skip of not all languages are being updated
-                if (!($this->languagetodo === 'all' || $this->languagetodo === $language)) {
-                    continue;
-                }
-                if (is_dir($this->gfmfiles_path . $manual . '/' . $language)) {
-                    $count = $this->html4lingo($manual, $language);
-                    echo "Summary: {$manual}/{$language} available: {$count}\n";
-                }
-            }
+        $counts = $this->html4lingo('help');
+        foreach ($counts as $key=>$count) {
+            $this->summary .= 'Language: ' . $key . ' Count: ' . $count . "\n";
         }
+        // Copy the proxy files from components to to root
+        $src = JPATH_ROOT . '/components/com_jdocmanual/proxy/';
+        $dst = JPATH_ROOT . '/proxy/';
+        File::copy($src . 'help.css', $dst . 'help.css');
+        File::copy($src . 'index.php', $dst . 'index.php');
+
+        return;
     }
 
     /**
@@ -183,56 +170,54 @@ class Buildproxy
      *
      * @since   1.0.0
      */
-    protected function html4lingo($manual, $language)
+    protected function html4lingo($manual)
     {
         $count = 0;
         $db = Factory::getContainer()->get('DatabaseDriver');
 
-        foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->tmp) as $line) {
-            if (empty($line)) {
-                continue;
-            }
+        // get the already converted html from the database
+        $query = $db->getQuery(true);
+        $query->select($db->quoteName(array('jdoc_key', 'language', 'heading', 'filename', 'display_title', 'html')))
+        ->from('#__jdm_articles')
+        ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
+        ->order($db->quoteName(array('language', 'heading', 'filename')));
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+        $key_index = "<?php\n\$key_index = [\n";
 
-            list ($heading, $jdoc_key, $filename) = explode('=', $line);
-
-            $gfm_file = $this->gfmfiles_path . $manual . '/' . $language . '/' . $heading . '/' . $filename;
-            if (!file_exists($gfm_file)) {
-                continue;
-            }
-
-            $contents = file_get_contents($gfm_file);
-            // Get the title from the contents
-            // Look for h1 (in md that is # at the start of a line)
-            $test = preg_match($this->pattern1, $contents, $matches);
-
-            if (empty($test)) {
-                //Look for Display Title
-                //<!-- Filename: J4.x:Http_Header_Management / Display title: HTTP Header Verwaltung -->
-                $test = preg_match($this->pattern2, $contents, $matches);
-                if (empty($test)) {
-                    echo "Warning {$manual}/{$language}/{$heading}/{$filename} does not contain h1\n";
-                    $fn = substr($filename, 0, strpos($filename, '.md'));
-                    $display_title = ucwords(str_replace('_', ' ', $fn));
-                } else {
-                    $display_title = $matches[1];
-                }
-            } else {
-                $display_title = $matches[1];
-            }
-
+        $counts = [];
+        foreach ($rows as $row) {
+            $outfile = str_replace('.md', '.html', $row->filename);
             $html = $this->top;
-            $html .= Markdown2html::go($contents);
+            $html .= '<h1>' . $row->display_title . '</h1>';
+            $html .= $row->html;
             $html .= $this->bottom;
-
-            $outfile = str_replace('.md', '.html', $filename);
-            File::write(JPATH_ROOT . '/proxy/' . $language . '/' . $outfile, $html);
-
+            if (!is_dir(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading)) {
+                mkdir(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading, 0755, true);
+            }
+            File::write(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading . '/' . $outfile, $html);
+            if (isset($counts[$row->language])) {
+                $counts[$row->language] += 1;
+            } else {
+                $counts[$row->language] = 1;
+            }
+            if ($row->language == 'en') {
+                // A jdoc_key may contain single quotes
+                $key = str_replace("'", "\'", $row->jdoc_key);
+                $filename = str_replace('.md', '.html', $row->filename);
+                $key_index .= "    '{$key}' => '{$row->heading}/{$filename}',\n";
+            }
             // for testing - do one file from each language
-            //return;
-
-            $count += 1;
+            // return $counts;
         }
-        return $count;
+
+        // Need a final dummy key_index entry without a comma.
+        $key_index .= "    'dummy' => 'dummy'\n];\n";
+
+        // Write a new key-index.php file.
+        File::write(JPATH_ROOT . '/proxy/key-index.php', $key_index);
+
+        return $counts;
     }
 
     /**

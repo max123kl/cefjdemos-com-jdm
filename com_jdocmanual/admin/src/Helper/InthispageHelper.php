@@ -25,8 +25,12 @@ class InthispageHelper
         $dom = new \DOMDocument('1.0', 'utf-8');
 
         // DOMDocument::loadHTML will treat your string as being in ISO-8859-1.
-        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
 
+        // It can go wrong!
+        if (empty($dom)) {
+            return ['Problem', $html];
+        }
         // If there are headings there will be a table of contents
         $xpath = new \DOMXPath($dom);
         $uls = $xpath->query("//ul[@class='table-of-contents']");
