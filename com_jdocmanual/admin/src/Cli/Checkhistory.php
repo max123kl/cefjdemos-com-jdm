@@ -14,7 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Cefjdemos\Component\Jdocmanual\Administrator\Helper\Markdown2html;
 use Joomla\Database\DatabaseAwareTrait;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('JPATH_PLATFORM') or die;

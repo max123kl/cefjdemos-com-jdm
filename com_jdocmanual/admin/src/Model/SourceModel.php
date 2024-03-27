@@ -38,7 +38,8 @@ class SourceModel extends AdminModel
     protected function canDelete($record)
     {
         if (!empty($record->id)) {
-            return Factory::getUser()->authorise('core.delete', 'com_jdocmanual.source.' . (int) $record->id);
+            $user  = $this->getCurrentUser();
+            return $user->authorise('core.delete', 'com_jdocmanual.source.' . (int) $record->id);
         }
 
         return false;

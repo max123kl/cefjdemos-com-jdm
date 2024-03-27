@@ -12,7 +12,7 @@ namespace Cefjdemos\Component\Jdocmanual\Administrator\Cli;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\Database\ParameterType;
 
 // phpcs:disable PSR1.Files.SideEffects

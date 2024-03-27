@@ -87,7 +87,7 @@ version should be uninstalled before installing this new version.</p>
 
     <li>If you wish to use the command line for data maintenance you need to
     install the Jdocmanualcli plugin.<br>
-    Source: https://github.com/ceford/j4xdemos-plg-jdocmanualcli<br>
+    Source: https://github.com/ceford/cefjdemos-plg-jdocmanualcli<br>
     <?php if (isset($this->plugin_status)) : ?>
     Your plugin: <?php echo $plugin_status[$this->plugin_status]; ?>.
     <?php endif; ?>
@@ -156,7 +156,7 @@ This may have been installed with the Jdocmanual package or separately. It
 is not enabled by default as it is only used to populate the database
 from the command line. </p>
 
-<p>Source: https://github.com/ceford/j4xdemos-plg-jdocmanualcli</p>
+<p>Source: https://github.com/ceford/cefjdemos-plg-jdocmanualcli</p>
 
 <p>Go to the list of system plugins, find the Jdocmanul plugin and enable it</p>
 

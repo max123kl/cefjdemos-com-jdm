@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * @package     Jdocmanual
+ * @subpackage  Site
+ *
+ * @copyright   (C) 2023 Clifford E Ford. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 $key_index = [
     'Admin_Modules:_Action_Logs_-_Latest' => 'admin-modules/admin-modules-action-logs-latest.html',
     'Admin_Modules:_Administrator_Dashboard_Menu' => 'admin-modules/admin-modules-administrator-dashboard-menu.html',

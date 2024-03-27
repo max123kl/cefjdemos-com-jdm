@@ -6,6 +6,10 @@
 
 namespace Cefjdemos\Component\Jdocmanual\Administrator\Helper;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 class Thumbs
 {
   private $driver = 'gd';

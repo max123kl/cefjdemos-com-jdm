@@ -25,8 +25,6 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 
 //$wa->registerAndUseStyle('jdocmanual-site', 'com_jdocmanual/jdocmanual-site.css', [], [], []);
 
-Text::script('COM_JDOCMANUAL_MANUAL_TOC_IN_THIS_PAGE', true);
-
 $proxy = false;
 
 //HTMLHelper::_('formbehavior.chosen', 'select');

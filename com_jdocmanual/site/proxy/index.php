@@ -1,11 +1,25 @@
 <?php
 
+/**
+ * @package     Jdocmanual
+ * @subpackage  Site
+ *
+ * @copyright   (C) 2023 Clifford E Ford. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+ /**
+ * Constant that is checked in included files to prevent direct access.
+ * define() is used rather than "const" to not error for PHP 5.2 and lower
+ */
+define('_JEXEC', 1);
+
 // Get the query string
 //https://help.joomla.org/proxy?keyref=Help50:Modules&lang=en
 //http://localhost/proxy/index.php?keyref=Help50:Modules&lang=en
 
-$keyref = $_GET['keyref'];
-$lang = $_GET['lang'];
+$keyref = filter_input(INPUT_GET, 'keyref', FILTER_SANITIZE_SPECIAL_CHARS);
+$lang = filter_input(INPUT_GET, 'lang', FILTER_SANITIZE_SPECIAL_CHARS);
 
 // Get the keyref to filename table
 require_once __DIR__ . '/key-index.php';

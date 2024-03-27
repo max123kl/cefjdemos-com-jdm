@@ -41,7 +41,7 @@ version should be uninstalled before installing this new version.
   server.
 - If you wish to use the command line for data maintenance you need to
   install the Jdocmanualcli plugin.
-  Source: https://github.com/ceford/j4xdemos-plg-jdocmanualcli
+  Source: https://github.com/ceford/cefjdemos-plg-jdocmanualcli
 
 ## In detail
 

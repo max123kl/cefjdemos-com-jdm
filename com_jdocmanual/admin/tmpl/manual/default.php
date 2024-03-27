@@ -28,8 +28,6 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 // make the toolbar not sticky
 $wa->addInlineStyle('.subhead { position: inherit; ');
 
-Text::script('COM_JDOCMANUAL_MANUAL_TOC_IN_THIS_PAGE', true);
-
 $url = '';
 
 // if using proxy do not show link to original
