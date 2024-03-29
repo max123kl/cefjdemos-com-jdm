@@ -44,11 +44,11 @@ class Buildarticles
      *
      * Example link: ![action logs module form](../../../images/en/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
      * First bracket is alt text.
-     * Second bracket is img url to be added to root/manual/images/
-     * Third bracke is title.
+     * Second bracket is img url to be added to root/manual/
+     * Third bracket is filename
+     * Fourth bracket is title.
      */
-    protected $pattern = '/\!\[(.*?)\]\(..\/..\/..\/images\/(.*)?\).*?"(.*?)"/m';
-
+    protected $pattern = '/\!\[(.*?)\]\(..\/..\/..(\/.*)?\/(.*?)\s"(.*?)".*\)/m';
     /**
      * Regex pattern to select Display title from GFM comment string.
      *
@@ -353,27 +353,28 @@ class Buildarticles
      */
     private function fiximages($manual, $contents) {
         // links are like this and must be on one line
-        // ![action logs module form](../../../../images/help/en/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
+        // ![action logs module form](../../../images/help/en/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
         $test = preg_match_all($this->pattern, $contents, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             // $match[0] is the whole line to be replaced with a picture tag.
             // $match[1] is the alt tag.
             // $match[2] is the path to the image in the repo source
-            // $match[3] is the title.
+            // $match[3] is the image filename
+            // $match[4] is the title.
 
             // Copy the image to the images folder.
-            $destination = JPATH_ROOT . '/jdmimages/manuals/' . $manual . '/images/' . $match[2];
+            $destination_dir = JPATH_ROOT . '/jdmimages/manuals/' . $manual . $match[2];
+            $destination =  $destination_dir . '/' . $match[3];
 
             // Does the destination folder exist?
-            $destination_dir = substr($destination, 0, strrpos($destination,'/'));
             if (!is_dir($destination_dir)) {
                 mkdir($destination_dir, 0755, true);
             }
-            $origin = $this->gfmfiles_path . $manual . '/images/' .$match[2];
+            $origin = $this->gfmfiles_path . $manual . $match[2] . '/' . $match[3];
             file_put_contents($destination, file_get_contents($origin));
 
             // Create an img src set and set of images from an img tag.
-            $img = '<img src="/jdmimages/manuals/' . $manual . '/images/' . $match[2] . '" alt="' . $match[1] . '" title="' . $match[3] . '">';
+            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' . $match[3] . '" alt="' . $match[1] . '" title="' . $match[4] . '">';
             $processed = $this->responsive->transformImage($img);
             if (!empty($processed)) {
                 $contents = str_replace($match[0], $processed, $contents);
