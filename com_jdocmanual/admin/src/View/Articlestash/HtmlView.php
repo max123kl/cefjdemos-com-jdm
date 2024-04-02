@@ -213,6 +213,7 @@ class HtmlView extends BaseHtmlView
                 '/',
                 array(
                     $this->item->manual,
+                    'articles',
                     $this->item->language,
                     $this->item->heading,
                     $this->item->filename
@@ -309,7 +310,7 @@ class HtmlView extends BaseHtmlView
             '/',
             array(
                 $this->item->manual,
-                'en',
+                'articles/en',
                $this->item->heading,
                $this->item->filename
             )

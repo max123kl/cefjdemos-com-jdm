@@ -284,15 +284,15 @@ class MenustashController extends FormController
                 $gfmfiles_path = $params->get('gfmfiles_path');
 
                 // check that the folder exists
-                $folder_path = $data['manual'] . '/' . $data['language'] . '/' . $data['heading'];
+                $folder_path = $data['manual'] . '/articles/' . $data['language'] . '/' . $data['heading'];
                 if (!file_exists($gfmfiles_path . $folder_path)) {
                     mkdir($gfmfiles_path . $folder_path);
                 }
 
-                $repo_item_path = $data['manual'] . '/menu-index.txt';
-                $filepath = $params->get('gfmfiles_path') . $repo_item_path;
+                $repo_item_path = $data['manual'] . '/articles/menu-index.txt';
+                $filepath = $gfmfiles_path . $repo_item_path;
                 // .git is in the parent folder
-                $gitpath = str_replace('manuals/', '.git', $gfmfiles_path);
+                $gitpath = $gfmfiles_path . $data['manual'];
 
                 // Send an appropriate message.
                 if (empty(file_put_contents($filepath, $data['menu_text']))) {
@@ -308,7 +308,7 @@ class MenustashController extends FormController
                     // git --git-dir /foo/bar/.git log
 
                     // Build add command - only works properly after cd to folder containing rep.
-                    $command1 = "cd {$gfmfiles_path}; git add -- {$gfmfiles_path}{$repo_item_path};";
+                    $command1 = "cd {$gfmfiles_path}{$data['manual']}; git add -- {$gfmfiles_path}{$repo_item_path};";
                     // Add the file to the index
                     $result = exec($command1, $output1, $result_code1);
                     // The result is normally empty.
@@ -317,7 +317,7 @@ class MenustashController extends FormController
                     }
 
                     // Commit the item:
-                    $command2 = "cd {$gfmfiles_path}; git commit -m \"{$data['commit_message']}\"";
+                    $command2 = "cd {$gfmfiles_path}{$data['manual']}; git commit -m \"{$data['commit_message']}\"";
                     $command2 .= " -- {$gfmfiles_path}{$repo_item_path};";
                     $result = exec($command2, $output2, $result_code2);
                     $this->app->enqueueMessage(implode("<br>\n", $output2), 'warning');

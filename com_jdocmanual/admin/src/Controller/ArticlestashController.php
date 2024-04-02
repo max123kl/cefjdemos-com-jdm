@@ -310,16 +310,16 @@ class ArticlestashController extends FormController
                 $gfmfiles_path = $params->get('gfmfiles_path');
 
                 // check that the folder exists
-                $folder_path = $data['manual'] . '/' . $data['language'] . '/' . $data['heading'];
+                $folder_path = $data['manual'] . '/articles/' . $data['language'] . '/' . $data['heading'];
                 if (!file_exists($gfmfiles_path . $folder_path)) {
                     mkdir($gfmfiles_path . $folder_path);
                 }
 
-                $repo_item_path = $data['manual'] . '/' . $data['language'] .
+                $repo_item_path = $data['manual'] . '/articles/' . $data['language'] .
                     '/' . $data['heading'] . '/' . $data['filename'];
                 $filepath = $params->get('gfmfiles_path') . $repo_item_path;
                 // .git is in the parent folder
-                $gitpath = str_replace('manuals/', '', $gfmfiles_path);
+                $gitpath = $params->get('gfmfiles_path') . '/' . $data['manual'];
 
                 // Send an appropriate message.
                 if (empty(file_put_contents($filepath, $data['markdown_text']))) {
