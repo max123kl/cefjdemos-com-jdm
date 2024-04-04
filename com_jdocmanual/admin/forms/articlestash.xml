@@ -10,6 +10,8 @@
 			type="text"
 			label="COM_JDOCMANUAL_ARTICLES_DISPLAY_TITLE"
 			required="true"
+			class="readonly"
+			readonly="true"
 		 />
 
 		<field

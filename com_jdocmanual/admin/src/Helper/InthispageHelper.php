@@ -25,7 +25,7 @@ class InthispageHelper
         $dom = new \DOMDocument('1.0', 'utf-8');
 
         // DOMDocument::loadHTML will treat your string as being in ISO-8859-1.
-        @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         // It can go wrong!
         if (empty($dom)) {
@@ -40,8 +40,20 @@ class InthispageHelper
             $test = $uls[0]->parentNode->removeChild($uls[0]);
         }
         $content = $dom->saveHTML();
+
+        // Remove the xml statement added above.
+        $content = str_replace('<?xml encoding="utf-8" ?>', '', $content);
+
         $in_this_page = '<h2 class="toc">' . Text::_('COM_JDOCMANUAL_MANUAL_TOC_IN_THIS_ARTICLE') .
             '</h2>' . "\n" . $in_this_page;
         return array($in_this_page, $content);
+    }
+
+    public static function getPreviousNext($previous, $next)
+    {
+        // Add the next and previous links to $content
+        $pn = '<div class="order-links">' . $previous;
+        $pn.= $next . '</div>';
+        return $pn;
     }
 }

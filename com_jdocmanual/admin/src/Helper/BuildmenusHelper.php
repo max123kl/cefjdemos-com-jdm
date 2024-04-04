@@ -44,11 +44,11 @@ class BuildmenusHelper
         }
 
         // Fetch a list of article headings in English.
-        $headings_english = $this->set_headings($manual);
+        $headings_english = $this->setHeadings($manual);
 
         // Fetch a list of headings in the specified language.
         if ($language !== 'en') {
-            $headings_language = $this->set_headings($manual, $language);
+            $headings_language = $this->setHeadings($manual, $language);
         }
 
         // Split the menu into lines.
@@ -135,9 +135,9 @@ class BuildmenusHelper
         // Example: developer=getting-started=developer-required-software.md
         $id = 0;
         $jdoc_key = '';
-        list($id, $title, $jdoc_key) = $this->get_article_data($parts[0], $language, $parts[1]);
+        list($id, $title, $jdoc_key) = $this->getArticleData($parts[0], $language, $parts[1]);
         if (empty($title) && $language !== 'en') {
-            list($id, $title, $jdoc_key) = $this->get_article_data($parts[0], 'en', $parts[1]);
+            list($id, $title, $jdoc_key) = $this->getArticleData($parts[0], 'en', $parts[1]);
         }
         if (empty($title)) {
             $title = substr($parts[2], 0, strpos($parts[2], '.md'));
@@ -168,7 +168,7 @@ class BuildmenusHelper
      *
      * @since   1.0.0
      */
-    protected function get_article_data($manual, $language, $heading)
+    protected function getArticleData($manual, $language, $heading)
     {
         // Try to get the article record from the database.
         $db = Factory::getContainer()->get('DatabaseDriver');
@@ -196,7 +196,7 @@ class BuildmenusHelper
      *
      * @since   1.0.0
      */
-    protected function set_headings($manual, $language = 'en')
+    protected function setHeadings($manual, $language = 'en')
     {
         $db = Factory::getContainer()->get('DatabaseDriver');
 

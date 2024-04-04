@@ -128,38 +128,38 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
                         <tbody>
                         <?php
                             $n = count($this->items);
-                            foreach ($this->items as $i => $item) :
-                        ?>
+                        foreach ($this->items as $i => $item) :
+                            ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="text-center text-nowrap">
-                                <?php if ($item->nstashes == 0) : ?>
+                            <?php if ($item->nstashes == 0) : ?>
                                     <?php echo $states[$item->state]; ?>
-                                <?php else : ?>
+                            <?php else : ?>
                                     <?php echo Text::_('COM_JDOCMANUAL_ARTICLE_STASHES') . ' ' . $item->nstashes; ?>
                                     <?php if ($item->nprs > 0) : ?>
                                         <br>
                                         <?php echo Text::_('COM_JDOCMANUAL_ARTICLE_PRS') . ' ' . $item->nprs; ?>
                                     <?php endif; ?>
-                                <?php endif; ?>
+                            <?php endif; ?>
                                 </td>
                                 <td>
-                                <?php if (empty($item->stash_id)) {
+                            <?php if (empty($item->stash_id)) {
                                         $action = Text::_('COM_JDOCMANUAL_ARTICLE_NEW_STASH');
                                         $sid = 0;
                                         $soptions = "&language={$language}&eid={$item->id}&trid=";
-                                    if (!empty($item->translation_id)) {
-                                        $soptions .= $item->translation_id;
-                                    }
+                                if (!empty($item->translation_id)) {
+                                    $soptions .= $item->translation_id;
+                                }
                                         $style = 'btn-warning';
-                                } else {
-                                    $action = Text::_('COM_JDOCMANUAL_ARTICLE_EDIT_STASH');
-                                    $sid = $item->stash_id;
-                                    $soptions = '';
-                                    $style = 'btn-success';
-                                } ?>
+                            } else {
+                                $action = Text::_('COM_JDOCMANUAL_ARTICLE_EDIT_STASH');
+                                $sid = $item->stash_id;
+                                $soptions = '';
+                                $style = 'btn-success';
+                            } ?>
                                     <a href="<?php echo Route::_($stash_edit_route . $sid . $soptions); ?>"
                                     class="btn btn-sm <?php echo $style; ?>">
-                                        <?php echo $action; ?>
+                                    <?php echo $action; ?>
                                     </a>
                                 </td>
                                 <?php if (!empty($language) && $language != 'en') : ?>
@@ -211,7 +211,7 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
                         <span class="sr-only"><?php echo Text::_('INFO'); ?></span>
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
-                <?php else : ?>
+<?php else : ?>
                     <table class="table" id="gfmList">
                         <thead>
                             <tr>
@@ -239,19 +239,19 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
                         <tbody>
                         <?php
                             $n = count($this->newpages);
-                            foreach ($this->newpages as $i => $item) :
-                        ?>
+                        foreach ($this->newpages as $i => $item) :
+                            ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="text-center">
-                                    <?php
-                                        $action = Text::_('COM_JDOCMANUAL_ARTICLE_EDIT_STASH');
-                                        $sid = $item->id;
-                                        $soptions = '';
-                                        $style = 'btn-success';
-                                    ?>
+                                <?php
+                                    $action = Text::_('COM_JDOCMANUAL_ARTICLE_EDIT_STASH');
+                                    $sid = $item->id;
+                                    $soptions = '';
+                                    $style = 'btn-success';
+                                ?>
                                     <a href="<?php echo Route::_($stash_edit_route . $sid . $soptions); ?>"
                                         class="btn btn-sm <?php echo $style; ?>">
-                                        <?php echo $action; ?>
+                                    <?php echo $action; ?>
                                     </a>
                                 </td>
                                 <td>
@@ -275,7 +275,7 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
                     <?php // load the pagination. ?>
                     <?php echo $this->pagination->getListFooter(); ?>
 
-                <?php endif; ?>
+<?php endif; ?>
 
 <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
@@ -313,8 +313,8 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
             <tbody>
                 <?php
                     $n = count($this->mystashes);
-                    foreach ($this->mystashes as $i => $stash) :
-                ?>
+                foreach ($this->mystashes as $i => $stash) :
+                    ?>
                 <tr class="row<?php echo $i % 2; ?>">
                     <td>
                         <a href="<?php echo Route::_($stash_edit_route . $stash->id); ?>">
@@ -322,7 +322,7 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
                         </a>
                     </td>
                     <td class="text-center">
-                        <?php echo $stash->manual; ?>
+                    <?php echo $stash->manual; ?>
                     </td>
                     <td class="text-center">
                     <?php echo $stash->language; ?>
@@ -378,28 +378,28 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
             <tbody>
                 <?php
                     $n = count($this->pull_requests);
-                    foreach ($this->pull_requests as $i => $stash) :
-                ?>
+                foreach ($this->pull_requests as $i => $stash) :
+                    ?>
                 <tr class="row<?php echo $i % 2; ?>">
                     <td>
                         <a href="<?php echo Route::_($stash_edit_route . $stash->id); ?>">
-                        <?php echo $stash->display_title; ?>
+                    <?php echo $stash->display_title; ?>
                         </a>
                     </td>
                     <td class="text-center">
-                        <?php echo $stash->manual; ?>
+                    <?php echo $stash->manual; ?>
                     </td>
                     <td class="text-center">
-                        <?php echo $stash->language; ?>
+                    <?php echo $stash->language; ?>
                     </td>
                     <td>
-                        <?php echo $stash->heading; ?>
+                    <?php echo $stash->heading; ?>
                     </td>
                     <td>
-                        <?php echo $stash->filename; ?>
+                    <?php echo $stash->filename; ?>
                     </td>
                     <td>
-                        <?php echo $stash->name; ?>
+                    <?php echo $stash->name; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

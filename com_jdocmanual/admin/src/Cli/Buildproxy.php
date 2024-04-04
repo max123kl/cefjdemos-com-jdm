@@ -126,7 +126,7 @@ class Buildproxy
         $time_end = microtime(true);
         $execution_time = $time_end - $time_start;
 
-        $this->summary.= 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
+        $this->summary .= 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
         return $this->summary;
     }
 
@@ -148,7 +148,7 @@ class Buildproxy
         $this->settop();
         $this->setbottom();
         $counts = $this->html4lingo('help');
-        foreach ($counts as $key=>$count) {
+        foreach ($counts as $key => $count) {
             $this->summary .= 'Language: ' . $key . ' Count: ' . $count . "\n";
         }
         // Copy the proxy files from components to to root

@@ -181,6 +181,9 @@ class Buildmenus
         // Split the menu into lines.
         $lines = preg_split("/((\r?\n)|(\r\n?))/", $this->menu_index);
         $accordionid = 0;
+        $order_id = [];
+        $order_path = [];
+        $order_display_title = [];
         $html = '';
         $total_translated = 0;
         $total_articles = 0;
@@ -251,13 +254,67 @@ class Buildmenus
                 // The manual part of the path is for search engines.
                 $path = "manual={$manual}&heading={$heading}&filename={$filename}";
                 $html .= $this->accordionItem($row->id, $row->display_title, $path);
+
+                // Store order for the Previous and Next buttons.
+                $order_id[] = $row->id;
+                $order_path[] = $path;
+                $order_displaytitle[] = $row->display_title;
             }
         }
         $html .= $this->accordionEnd();
 
         $this->summary .=  "Summary: {$manual}/{$language} translated/total: {$total_translated}/{$total_articles}\n";
         $this->saveMenu($manual, $language, $html);
+        $this->setOrder($order_id, $order_path, $order_display_title);
         return 1;
+    }
+
+    /**
+     * Save the Previous and Next button code in the #__jdm_articles table.
+     *
+     * @param   $orderid        The article order.
+     * @param   $orderpath      The link for each item.
+     *
+     * @return  $void
+     *
+     * @since   1.0.0
+     */
+    protected function setOrder($order_id, $order_path, $order_display_title)
+    {
+        $db = Factory::getContainer()->get('DatabaseDriver');
+
+        $linkstart = '<a href="jdocmanual?';
+        $linkend_next = '" class="btn btn-outline-secondary next"><i class="fa-solid fa-hand-point-right"></i></a>';
+        $linkend_previous = '" class="btn btn-outline-secondary previous"><i class="fa-solid fa-hand-point-left"></i></a>';
+
+        foreach ($order_id as $i => $value) {
+
+            // The first item does not have a Previous link
+            if ($i > 0) {
+                // Save the previous link.
+                $link = $linkstart . $order_path[$i-1] . $linkend_previous;
+                $query = $db->getQuery(true);
+                $query->update($db->quoteName('#__jdm_articles'))
+                ->set($db->quoteName('order_previous') . ' = :op')
+                ->where('id = ' . ($order_id[$i]))
+                ->bind(':op', $link, ParameterType::STRING);
+                $db->setQuery($query);
+                $db->execute();
+            }
+
+            // The last item does not have a Next link.
+            if ($i < count($order_id) - 1) {
+                // Save the next link.
+                $link = $linkstart . $order_path[$i+1] . $linkend_next;
+                $query = $db->getQuery(true);
+                $query->update($db->quoteName('#__jdm_articles'))
+                ->set($db->quoteName('order_next') . ' = :op')
+                ->where('id = ' . ($order_id[$i]))
+                ->bind(':op', $link, ParameterType::STRING);
+                $db->setQuery($query);
+                $db->execute();
+            }
+        }
     }
 
     /**

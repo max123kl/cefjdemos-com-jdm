@@ -293,7 +293,7 @@ pre {
   word-wrap: normal;
 }
 
-pre, code, source, tt {
+pre, code, tt {
   border: 1px solid #ddd;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -395,3 +395,10 @@ details li a {
 	text-decoration: none;
 }
 
+.order-links .previous {
+	float: left;
+}
+
+.order-links .next {
+	float:right;
+}

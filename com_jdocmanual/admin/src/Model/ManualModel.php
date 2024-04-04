@@ -93,7 +93,7 @@ class ManualModel extends ListModel
         $db = $this->getDatabase();
         $query = $db->getQuery(true);
 
-        $query->select($db->quoteName(array('display_title','html')))
+        $query->select($db->quoteName(array('display_title','html','order_next','order_previous')))
         ->from($db->quoteName('#__jdm_articles'))
         ->where($db->quoteName('manual') . ' = :manual')
         ->where($db->quoteName('language') . ' = :language')
@@ -111,7 +111,7 @@ class ManualModel extends ListModel
             $query = $db->getQuery(true);
             $language = 'en';
 
-            $query->select($db->quoteName(array('display_title','html')))
+            $query->select($db->quoteName(array('display_title','html','order_next','order_previous')))
             ->from($db->quoteName('#__jdm_articles'))
             ->where($db->quoteName('manual') . ' = :manual')
             ->where($db->quoteName('language') . ' = :language')
@@ -133,9 +133,13 @@ class ManualModel extends ListModel
         }
 
         // First page load needs the ToC processed here.
-        $itp = new InthispageHelper;
-        list ($in_this_page, $content) = $itp->doToc($row->html);
+        list ($in_this_page, $content) = InthispageHelper::doToc($row->html);
 
+        // Add the next and previous links to $content
+        $order = InthispageHelper::getPreviousNext($row->order_previous, $row->order_next);
+
+        $content .= $order;
+        
         return array($row->display_title, $in_this_page, $content);
     }
 

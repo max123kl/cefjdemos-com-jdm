@@ -92,16 +92,16 @@ class HtmlView extends BaseHtmlView
          */
 
         // Get the original English from item->manual/en/heading/filename. If it exists!
-        $original_english = $this->set_original_english($basepath);
+        $original_english = $this->setOriginalEnglish($basepath);
 
         // Should make the diff parameters into a class with static functions?
         require_once(JPATH_COMPONENT . '/src/Helper/diffoptions.php');
 
         // If the language is English the Stash is either from the stash record or the original English.
         if ($this->item->language === 'en') {
-            $this->set_markdown_english($original_english);
+            $this->setMarkdownEnglish($original_english);
         } else {
-            $this->set_markdown($basepath);
+            $this->setMarkdown($basepath);
         }
 
         // Fill the preview field.
@@ -110,7 +110,7 @@ class HtmlView extends BaseHtmlView
         }
 
        // Get a diff for the current and previous English versions.
-        $this->get_english_diff($basepath, $diffOptions, $rendererOptions);
+        $this->getEnglishDiff($basepath, $diffOptions, $rendererOptions);
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
@@ -206,7 +206,8 @@ class HtmlView extends BaseHtmlView
      *
      * @since   1.0
      */
-    protected function set_markdown($basepath) {
+    protected function setMarkdown($basepath)
+    {
         // Does the translation file exist?
         $translation_markdown_file = $basepath .
             implode(
@@ -242,7 +243,7 @@ class HtmlView extends BaseHtmlView
         }
         $new = $stash;
         $this->form->setValue('markdown_text', null, $stash);
-        $this->set_diff($old, $new);
+        $this->setDiff($old, $new);
         // Set the source - read only
         $this->form->setValue('source', null, $old);
     }
@@ -254,7 +255,8 @@ class HtmlView extends BaseHtmlView
      *
      * @since   1.0
      */
-    protected function set_markdown_english($original_english) {
+    protected function setMarkdownEnglish($original_english)
+    {
         // if there is a stash record use the stash content.
         if (!empty($this->item->id)) {
             $stash = $this->item->markdown_text;
@@ -271,7 +273,7 @@ class HtmlView extends BaseHtmlView
         }
         $new = $stash;
         $this->form->setValue('markdown_text', null, $stash);
-        $this->set_diff($old, $new);
+        $this->setDiff($old, $new);
         // Set the source - read only
         $this->form->setValue('source', null, $old);
     }
@@ -283,7 +285,8 @@ class HtmlView extends BaseHtmlView
      *
      * @since   1.0
      */
-    protected function set_diff($old, $new) {
+    protected function setDiff($old, $new)
+    {
         require(JPATH_COMPONENT . '/src/Helper/diffoptions.php');
         // make the line endings consistent
         $new = preg_replace('~\R~u', "\n", $new);
@@ -305,7 +308,8 @@ class HtmlView extends BaseHtmlView
      *
      * @since   1.0
      */
-    protected function set_original_english($basepath) {
+    protected function setOriginalEnglish($basepath)
+    {
         $english_markdown_file = $basepath . implode(
             '/',
             array(
@@ -336,7 +340,8 @@ class HtmlView extends BaseHtmlView
      *
      * @since   1.0
      */
-    protected function get_english_diff($basepath, $diffOptions, $rendererOptions) {
+    protected function getEnglishDiff($basepath, $diffOptions, $rendererOptions)
+    {
         // Get the last two commit hashes of a specific file.
         // git log -n 2 --pretty=format:%H  -- manuals/help/en/articles/articles.md
         // edf40a05aeffe81751fef2b9e5eea0780452c1da

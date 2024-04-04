@@ -24,5 +24,4 @@ use Cefjdemos\Component\Jdocmanual\Administrator\Controller\ContentController as
  */
 class ContentController extends AdmincontentController
 {
-
 }

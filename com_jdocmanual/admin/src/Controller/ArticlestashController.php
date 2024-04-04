@@ -373,7 +373,7 @@ class ArticlestashController extends FormController
                             }
                             try {
                                 file_put_contents(JPATH_SITE . 'administrator/logs/jdocmanual.php', $msg . $append_to . ' Entry: ' . $new_entry . "\n", FILE_APPEND);
-                            } catch(PDOException $e) {
+                            } catch (PDOException $e) {
                                 // Carry on...
                             }
                         }

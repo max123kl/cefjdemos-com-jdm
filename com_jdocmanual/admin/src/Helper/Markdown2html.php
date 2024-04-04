@@ -12,6 +12,7 @@ namespace Cefjdemos\Component\Jdocmanual\Administrator\Helper;
 
 use Joomla\Database\ParameterType;
 use Joomla\CMS\Factory;
+
 require JPATH_ROOT . '/administrator/components/com_jdocmanual/libraries/vendor/autoload.php';
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;

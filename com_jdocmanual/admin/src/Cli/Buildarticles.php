@@ -98,7 +98,7 @@ class Buildarticles
      */
     public function __construct()
     {
-        $this->responsive = new Responsive;
+        $this->responsive = new Responsive();
     }
 
     /**
@@ -179,7 +179,7 @@ class Buildarticles
                     continue;
                 }
                 if (is_dir($this->gfmfiles_path . $manual . '/articles/' . $language)) {
-                    $headings = $this->set_menu_headings($manual, $language);
+                    $headings = $this->setMenuHeadings($manual, $language);
                     list ($count, $problems) = $this->html4lingo($manual, $language);
                     $summary .= "Summary: {$manual}/{$language} Number of articles: {$count}";
                     $summary .= ", Number of local images: {$this->local_image_count}, {$headings}";
@@ -190,7 +190,8 @@ class Buildarticles
         return $summary;
     }
 
-    protected function set_menu_headings($manual, $language) {
+    protected function setMenuHeadings($manual, $language)
+    {
         // Get the menu headings file
         $menu_headings_file = $this->gfmfiles_path . $manual . '/articles/' . $language . '/menu-headings.ini';
         if (!file_exists($menu_headings_file)) {
@@ -215,7 +216,7 @@ class Buildarticles
             ->where($db->quoteName('heading') . ' = :heading')
             ->bind(':manual', $manual, ParameterType::STRING)
             ->bind(':language', $language, ParameterType::STRING)
-            ->bind(':heading', $heading,  ParameterType::STRING);
+            ->bind(':heading', $heading, ParameterType::STRING);
             $db->setQuery($query);
             $id = $db->loadResult();
 
@@ -225,15 +226,15 @@ class Buildarticles
                 ->set($db->quoteName('manual') . ' = :manual')
                 ->set($db->quoteName('language') . ' = :language')
                 ->set($db->quoteName('heading') . ' = :heading')
-                ->bind(':manual', $manual,  ParameterType::STRING)
-                ->bind(':language', $language,  ParameterType::STRING)
-                ->bind(':heading', $heading,  ParameterType::STRING);
+                ->bind(':manual', $manual, ParameterType::STRING)
+                ->bind(':language', $language, ParameterType::STRING)
+                ->bind(':heading', $heading, ParameterType::STRING);
             } else {
                 $query->update($db->quoteName('#__jdm_menu_headings'))
                 ->where($db->quoteName('id') . ' = ' . $id);
             }
             $query->set($db->quoteName('display_title') . ' = :translation')
-            ->bind(':translation', $translation,  ParameterType::STRING);
+            ->bind(':translation', $translation, ParameterType::STRING);
             $db->setQuery($query);
             $db->execute();
             $count += 1;
@@ -256,7 +257,7 @@ class Buildarticles
         $db = Factory::getContainer()->get('DatabaseDriver');
         $count = 0;
         $summary = '';
-        
+
         // Set the time limit for every manual and language
         set_time_limit(60);
 
@@ -351,7 +352,8 @@ class Buildarticles
      *
      * @since   1.0.0
      */
-    private function fiximages($manual, $contents) {
+    private function fiximages($manual, $contents)
+    {
         // links are like this and must be on one line
         // ![action logs module form](../../../images/help/en/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
         $test = preg_match_all($this->pattern, $contents, $matches, PREG_SET_ORDER);

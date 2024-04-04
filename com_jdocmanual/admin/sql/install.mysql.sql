@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS `#__jdm_articles` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   `html` mediumtext COLLATE utf8mb4_unicode_ci,
+  `order_next` text COLLATE utf8mb4_unicode_ci, 
+  `order_previous` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `state` (`state`),
   KEY `manual` (`manual`),

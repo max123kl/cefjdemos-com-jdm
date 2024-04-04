@@ -92,7 +92,7 @@ class SetupHelper
         if (!empty($cookie)) {
             $cookie_items = preg_split("/--/", $cookie);
 
-            if (!empty($cookie_items) && count($cookie_items) == 5){
+            if (!empty($cookie_items) && count($cookie_items) == 5) {
                 $old_manual = $cookie_items[0];
                 $old_index_language_code = $cookie_items[1];
                 $old_page_language_code = $cookie_items[2];
@@ -124,7 +124,7 @@ class SetupHelper
         }
 
         // If the heading and/or filename are empty get default values
-        if (empty($heading) || empty ($filename)) {
+        if (empty($heading) || empty($filename)) {
             $db = Factory::getContainer()->get('DatabaseDriver');
 
             $query = $db->getQuery(true);

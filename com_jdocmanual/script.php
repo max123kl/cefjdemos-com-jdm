@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     jdocmanual.Administrator
  * @subpackage  com_jdocmanual
@@ -14,14 +15,13 @@ use Joomla\CMS\Factory;
 
 class com_jdocmanualInstallerScript
 {
-
-	/**
-	 * method to run after an install/update/uninstall method
-	 *
-	 * @return void
-	 */
-	public function postflight($type, $parent)
-	{
-		return true;
-	}
+    /**
+     * method to run after an install/update/uninstall method
+     *
+     * @return void
+     */
+    public function postflight($type, $parent)
+    {
+        return true;
+    }
 }

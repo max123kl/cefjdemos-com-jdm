@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     Jdocmanual
  * @subpackage  Site
@@ -14,7 +15,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 // phpcs:enable PSR1.Files.SideEffects
 
 ?>
-<form action=""
+<form action="index.php?option=com_jdocmanual&view=manual"
     method="post" name="adminForm" id="adminForm">
     <input type="hidden" name="task" id="task" value="">
     <input type="hidden" name="jform[manual]" id="jform_manual" value="<?php echo $this->manual; ?>">

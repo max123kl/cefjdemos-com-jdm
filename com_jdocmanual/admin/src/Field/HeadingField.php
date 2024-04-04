@@ -22,16 +22,16 @@ use Joomla\Database\ParameterType;
  * For a new record return a datalist field.
  * For an existing record return a text field.
  */
-class HeadingField extends ListField {
+class HeadingField extends ListField
+{
+    protected $type = 'Heading';
 
-	protected $type = 'Heading';
+    public function getInput()
+    {
+        $id = $this->form->getValue('id');
 
-	public function getInput()
-	{
-		$id = $this->form->getValue('id');
-
-		// For a new article stash the id is not set.
-		if (empty($this->form->getValue('page_id')) && empty($this->form->getValue('id'))) {
+        // For a new article stash the id is not set.
+        if (empty($this->form->getValue('page_id')) && empty($this->form->getValue('id'))) {
             // Use a datalist element.
             $html = '<div class="controls">';
             $html .= '<input list="headings" name="jform[heading]" id="jform_heading" ';

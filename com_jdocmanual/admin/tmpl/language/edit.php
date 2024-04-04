@@ -11,6 +11,7 @@
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -22,7 +23,8 @@ $wa->useScript('keepalive')
 
 ?>
 
-<form action="" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
+<form action="<?php echo Route::_('index.php?option=com_jdocmanual&layout=edit&id=' . (int) $this->item->id); ?>" 
+    method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
 
     <?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 

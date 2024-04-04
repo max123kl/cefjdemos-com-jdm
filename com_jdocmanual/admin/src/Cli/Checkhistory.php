@@ -28,6 +28,7 @@ use Joomla\Filesystem\File;
 class Checkhistory
 {
     use DatabaseAwareTrait;
+
     /**
      * Path fragment of manual to process.
      *
@@ -107,5 +108,4 @@ class Checkhistory
 
         echo 'Total Execution Time: ' . number_format($execution_time, 2) . ' Seconds' . "\n\n";
     }
-
 }
