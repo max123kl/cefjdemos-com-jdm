@@ -18,8 +18,8 @@ define('_JEXEC', 1);
 //https://help.joomla.org/proxy?keyref=Help50:Modules&lang=en
 //http://localhost/proxy/index.php?keyref=Help50:Modules&lang=en
 
-$keyref = filter_input(INPUT_GET, 'keyref', FILTER_SANITIZE_SPECIAL_CHARS);
-$lang = filter_input(INPUT_GET, 'lang', FILTER_SANITIZE_SPECIAL_CHARS);
+$keyref = filter_input(INPUT_GET, 'keyref');
+$lang = filter_input(INPUT_GET, 'lang');
 
 // Get the keyref to filename table
 require_once __DIR__ . '/key-index.php';
