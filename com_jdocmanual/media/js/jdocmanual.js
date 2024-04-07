@@ -269,5 +269,7 @@ function menuHighlight() {
  */
 document.addEventListener('DOMContentLoaded', function(event) {
   menuHighlight();
+  setIndexLocation();
 });
 
+window.addEventListener('resize', setIndexLocation);

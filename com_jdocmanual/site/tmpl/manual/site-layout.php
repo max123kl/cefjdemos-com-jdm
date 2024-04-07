@@ -31,7 +31,7 @@ HTMLHelper::_('bootstrap.offcanvas', '.offcanvas', []);
     <div class="row">
         <div class="col-12 col-sm-3 g-0 d-none d-sm-block" id="index-panel">
             <div id="oncanvasMenu">
-            <nav id="jdocmanual-wrapper" aria-label="JDOC Manual Menu" class="">
+            <nav id="jdocmanual-wrapper" aria-label="Jdocmanual Menu" class="">
                 <h2 class="toc">Index of Articles</h2>
                 <?php echo $this->menu->menu; ?>
             </nav>
