@@ -36,7 +36,7 @@ version should be uninstalled before installing this new version.
   Jdocmanual Options page.
 - Build your database articles and menus: select the
   `Jdocmanual/Sources` menu item, then the manual you have installed.
-  Use the `Actions` button to `Update HTML`, then `Update Menus`. The
+  Use the `Actions` button to `Update Articles`, then `Update Menus`. The
   Help manual also has an option to `Update Proxy` to build a proxy
   server.
 - If you wish to use the command line for data maintenance you need to

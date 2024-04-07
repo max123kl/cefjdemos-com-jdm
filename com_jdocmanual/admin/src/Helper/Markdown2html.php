@@ -92,13 +92,13 @@ class Markdown2html
         // If id is 0 this must be a new document.
         if (empty($data['page_id'])) {
             $query->insert($db->quoteName('#__jdm_articles'))
-            ->set($db->quoteName('jdoc_key') . ' = :jdoc_key')
+            ->set($db->quoteName('source_url') . ' = :source_url')
             ->set($db->quoteName('manual') . ' = :manual')
             ->set($db->quoteName('language') . ' = :language')
             ->set($db->quoteName('heading') . ' = :heading')
             ->set($db->quoteName('filename') . ' = :filename')
             ->set($db->quoteName('display_title') . ' = :display_title')
-            ->bind(':jdoc_key', $data['jdoc_key'], ParameterType::STRING)
+            ->bind(':source_url', $data['source_url'], ParameterType::STRING)
             ->bind(':manual', $data['manual'], ParameterType::STRING)
             ->bind(':language', $data['language'], ParameterType::STRING)
             ->bind(':heading', $data['heading'], ParameterType::STRING)

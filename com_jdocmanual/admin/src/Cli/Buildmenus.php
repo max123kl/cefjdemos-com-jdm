@@ -66,6 +66,12 @@ class Buildmenus
     protected $summary = '';
 
     /**
+     * Placeholder for database object
+     * 
+     */
+    protected $db;
+
+    /**
      * Entry point to convert menu-index.txt to htmal and save.
      *
      * @param   $manual     The path fragment of the manual to process.
@@ -79,10 +85,15 @@ class Buildmenus
     {
         $time_start = microtime(true);
 
+        $this->db = Factory::getContainer()->get('DatabaseDriver');
+
         // The echo items appear in the CLI but not in Joomla.
 
         $this->manualtodo = $manual;
         $this->languagetodo = $language;
+
+        $memlimit = ini_get('memory_limit');
+        ini_set("memory_limit", "2048M");
 
         $this->build();
 
@@ -130,7 +141,7 @@ class Buildmenus
             // Get a list of the language folders in a manual
             $languages = array_diff(scandir($this->gfmfiles_path . $manual . '/articles'), array('..', '.', '.DS_Store'));
             foreach ($languages as $language) {
-                // Skip of not all languages are being updated
+                // Skip if not all languages are being updated
                 if (!($this->languagetodo === 'all' || $this->languagetodo === $language)) {
                     continue;
                 }
@@ -157,7 +168,7 @@ class Buildmenus
      */
     protected function menu4lingo($manual, $language)
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->db;
 
         // Read in the menu-headings.ini file for this language
         $menu_headings = $this->gfmfiles_path . $manual . '/articles/' . $language . '/menu-headings.ini';
@@ -281,7 +292,7 @@ class Buildmenus
      */
     protected function setOrder($order_id, $order_path, $order_display_title)
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->db;
 
         $linkstart = '<a href="jdocmanual?';
         $linkend_next = '" class="btn btn-outline-secondary next"><i class="fa-solid fa-hand-point-right"></i></a>';
@@ -330,7 +341,8 @@ class Buildmenus
      */
     protected function saveMenu($manual, $language, $html)
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->db;
+
         // Check if there is a menu for this manual and language.
         $query = $db->getQuery(true);
         $query->select($db->quoteName('id'))

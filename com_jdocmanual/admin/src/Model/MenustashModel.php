@@ -94,7 +94,7 @@ class MenustashModel extends AdminModel
         return $item;
     }
 
-    public function getStash($language, $jdoc_key)
+    public function getStash($language, $source_url)
     {
         $user  = $this->getCurrentUser();
         $db = $this->getDbo();
@@ -249,13 +249,13 @@ class MenustashModel extends AdminModel
             ->where($db->quoteName('user_id') . ' = :user_id')
             ->where($db->quoteName('page_id') . ' = :page_id')
             ->where($db->quoteName('language') . ' = :language')
-            ->where($db->quoteName('jdoc_key') . ' = :jdoc_key')
+            ->where($db->quoteName('source_url') . ' = :source_url')
             ->where($db->quoteName('heading') . ' = :heading')
             ->where($db->quoteName('manual') . ' = :manual')
             ->bind(':user_id', $user->id, ParameterType::INTEGER)
             ->bind(':page_id', $data['page_id'], ParameterType::INTEGER)
             ->bind(':language', $data['language'], ParameterType::STRING)
-            ->bind(':jdoc_key', $data['jdoc_key'], ParameterType::STRING)
+            ->bind(':source_url', $data['source_url'], ParameterType::STRING)
             ->bind(':heading', $data['heading'], ParameterType::STRING)
             ->bind(':manual', $data['manual'], ParameterType::STRING);
         $db->setQuery($query);

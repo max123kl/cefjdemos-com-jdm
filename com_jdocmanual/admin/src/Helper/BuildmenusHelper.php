@@ -134,10 +134,10 @@ class BuildmenusHelper
     {
         // Example: developer=getting-started=developer-required-software.md
         $id = 0;
-        $jdoc_key = '';
-        list($id, $title, $jdoc_key) = $this->getArticleData($parts[0], $language, $parts[1]);
+        $source_url = '';
+        list($id, $title, $source_url) = $this->getArticleData($parts[0], $language, $parts[1]);
         if (empty($title) && $language !== 'en') {
-            list($id, $title, $jdoc_key) = $this->getArticleData($parts[0], 'en', $parts[1]);
+            list($id, $title, $source_url) = $this->getArticleData($parts[0], 'en', $parts[1]);
         }
         if (empty($title)) {
             $title = substr($parts[2], 0, strpos($parts[2], '.md'));
@@ -152,7 +152,7 @@ class BuildmenusHelper
         // Including the view here causes the sef router not to break!
         $route = 'index.php?option=com_jdocmanual&view=manual' . $id;
         $html .= '<li id="article-' . $id . '">';
-        $html .= '<a href="' . $route . '" class="content-link" data-content-id="' . $jdoc_key . '">';
+        $html .= '<a href="' . $route . '" class="content-link" data-content-id="' . $source_url . '">';
         $html .= $title . '</a></li>' . "\n";
         return $html;
     }
@@ -174,7 +174,7 @@ class BuildmenusHelper
         $db = Factory::getContainer()->get('DatabaseDriver');
 
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array('id','display_title', 'jdoc_key')))
+        $query->select($db->quoteName(array('id','display_title', 'source_url')))
         ->from($db->quoteName('#__jdm_articles'))
         ->where($db->quoteName('manual') . ' = :manual')
         ->where($db->quoteName('language') . ' = :language')

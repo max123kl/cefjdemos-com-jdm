@@ -49,13 +49,14 @@ class Buildarticles
      * Fourth bracket is title.
      */
     protected $pattern = '/\!\[(.*?)\]\(..\/..\/..(\/.*)?\/(.*?)\s"(.*?)".*\)/m';
+
     /**
      * Regex pattern to select Display title from GFM comment string.
      *
      * @var     string
      * @since  1.0.0
      */
-    protected $pattern2 = '/<!-- Filename:.*Display title:(.*)? -->/m';
+    protected $pattern2 = '/<!--.*Display title:(.*)?-->/m';
 
     /**
      * Count of number of local images processed for a given manual.
@@ -162,7 +163,7 @@ class Buildarticles
                 continue;
             }
 
-            // Read in articles-index.txt
+            // Read in articles-index.txt - changed to new format ini
             $articles_index = $this->gfmfiles_path . $manual . '/articles/articles-index.txt';
             if (!file_exists($articles_index)) {
                 $summary .= "Skipping {$manual} - file does not exist: {$articles_index}\n";
@@ -265,7 +266,7 @@ class Buildarticles
             if (empty($line)) {
                 continue;
             }
-            list ($heading, $jdoc_key, $filename) = explode('=', $line);
+            list ($heading, $filename, $source_url) = explode('=', $line);
 
             $gfm_file = $this->gfmfiles_path . $manual . '/articles/' . $language . '/' . $heading . '/' . $filename;
             if (!file_exists($gfm_file)) {
@@ -283,7 +284,7 @@ class Buildarticles
                 $fn = substr($filename, 0, strpos($filename, '.md'));
                 $display_title = ucwords(str_replace('_', ' ', $fn));
             } else {
-                $display_title = $matches[1];
+                $display_title = trim($matches[1]);
             }
 
             // Todo: new function here to process images from repo
@@ -316,14 +317,14 @@ class Buildarticles
                 $query->where($db->quotename('id') . ' = ' . $id);
             }
 
-            $query->set($db->quotename('jdoc_key') . ' = :jdoc_key')
+            $query->set($db->quotename('source_url') . ' = :source_url')
             ->set($db->quotename('manual') . ' = :manual')
             ->set($db->quotename('language') . ' = :language')
             ->set($db->quotename('heading') . ' = :heading')
             ->set($db->quotename('filename') . ' = :filename')
             ->set($db->quotename('display_title') . ' = :display_title')
             ->set($db->quotename('html') . ' = :html')
-            ->bind(':jdoc_key', $jdoc_key, ParameterType::STRING)
+            ->bind(':source_url', $source_url, ParameterType::STRING)
             ->bind(':manual', $manual, ParameterType::STRING)
             ->bind(':language', $language, ParameterType::STRING)
             ->bind(':heading', $heading, ParameterType::STRING)

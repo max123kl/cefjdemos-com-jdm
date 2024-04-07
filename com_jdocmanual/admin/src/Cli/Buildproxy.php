@@ -51,6 +51,14 @@ class Buildproxy
     protected $pattern2 = '/<!-- Filename:.*Display title:(.*)? -->/m';
 
     /**
+     * Regex pattern to select Help key from full Help url.
+     *
+     * @var     string
+     * @since  1.0.0
+     */
+    protected $pattern3 = '/.*Help[\d]\.x:(.*)/';
+
+    /**
      * Path fragment of manual to process.
      *
      * @var     string
@@ -177,7 +185,7 @@ class Buildproxy
 
         // get the already converted html from the database
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array('jdoc_key', 'language', 'heading', 'filename', 'display_title', 'html')))
+        $query->select($db->quoteName(array('source_url', 'language', 'heading', 'filename', 'display_title', 'html')))
         ->from('#__jdm_articles')
         ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
         ->order($db->quoteName(array('language', 'heading', 'filename')));
@@ -202,10 +210,18 @@ class Buildproxy
                 $counts[$row->language] = 1;
             }
             if ($row->language == 'en') {
-                // A jdoc_key may contain single quotes
-                $key = str_replace("'", "\'", $row->jdoc_key);
-                $filename = str_replace('.md', '.html', $row->filename);
-                $key_index .= "    '{$key}' => '{$row->heading}/{$filename}',\n";
+                // Extract key from full URL.
+                // https://docs.joomla.org/Help5.x:Admin_Modules:_Action_Logs_-_Latest
+                // Needs to be Admin_Modules:_Action_Logs_-_Latest
+                $test = preg_match($this->pattern3, $row->source_url, $matches);
+                if (empty($test)) {
+                    echo "Problem extracting key from {$row->source_url}\n";
+                } else {
+                    // A source_url may contain single quotes
+                    $key = str_replace("'", "\'", $matches[1]);
+                    $filename = str_replace('.md', '.html', $row->filename);
+                    $key_index .= "    '{$key}' => '{$row->heading}/{$filename}',\n";
+                }
             }
             // for testing - do one file from each language
             // return $counts;

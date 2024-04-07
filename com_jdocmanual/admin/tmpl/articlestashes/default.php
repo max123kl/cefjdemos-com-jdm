@@ -199,8 +199,6 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
             </div>
         </div>
     </div>
-    <?php echo HTMLHelper::_('uitab.endTab'); ?>
-
 </form>
 <?php echo HTMLHelper::_('uitab.endTab'); ?>
 

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `#__jdm_articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `jdoc_key` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source_url` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL,
   `manual` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `language` char(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `heading` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `#__jdm_article_stashes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `page_id` int(11) NOT NULL,
-  `jdoc_key` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source_url` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL,
   `manual` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `language` char(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `heading` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,

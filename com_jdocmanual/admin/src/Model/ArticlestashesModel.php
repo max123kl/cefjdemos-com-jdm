@@ -36,7 +36,6 @@ class ArticlestashesModel extends ListModel
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
                     'id', 'a.id',
-                    'jdoc_key', 'a.jdoc_key',
                     'manual', 'a.manual',
                     'language', 'a.language',
                     'heading', 'a.heading',
@@ -118,7 +117,6 @@ class ArticlestashesModel extends ListModel
                 'list.select',
                 [
                     'DISTINCT a.id',
-                    'a.jdoc_key',
                     'a.manual',
                     'a.language',
                     'a.heading',
@@ -142,21 +140,21 @@ class ArticlestashesModel extends ListModel
         // count the number of stashes and pull requests for this row
         $query->select('(SELECT count(*) FROM ' .
             $db->quoteName('#__jdm_article_stashes') . ' AS c WHERE ' .
-            $db->quoteName('c.jdoc_key') . ' = ' .
-            $db->quoteName('a.jdoc_key') .
+            $db->quoteName('c.page_id') . ' = ' .
+            $db->quoteName('a.id') .
             ' AND ' . $db->quoteName('a.language') . ' = ' .
             $db->quote('en') . ') AS nstashes');
         $query->select('(SELECT count(*) FROM ' .
             $db->quoteName('#__jdm_article_stashes') . ' AS c WHERE ' .
-            $db->quoteName('c.jdoc_key') . ' = ' . $db->quoteName('a.jdoc_key') .
+            $db->quoteName('c.page_id') . ' = ' . $db->quoteName('a.id') .
             ' AND ' . $db->quoteName('a.language') . ' = ' . $db->quote('en') .
             ' AND ' . $db->quoteName('c.pr') . '> 0) AS nprs');
         // Get the stash id if I have this page stashed.
         $query->select('(SELECT ' . $db->quoteName('c.id') . ' FROM ' .
             $db->quoteName('#__jdm_article_stashes') . ' AS c WHERE ' .
             $db->quoteName('c.user_id') . ' = ' . $user->id .
-            ' AND ' . $db->quoteName('c.jdoc_key') . ' = ' .
-            $db->quoteName('a.jdoc_key') . ' AND ' . $db->quoteName('c.language') .
+            ' AND ' . $db->quoteName('c.page_id') . ' = ' .
+            $db->quoteName('a.id') . ' AND ' . $db->quoteName('c.language') .
             ' = ' . $db->quote($language) . ') AS stash_id');
 
         // Select by manual.
@@ -177,8 +175,8 @@ class ArticlestashesModel extends ListModel
         // For language other than en find whether a translation exists
         if ($language != 'en') {
             $query->leftjoin($db->quoteName('#__jdm_articles') .
-            ' AS d ON ' . $db->quoteName('a.jdoc_key') .
-            ' = ' . $db->quoteName('d.jdoc_key') .
+            ' AS d ON ' . $db->quoteName('a.id') .
+            ' = ' . $db->quoteName('d.id') .
             ' AND ' . $db->quoteName('a.manual') .
             ' = ' . $db->quoteName('d.manual') .
             ' AND ' . $db->quoteName('d.language') .
@@ -250,8 +248,8 @@ class ArticlestashesModel extends ListModel
         )
         ->select($db->quoteName('b.id') . ' AS en_id')
         ->from($db->quoteName('#__jdm_article_stashes') . ' AS a')
-        ->leftjoin($db->quoteName('#__jdm_articles') . ' AS b ON ' . $db->quoteName('a.jdoc_key') .
-            ' = ' . $db->quoteName('b.jdoc_key'))
+        ->leftjoin($db->quoteName('#__jdm_articles') . ' AS b ON ' . $db->quoteName('a.page_id') .
+            ' = ' . $db->quoteName('b.id'))
         ->where($db->quoteName('a.user_id') . ' = ' . $user->id)
         ->where($db->quoteName('b.language') . ' = ' . $db->quote('en'))
         ->order($db->quoteName('a.id') . ' ASC');
@@ -276,7 +274,6 @@ class ArticlestashesModel extends ListModel
                     'a.id',
                     'a.user_id',
                     'a.page_id',
-                    'a.jdoc_key',
                     'a.manual',
                     'a.language',
                     'a.heading',

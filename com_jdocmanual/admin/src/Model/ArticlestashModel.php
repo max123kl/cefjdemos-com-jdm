@@ -99,7 +99,7 @@ class ArticlestashModel extends AdminModel
                 $db->quoteName(
                     array
                     (
-                        'a.jdoc_key',
+                        'a.source_url',
                         'a.manual',
                         'a.language',
                         'a.heading',
@@ -126,7 +126,7 @@ class ArticlestashModel extends AdminModel
                 $db->quoteName(
                     array
                     (
-                        'a.jdoc_key',
+                        'a.source_url',
                         'a.manual',
                         'a.language',
                         'a.heading',
@@ -153,7 +153,7 @@ class ArticlestashModel extends AdminModel
                 $db->quoteName(
                     array
                     (
-                        'a.jdoc_key',
+                        'a.source_url',
                         'a.manual',
                         'a.language',
                         'a.heading',
@@ -168,7 +168,7 @@ class ArticlestashModel extends AdminModel
             $db->setQuery($query);
             $item = $db->loadObject();
             $item->original_id = $eid;
-            $item->page_id = 0;
+            $item->page_id = $eid;
             $item->id = 0;
             $item->language = $language;
             $item->markdown_text = '';
@@ -180,31 +180,12 @@ class ArticlestashModel extends AdminModel
         $item->page_id = 0;
         $item->manual = $manual;
         $item->language = 'en';
-        $item->jdoc_key = '';
+        $item->source_url = '';
         $item->heading = '';
         $item->filename = '';
         $item->display_title = '';
         $item->id = 0;
         return $item;
-    }
-
-    public function getStash($language, $jdoc_key)
-    {
-        $user  = $this->getCurrentUser();
-        $db    = $this->getDatabase();
-
-        // Load a stash record if one exists
-        $query = $db->getQuery(true);
-        $query->select($db->quoteName(array('b.id', 'b.markdown_text')))
-            ->from($db->quoteName('#__jdm_article_stashes AS b'))
-            ->where($db->quoteName('user_id') . ' = :user_id')
-            ->where($db->quoteName('language') . ' = :language')
-            ->where($db->quoteName('jdoc_key') . ' = :jdoc_key')
-            ->bind(':user_id', $user->id, ParameterType::INTEGER)
-            ->bind(':language', $language, ParameterType::STRING)
-            ->bind(':jdoc_key', $jdoc_key, ParameterType::STRING);
-        $db->setQuery($query);
-        return $db->loadObject();
     }
 
     /**
@@ -346,16 +327,16 @@ class ArticlestashModel extends AdminModel
             ->from($db->quoteName('#__jdm_article_stashes'))
             ->where($db->quoteName('user_id') . ' = :user_id')
             ->where($db->quoteName('page_id') . ' = :page_id')
-            ->where($db->quoteName('language') . ' = :language')
-            ->where($db->quoteName('jdoc_key') . ' = :jdoc_key')
-            ->where($db->quoteName('heading') . ' = :heading')
             ->where($db->quoteName('manual') . ' = :manual')
+            ->where($db->quoteName('language') . ' = :language')
+            ->where($db->quoteName('heading') . ' = :heading')
+            ->where($db->quoteName('filename') . ' = :filename')
             ->bind(':user_id', $user->id, ParameterType::INTEGER)
             ->bind(':page_id', $data['page_id'], ParameterType::INTEGER)
+            ->bind(':manual', $data['manual'], ParameterType::STRING)
             ->bind(':language', $data['language'], ParameterType::STRING)
-            ->bind(':jdoc_key', $data['jdoc_key'], ParameterType::STRING)
             ->bind(':heading', $data['heading'], ParameterType::STRING)
-            ->bind(':manual', $data['manual'], ParameterType::STRING);
+            ->bind(':filename', $data['filename'], ParameterType::STRING);
         $db->setQuery($query);
         $id = $db->loadResult();
 

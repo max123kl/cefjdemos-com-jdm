@@ -81,7 +81,7 @@ version should be uninstalled before installing this new version.</p>
     <li>Build your database articles and menus: select the
     <code>Jdocmanual/Sources</code> menu item, then the manual you have
     installed. Use the <code>Actions</code> button to
-    <code>Update HTML</code>, then <code>Update Menus</code>. The Help manual
+    <code>Update Articles</code>, then <code>Update Menus</code>. The Help manual
     also has an option to <code>Update Proxy</code> to build a proxy server.
     </li>
 

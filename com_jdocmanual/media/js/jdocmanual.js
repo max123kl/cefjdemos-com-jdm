@@ -138,8 +138,8 @@ let getPage = function(event) {
   let searchParams = new URLSearchParams(paramsString);
   let heading = searchParams.get('heading');
   let filename = searchParams.get('filename');
-  let jdoc_key = this.getAttribute('data-content-id');
-  setPanelContent(heading, filename, jdoc_key, this.innerText);
+  let source_url = this.getAttribute('data-content-id');
+  setPanelContent(heading, filename, source_url, this.innerText);
   // add the highlight class for the selected index item
   this.parentElement.classList.add("article-active");
   setlinks();
@@ -165,7 +165,7 @@ for (let i = 0; i < links.length; i += 1) {
 /**
  * Fetch the selected page from source.
  */
-async function setPanelContent(heading, filename, jdoc_key, title) {
+async function setPanelContent(heading, filename, source_url, title) {
   let document_title = document.getElementById('document-title');
   if (!document_title) {
     return;
@@ -188,7 +188,7 @@ async function setPanelContent(heading, filename, jdoc_key, title) {
 
   // Removed preview link for now
   //let olink = document.getElementById('select-actions-children-preview');
-  //olink.href = olink.protocol + '//' + olink.host + '/' + jdoc_key;
+  //olink.href = olink.protocol + '//' + olink.host + '/' + source_url;
 
   // alter the cookie {$manual}-{$index_language_code}-{$page_language_code}-{$heading}--{$filename}
   let cookie = getCookie('jdocmanual');

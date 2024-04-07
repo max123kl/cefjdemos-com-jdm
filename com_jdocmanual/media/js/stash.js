@@ -1,23 +1,26 @@
 /**
- * For a new article, create the jdoc_key and filename from the Display title
+ * For a new article, create the source_url and filename from the Display title
  */
 
 let pageid = document.getElementById('jform_page_id').value;
 if (pageid === '0') {
     let displaytitle = document.getElementById('jform_display_title');
-    let jdockey = document.getElementById('jform_jdoc_key');
+    displaytitle.readOnly = false;
+    let sourceurl = document.getElementById('jform_source_url');
+    let manual = document.getElementById('jform_manual');
     let filename = document.getElementById('jform_filename');
     let heading = document.getElementById('jform_heading');
+    let prefix = 'jdocmanual?manual=';
 
     displaytitle.addEventListener('change', function() {
-        // If the jform_page_id is not 0 do not change the jdoc_key.
+        // If the jform_page_id is not 0 do not change the source_url.
 
-        // Set the jdoc_key from the display title.
+        // Set the source_url from the display title.
         displaytitle.value = displaytitle.value.trim();
         // Space replaced by underline.
-        jdockey.value = displaytitle.value.replaceAll(' ', '_');
+        sourceurl.value = displaytitle.value.replaceAll(' ', '_');
         // Lower case.
-        let tmp = jdockey.value.toLowerCase();
+        let tmp = sourceurl.value.toLowerCase();
         // Replace non alpha-numeric with dash
         tmp = tmp.replaceAll(/[^a-z0-9]/gi, '-');
         // Replace multiple dashes with one dash
@@ -26,6 +29,10 @@ if (pageid === '0') {
         tmp = tmp.replace(/^-/, '');
         tmp = tmp.replace(/-$/, '');
         filename.value = tmp + '.md'
+        sourceurl.value = prefix + manual.value + '&heading=' + heading.value + '&filename=' + filename.value;
+        // Select the first stash line
+        let firstline = document.getElementsByClassName('cm-line')[0];
+        firstline.innerHTML = '&lt;!-- Display title: ' + displaytitle.value + ' --&gt;';
     });
 
     heading.addEventListener('change', function() {
@@ -40,9 +47,9 @@ if (pageid === '0') {
         tmp = tmp.replace(/^-/, '');
         tmp = tmp.replace(/-$/, '');
         heading.value = tmp;
+        sourceurl.value = prefix + manual.value + '&heading=' + heading.value + '&filename=' + filename.value;
     });
 }
-
 
 /**
  * Check that there is a commit message before allowing commit.

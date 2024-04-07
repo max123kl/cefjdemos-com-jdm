@@ -15,9 +15,9 @@
 		 />
 
 		<field
-			name="jdoc_key"
+			name="source_url"
 			type="text"
-			label="COM_JDOCMANUAL_ARTICLES_INDEX_KEY"
+			label="COM_JDOCMANUAL_ARTICLES_SOURCE_URL"
 			required="true"
 			class="readonly"
 			readonly="true"

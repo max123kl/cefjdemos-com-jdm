@@ -234,7 +234,7 @@ class HtmlView extends BaseHtmlView
             ->buttonClass('update-html')
             ->task('display.updatehtml')
             ->icon('icon-share')
-            ->message("Update HTML for this Manual and Language.\n This may take a long time!");
+            ->message("Update Articles for this Manual and Language.\n This may take a long time!");
         } else {
             ToolbarHelper::title('Installation Notes', 'book');
         }

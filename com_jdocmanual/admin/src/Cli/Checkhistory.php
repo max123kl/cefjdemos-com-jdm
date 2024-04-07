@@ -67,7 +67,7 @@ class Checkhistory
         // Check that the database table exists.
         $db    = Factory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('id, jdoc_key, last_update')
+        $query->select('id, source_url, last_update')
         ->from($db->quotename('#__jdm_articles_history'))
         ->where('state = 1');
         $db->setQuery($query);
@@ -76,7 +76,7 @@ class Checkhistory
         $params = '&rvslots=main&rvprop=timestamp|user|comment&format=json';
         foreach ($rows as $row) {
             // Get last update date for this document
-            $url = $base_url . $row->jdoc_key . $params;
+            $url = $base_url . $row->source_url . $params;
             // https://docs.joomla.org/api.php?action=query&prop=revisions&titles=J4.x:Adding_a_New_Article&rvslots=main&rvprop=timestamp|user|comment
             $data = json_decode(file_get_contents($url), true);
             if (!isset($data['query']['pages'][key($data['query']['pages'])]['revisions'][0]['timestamp'])) {

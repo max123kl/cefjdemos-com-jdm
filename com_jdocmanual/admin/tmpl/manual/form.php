@@ -14,8 +14,10 @@ use Joomla\CMS\HTML\HTMLHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+// Including an action value in the form breaks either the site or admin views!
+
 ?>
-<form action="index.php?option=com_jdocmanual&view=manual"
+<form action=""
     method="post" name="adminForm" id="adminForm">
     <input type="hidden" name="task" id="task" value="">
     <input type="hidden" name="jform[manual]" id="jform_manual" value="<?php echo $this->manual; ?>">

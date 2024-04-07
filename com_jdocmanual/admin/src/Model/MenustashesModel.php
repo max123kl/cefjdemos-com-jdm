@@ -167,7 +167,7 @@ class MenustashesModel extends ListModel
         }
 
         // Add the list ordering clause.
-        $orderCol  = $this->state->get('list.ordering', $db->quoteName('a.jdoc_key'));
+        $orderCol  = $this->state->get('list.ordering', $db->quoteName('a.heading'), $db->quoteName('a.filename'));
         $orderDirn = $this->state->get('list.direction', 'ASC');
 
         $query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
