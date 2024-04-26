@@ -39,8 +39,6 @@ $activeMenuitem = $sitemenu->getActive();
 
 <?php $this->addToolbar(); ?>
 
-<?php include JPATH_ADMINISTRATOR . '/components/com_jdocmanual/tmpl/manual/form.php'; ?>
-
 <?php if (empty($this->menu)) : ?>
     <p class="alert alert-warning">
         <?php echo Text::_('COM_JDOCMANUAL_MANUAL_MANUAL_SELECT_MISSING'); ?>

@@ -41,8 +41,6 @@ $gfmfiles_path = ComponentHelper::getComponent('com_jdocmanual')->getParams()->g
 <?php if (empty($this->dbisgood) || !str_ends_with($gfmfiles_path, '/manuals/')) : ?>
     <?php include __DIR__ . '/notes.php'; ?>
 <?php else : ?>
-    <?php include __DIR__ . '/form.php'; ?>
-
     <?php if (empty($this->menu)) : ?>
         <p class="alert alert-warning">
             <?php echo Text::_('COM_JDOCMANUAL_MANUAL_MANUAL_SELECT_MISSING'); ?>

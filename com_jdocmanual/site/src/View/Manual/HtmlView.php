@@ -113,11 +113,11 @@ class HtmlView extends BaseHtmlView
             if ($this->manual == $manual->manual) {
                 $icon = 'icon-check';
             }
-            $childBar->standardButton('manual-' . $manual->manual)
+            $childBar->linkButton('manual-' . $manual->manual)
             ->text($manual->title)
             ->buttonClass('set-manual border-bottom')
             ->icon($icon)
-            ->task('display.selectmanual');
+            ->url('jdocmanual?manual='  . $manual->manual);
         }
 
         $dropdown = $toolbar->dropdownButton('select-language')
@@ -133,10 +133,10 @@ class HtmlView extends BaseHtmlView
             if ($this->index_language_code == $language->code) {
                 $icon = 'icon-check';
             }
-            $childBar->standardButton($language->code)
+            $childBar->linkButton($language->code)
             ->text($language->title)
             ->buttonClass('set-language index border-bottom')
-            ->task('display.setindexlanguage')
+            ->url('jdocmanual?index_language_code='  . $language->code)
             ->icon($icon);
         }
 
@@ -153,10 +153,10 @@ class HtmlView extends BaseHtmlView
             if ($this->page_language_code == $language->code) {
                 $icon = 'icon-check';
             }
-            $childBar->standardButton($language->code)
+            $childBar->linkButton($language->code)
             ->text($language->title)
             ->buttonClass('set-language border-bottom')
-            ->task('display.selectpagelanguage')
+            ->url('jdocmanual?page_language_code='  . $language->code)
             ->icon($icon);
         }
 

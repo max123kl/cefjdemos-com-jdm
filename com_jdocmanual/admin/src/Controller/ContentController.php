@@ -38,9 +38,11 @@ class ContentController extends BaseController
     public function fillpanel()
     {
         $manual = $this->app->input->get('manual', '', 'string');
-        $language = $this->app->input->get('language', '', 'string');
         $heading = $this->app->input->get('heading', '', 'string');
         $filename = $this->app->input->get('filename', '', 'string');
+
+        $cookie = $this->app->input->cookie->get('jdmcur');
+        list($man, $il, $language) = preg_split("/-/", $cookie);
 
         $db = Factory::getContainer()->get('DatabaseDriver');
 

@@ -11,8 +11,6 @@
 namespace Cefjdemos\Component\Jdocmanual\Administrator\Controller;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Cefjdemos\Component\Jdocmanual\Administrator\Helper\SetupHelper;
-use Cefjdemos\Component\Jdocmanual\Administrator\Cli\Buildarticles;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -50,67 +48,6 @@ class DisplayController extends BaseController
      */
     public function display($cachable = false, $urlparams = [])
     {
-        return parent::display();
-    }
-
-   /**
-     * Select a new manual.
-     *
-     * @return  $void
-     *
-     * @since   1.0.0
-     */
-    public function selectmanual()
-    {
-        $setuphelper = new SetupHelper();
-        $setuphelper->changemanual();
-        return $this->display();
-    }
-
-   /**
-     * Select a new index language.
-     *
-     * @return  $void
-     *
-     * @since   1.0.0
-     */
-    public function selectindexlanguage()
-    {
-        return $this->display();
-    }
-
-   /**
-     * Select a new page language.
-     *
-     * @return  $void
-     *
-     * @since   1.0.0
-     */
-    public function selectpagelanguage()
-    {
-        return $this->display();
-    }
-
-   /**
-     * Update the article html for the selected manual and language.
-     * This function updates all of the articles (ToDo: selected articlle).
-     *
-     * @return  $void
-     *
-     * @since   1.0.0
-     */
-    public function updatehtml()
-    {
-        if ($cookie = $this->app->input->cookie->get('jdocmanual')) {
-            list ($manual, $index_language_code, $page_language_code, $old_page_id) = explode('-', $cookie);
-        }
-        if (empty($manual) || empty($page_language_code)) {
-            return $this->display();
-        }
-        $ba = new Buildarticles();
-        $summary = $ba->go($manual, $page_language_code);
-        $this->app->enqueueMessage(nl2br($summary, true));
-
         return parent::display();
     }
 }

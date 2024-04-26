@@ -9,6 +9,8 @@ function setCookie(name, value, days) {
   // is the siteroot set for this template
   let paths = Joomla.getOptions(["system.paths"], "No good");
   let root = paths.root;
+  let path = "; path=" + root;
+
   const samesite = "; samesite=None; secure=true";
   let baseFull = paths.baseFull; // "http:\/\/localhost\/j4ops\/"
 
@@ -20,8 +22,6 @@ function setCookie(name, value, days) {
   expires = "; expires="+date.toGMTString();
   if (typeof root === undefined) {
     path = "; path=/";
-  } else {
-    path = "; path=" + root;
   }
   document.cookie = name + "=" + value + expires + path + samesite;
 }
@@ -49,62 +49,6 @@ function getCookie(name) {
  */
 function eraseCookie(name) {
   setCookie(name,'',0);
-}
-
-/**
- * Select manual
- */
-
-let manuals = document.getElementsByClassName('set-manual');
-
-let setManual = function() {
-  const regex = /.*manual-(\w{1,}) .*/;
-  let className = this.className;
-  let manual = className.match(regex)[1];
-  let task = document.getElementById('task');
-  task.value = 'display.selectmanual';
-  let jform_manual = document.getElementById('jform_manual');
-  jform_manual.value = manual;
-  let jform_heading = document.getElementById('jform_heading');
-  jform_heading.value = '';
-  let jform_filename = document.getElementById('jform_filename');
-  jform_filename.value = '';
-  let form = document.getElementById('adminForm');
-  form.submit();
-}
-
-for (let i = 0; i < manuals.length; i += 1) {
-  manuals[i].addEventListener('click', setManual, false);
-}
-
-/**
- * Select index language or content language
- */
-
-let languages = document.getElementsByClassName('set-language');
-
-let setLanguage = function() {
-  const regex = /.*button-(([a-z]|-){1,}) .*/;
-  let className = this.className;
-  let language_code = className.match(regex)[1];
-  // the tasks are set in the Toolbar buttons so not really needed here
-  let task = document.getElementById('task');
-
-  let jform_index_language_code = document.getElementById('jform_index_language_code');
-  let jform_page_language_code = document.getElementById('jform_page_language_code');
-  if (this.classList.contains('index')) {
-    jform_index_language_code.value = language_code;
-    task.value = 'display.selectindexlanguage';
-  } else {
-    jform_page_language_code.value = language_code;
-    task.value = 'display.selectpagelanguage';
-  }
-  let form = document.getElementById('adminForm');
-  form.submit();
-};
-
-for (let i = 0; i < languages.length; i += 1) {
-  languages[i].addEventListener('click', setLanguage, false);
 }
 
 /**
@@ -136,41 +80,35 @@ let getPage = function(event) {
   let url = new URL(this);
   let paramsString = url.search;
   let searchParams = new URLSearchParams(paramsString);
+  let manual = searchParams.get('manual');
   let heading = searchParams.get('heading');
   let filename = searchParams.get('filename');
-  let source_url = this.getAttribute('data-content-id');
-  setPanelContent(heading, filename, source_url, this.innerText);
+  setPanelContent(manual, heading, filename);
   // add the highlight class for the selected index item
   this.parentElement.classList.add("article-active");
   setlinks();
 };
 
-//for (let i = 0; i < contents.length; i += 1) {
-//  contents[i].addEventListener('click', getPage, false);
-//}
-
 /**
  * Set the page content by clicking a link in the page
  */
-
 setlinks();
 
 function setlinks() {
-let links = document.querySelectorAll('a[href*="filename="]');
-for (let i = 0; i < links.length; i += 1) {
-  links[i].addEventListener('click', getPage, false);
-}
+    let links = document.querySelectorAll('a[href*="filename="]');
+    for (let i = 0; i < links.length; i += 1) {
+        links[i].addEventListener('click', getPage, false);
+    }
 }
 
 /**
  * Fetch the selected page from source.
  */
-async function setPanelContent(heading, filename, source_url, title) {
+async function setPanelContent(manual, heading, filename) {
   let document_title = document.getElementById('document-title');
   if (!document_title) {
     return;
   }
-  //document_title.innerHTML = title;
 
   // remove the highlight class from the selected index item
   let index_items = document.getElementsByClassName('article-active');
@@ -186,28 +124,15 @@ async function setPanelContent(heading, filename, source_url, title) {
   </div>`;
   let toc_panel = document.getElementById('toc-panel');
 
-  // Removed preview link for now
-  //let olink = document.getElementById('select-actions-children-preview');
-  //olink.href = olink.protocol + '//' + olink.host + '/' + source_url;
-
-  // alter the cookie {$manual}-{$index_language_code}-{$page_language_code}-{$heading}--{$filename}
-  let cookie = getCookie('jdocmanual');
-  let cookie_items = cookie.split('--');
-  cookie_items.pop();
-  cookie_items.pop();
-  cookie_items.push(heading);
-  cookie_items.push(filename);
-  cookie = cookie_items.join('--');
-  setCookie('jdocmanual', cookie, 10);
-
   // get token from javascript loaded in the page
   const token = Joomla.getOptions('csrf.token', '');
-  let manual = document.getElementById('jform_manual').value;
-  let page_language = document.getElementById('jform_page_language_code').value;
   let url = 'index.php?option=com_jdocmanual&task=content.fillpanel';
   let data = new URLSearchParams();
+
+  let new_cookie = heading + '--' + filename;
+  setCookie('jdm' + manual, new_cookie, 10);
+
   data.append('manual', manual);
-  data.append('language', page_language);
   data.append('heading', heading);
   data.append('filename', filename);
   data.append(token, 1);
@@ -222,13 +147,11 @@ async function setPanelContent(heading, filename, source_url, title) {
   } else {
     let result = await response.text();
     let obj = JSON.parse(result);
-    document.getElementById('jform_heading').value = heading;
-    document.getElementById('jform_filename').value = filename;
     toc_panel.innerHTML = obj[0];
     document_panel.innerHTML = obj[1];
     document_title.innerHTML = obj[2];
     setlinks();
-    menuHighlight();
+    menuHighlight(heading, filename);
   }
 }
 
@@ -254,21 +177,23 @@ function setIndexLocation () {
   }
 }
 
-function menuHighlight() {
-  let jform_heading = document.getElementById('jform_heading').value;
-  let jform_filename = document.getElementById('jform_filename').value;
-  let link = document.querySelector('a[href*="heading=' + jform_heading + '&filename=' + jform_filename + '"]');
+function menuHighlight(heading, filename) {
+  let link = document.querySelector('a[href*="heading=' + heading + '&filename=' + filename + '"]');
   link.parentElement.classList.add("article-active");
   // Expand the nearest <details> tag.
   el = link.closest("details");
-  el.setAttribute('open', ''); 
+  el.setAttribute('open', '');
 }
 
 /**
  * After page load set the active menu and open its accordion panel.
  */
 document.addEventListener('DOMContentLoaded', function(event) {
-  menuHighlight();
+  // Get the heading and filename from the cookies.
+  let jdmcur = getCookie('jdmcur');
+  let manual = 'jdm' + jdmcur.split('-')[0];
+  let handf = getCookie(manual).split('--');
+  menuHighlight(handf[0], handf[1]);
   setIndexLocation();
 });
 

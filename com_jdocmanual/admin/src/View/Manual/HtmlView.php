@@ -171,11 +171,11 @@ class HtmlView extends BaseHtmlView
                 if ($this->manual == $manual->manual) {
                     $icon = 'icon-check';
                 }
-                $childBar->standardButton('manual-' . $manual->manual)
+                $childBar->linkButton('manual-' . $manual->manual)
                 ->text($manual->title)
-                ->buttonClass('set-manual')
+                ->buttonClass('set-manual border-bottom')
                 ->icon($icon)
-                ->task('display.selectmanual');
+                ->url('index.php?option=com_jdocmanual&view=manual&manual='  . $manual->manual);
             }
 
             $dropdown = $toolbar->dropdownButton('select-language')
@@ -191,10 +191,10 @@ class HtmlView extends BaseHtmlView
                 if ($this->index_language_code == $language->code) {
                     $icon = 'icon-check';
                 }
-                $childBar->standardButton($language->code)
+                $childBar->linkButton($language->code)
                 ->text($language->title)
                 ->buttonClass('set-language index')
-                ->task('display.setindexlanguage')
+                ->url('index.php?option=com_jdocmanual&view=manual&index_language_code='  . $language->code)
                 ->icon($icon);
             }
 
@@ -211,10 +211,10 @@ class HtmlView extends BaseHtmlView
                 if ($this->page_language_code == $language->code) {
                     $icon = 'icon-check';
                 }
-                $childBar->standardButton($language->code)
+                $childBar->linkButton($language->code)
                 ->text($language->title)
                 ->buttonClass('set-language')
-                ->task('display.selectpagelanguage')
+                ->url('index.php?option=com_jdocmanual&view=manual&page_language_code='  . $language->code)
                 ->icon($icon);
             }
 
@@ -228,13 +228,6 @@ class HtmlView extends BaseHtmlView
 
             $layout = new FileLayout('toolbar.toggle-joomla-menu', JPATH_COMPONENT_ADMINISTRATOR . '/layouts');
             $childBar->appendButton('Custom', $layout->render([]), 'toggle-joomla-menu');
-
-            $childBar->confirmButton('update-html')
-            ->text('COM_JDOCMANUAL_UPDATE_HTML')
-            ->buttonClass('update-html')
-            ->task('display.updatehtml')
-            ->icon('icon-share')
-            ->message("Update Articles for this Manual and Language.\n This may take a long time!");
         } else {
             ToolbarHelper::title('Installation Notes', 'book');
         }

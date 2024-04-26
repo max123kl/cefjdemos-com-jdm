@@ -11,9 +11,6 @@
 namespace Cefjdemos\Component\Jdocmanual\Site\Controller;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Session\Session;
-use Cefjdemos\Component\Jdocmanual\Administrator\Helper\SetupHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -36,27 +33,7 @@ class DisplayController extends BaseController
 
     public function display($cachable = false, $urlparams = [])
     {
-        //$view   = $this->input->get('view', 'jdocmanual');
-        //$layout = $this->input->get('layout', 'default');
-        //$id     = $this->input->getInt('id');
         return parent::display();
-    }
-
-    public function selectmanual()
-    {
-        $setuphelper = new SetupHelper();
-        $setuphelper->changemanual();
-        return $this->display();
-    }
-
-    public function selectindexlanguage()
-    {
-        return $this->display();
-    }
-
-    public function selectpagelanguage()
-    {
-        return $this->display();
     }
 
     /**
