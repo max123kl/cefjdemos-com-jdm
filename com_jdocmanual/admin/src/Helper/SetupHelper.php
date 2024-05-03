@@ -127,13 +127,15 @@ class SetupHelper
                 $filename = $row->filename_ini;
             }
         } else {
-            // Get the default manual.
-            $query = $db->getQuery(true);
-            $query->select($db->quoteName(array('manual', 'heading_ini', 'filename_ini')))
-            ->from($db->quoteName('#__jdm_manuals'))
-            ->where($db->quoteName('home') . ' = 1');
-            $db->setQuery($query);
-            list($manual, $heading, $filename) = $db->loadRow();
+            if (empty($manual) || empty($heading) || empty($filename)) {
+                // Get the default manual.
+                $query = $db->getQuery(true);
+                $query->select($db->quoteName(array('manual', 'heading_ini', 'filename_ini')))
+                ->from($db->quoteName('#__jdm_manuals'))
+                ->where($db->quoteName('home') . ' = 1');
+                $db->setQuery($query);
+                list($manual, $heading, $filename) = $db->loadRow();
+            }
         }
         $new_cookie = "{$manual}-{$index_language_code}-{$page_language_code}";
         $this->setCookie('jdmcur', $new_cookie, 10);
