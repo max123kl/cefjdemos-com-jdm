@@ -12,6 +12,7 @@ namespace Cefjdemos\Component\Jdocmanual\Administrator\Cli;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\Database\ParameterType;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -67,7 +68,7 @@ class Buildmenus
 
     /**
      * Placeholder for database object
-     * 
+     *
      */
     protected $db;
 
@@ -295,8 +296,10 @@ class Buildmenus
         $db = $this->db;
 
         $linkstart = '<a href="jdocmanual?';
-        $linkend_next = '" class="btn btn-outline-secondary next"><i class="fa-solid fa-hand-point-right"></i></a>';
-        $linkend_previous = '" class="btn btn-outline-secondary previous"><i class="fa-solid fa-hand-point-left"></i></a>';
+        $previous = Text::_('JPREVIOUS');
+        $next = Text::_('JNEXT');
+        $linkend_next = '" class="btn btn-outline-secondary next">' . $next . ' <i class="fa-solid fa-hand-point-right"></i></a>';
+        $linkend_previous = '" class="btn btn-outline-secondary previous"><i class="fa-solid fa-hand-point-left"></i> ' . $previous . '</a>';
 
         foreach ($order_id as $i => $value) {
 

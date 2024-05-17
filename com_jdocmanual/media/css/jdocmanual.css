@@ -402,3 +402,8 @@ details li a {
 .order-links .next {
 	float:right;
 }
+
+ul.table-of-contents li {
+    padding: 0.25rem;
+    list-style-type: none;
+}
