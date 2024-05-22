@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4
+class ComposerStaticInit6a66fbf207a39f47ba937a0469cf6b5e
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -12,58 +12,58 @@ class ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' =>
+        'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\EventDispatcher\\' => 20,
         ),
-        'L' =>
+        'L' => 
         array (
             'League\\Config\\' => 14,
             'League\\CommonMark\\' => 18,
         ),
-        'J' =>
+        'J' => 
         array (
             'Jfcherng\\Utility\\' => 17,
             'Jfcherng\\Diff\\' => 14,
         ),
-        'D' =>
+        'D' => 
         array (
             'Dflydev\\DotAccessData\\' => 22,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Php80\\' =>
+        'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Psr\\EventDispatcher\\' =>
+        'Psr\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
-        'League\\Config\\' =>
+        'League\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/config/src',
         ),
-        'League\\CommonMark\\' =>
+        'League\\CommonMark\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
         ),
-        'Jfcherng\\Utility\\' =>
+        'Jfcherng\\Utility\\' => 
         array (
             0 => __DIR__ . '/..' . '/jfcherng/php-mb-string/src',
             1 => __DIR__ . '/..' . '/jfcherng/php-color-output/src',
         ),
-        'Jfcherng\\Diff\\' =>
+        'Jfcherng\\Diff\\' => 
         array (
             0 => __DIR__ . '/..' . '/jfcherng/php-sequence-matcher/src',
             1 => __DIR__ . '/..' . '/jfcherng/php-diff/src',
         ),
-        'Dflydev\\DotAccessData\\' =>
+        'Dflydev\\DotAccessData\\' => 
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
         ),
@@ -117,13 +117,17 @@ class ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4
         'Nette\\Utils\\Html' => __DIR__ . '/..' . '/nette/utils/src/Utils/Html.php',
         'Nette\\Utils\\IHtmlString' => __DIR__ . '/..' . '/nette/utils/src/compatibility.php',
         'Nette\\Utils\\Image' => __DIR__ . '/..' . '/nette/utils/src/Utils/Image.php',
+        'Nette\\Utils\\ImageColor' => __DIR__ . '/..' . '/nette/utils/src/Utils/ImageColor.php',
         'Nette\\Utils\\ImageException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\ImageType' => __DIR__ . '/..' . '/nette/utils/src/Utils/ImageType.php',
+        'Nette\\Utils\\Iterables' => __DIR__ . '/..' . '/nette/utils/src/Utils/Iterables.php',
         'Nette\\Utils\\Json' => __DIR__ . '/..' . '/nette/utils/src/Utils/Json.php',
         'Nette\\Utils\\JsonException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\ObjectHelpers' => __DIR__ . '/..' . '/nette/utils/src/Utils/ObjectHelpers.php',
         'Nette\\Utils\\Paginator' => __DIR__ . '/..' . '/nette/utils/src/Utils/Paginator.php',
         'Nette\\Utils\\Random' => __DIR__ . '/..' . '/nette/utils/src/Utils/Random.php',
         'Nette\\Utils\\Reflection' => __DIR__ . '/..' . '/nette/utils/src/Utils/Reflection.php',
+        'Nette\\Utils\\ReflectionMethod' => __DIR__ . '/..' . '/nette/utils/src/Utils/ReflectionMethod.php',
         'Nette\\Utils\\RegexpException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
         'Nette\\Utils\\Type' => __DIR__ . '/..' . '/nette/utils/src/Utils/Type.php',
@@ -138,9 +142,10 @@ class ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit97eafcfdbd2438191c8b609b706a07c4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6a66fbf207a39f47ba937a0469cf6b5e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6a66fbf207a39f47ba937a0469cf6b5e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6a66fbf207a39f47ba937a0469cf6b5e::$classMap;
+
         }, null, ClassLoader::class);
     }
 }

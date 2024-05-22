@@ -136,7 +136,7 @@ class Responsive
 
       // When called from the web interface with Joomla in a subfolder this
       // function returns the subfolder name. But from the cli $base is empty;
-        $base = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', ',');
+        $base = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
 
         $type   = in_array(mb_strtolower($image->extension), ['jpg', 'jpeg']) ? 'jpeg' : mb_strtolower($image->extension);
         $output = '<picture class="responsive-image">';

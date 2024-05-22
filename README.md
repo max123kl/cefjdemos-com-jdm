@@ -262,3 +262,13 @@ Jdocmanual component.
 to the Administrator interface.
 
 **Super Users** have complete access.
+
+## Some Reminders
+
+The System - Joomla Accessibility Checker flags the anchors
+as having empty links. So comment out line 70 of
+libraries/vendor/league/commonmark/src/Extension/HeadingPermalink/HeadingPermalinkRenderer.php
+```php
+        //$attrs->set('href', '#' . $fragmentPrefix . $slug);
+        $attrs->append('class', $this->config->get('heading_permalink/html_class'));
+```

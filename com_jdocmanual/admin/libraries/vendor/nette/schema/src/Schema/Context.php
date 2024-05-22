@@ -9,40 +9,43 @@ declare(strict_types=1);
 
 namespace Nette\Schema;
 
-use Nette;
 
 final class Context
 {
-    use Nette\SmartObject;
+	public bool $skipDefaults = false;
 
-    /** @var bool */
-    public $skipDefaults = false;
+	/** @var string[] */
+	public array $path = [];
 
-    /** @var string[] */
-    public $path = [];
+	public bool $isKey = false;
 
-    /** @var bool */
-    public $isKey = false;
+	/** @var Message[] */
+	public array $errors = [];
 
-    /** @var Message[] */
-    public $errors = [];
+	/** @var Message[] */
+	public array $warnings = [];
 
-    /** @var Message[] */
-    public $warnings = [];
-
-    /** @var array[] */
-    public $dynamics = [];
+	/** @var array[] */
+	public array $dynamics = [];
 
 
-    public function addError(string $message, string $code, array $variables = []): Message
-    {
-        $variables['isKey'] = $this->isKey;
-        return $this->errors[] = new Message($message, $code, $this->path, $variables);
-    }
+	public function addError(string $message, string $code, array $variables = []): Message
+	{
+		$variables['isKey'] = $this->isKey;
+		return $this->errors[] = new Message($message, $code, $this->path, $variables);
+	}
 
 
-    public function addWarning(string $message, string $code, array $variables = []): Message
-    {
-        return $this->warnings[] = new Message($message, $code, $this->path, $variables);
-    }
+	public function addWarning(string $message, string $code, array $variables = []): Message
+	{
+		return $this->warnings[] = new Message($message, $code, $this->path, $variables);
+	}
+
+
+	/** @return \Closure(): bool */
+	public function createChecker(): \Closure
+	{
+		$count = count($this->errors);
+		return fn(): bool => $count === count($this->errors);
+	}
 }

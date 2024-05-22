@@ -30,9 +30,6 @@ final class Combined extends AbstractHtml
      */
     public const AUTO_FORMAT_CHANGES = false;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
@@ -239,7 +236,7 @@ final class Combined extends AbstractHtml
                     $this->renderTableBlockDelete($block) .
                     $this->renderTableBlockInsert($block);
 
-                continue;
+                break;
             }
 
             $ret .= $this->renderTableRow('rep', SequenceMatcher::OP_REP, $mergedLine);
@@ -338,14 +335,14 @@ final class Combined extends AbstractHtml
      * Analyze and get the closure parts information of the line.
      *
      * Such as
-     *     extract informations for "<ins>part 1</ins>" and "<ins>part 2</ins>"
+     *     extract information for "<ins>part 1</ins>" and "<ins>part 2</ins>"
      *     from "Hello <ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins> World"
      *
      * @param string   $line     the line
      * @param string[] $closures the closures
      * @param int      $type     the type
      *
-     * @return array[] the closure informations
+     * @return array[] the closure information
      */
     protected function analyzeClosureParts(string $line, array $closures, int $type): array
     {
@@ -512,6 +509,8 @@ final class Combined extends AbstractHtml
             if ($htmlClosures) {
                 $line = str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
             }
+            // fixes https://github.com/jfcherng/php-diff/issues/34
+            $line = str_replace("\r\n", "\n", $line);
         }
 
         return $lines;

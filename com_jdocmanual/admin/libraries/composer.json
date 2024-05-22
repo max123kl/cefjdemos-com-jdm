@@ -1,6 +1,6 @@
 {
     "require": {
-        "league/commonmark": "^2.3",
-        "jfcherng/php-diff": "^6.13"
+        "league/commonmark": "^2.4",
+        "jfcherng/php-diff": "^6.16"
     }
 }

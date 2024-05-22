@@ -1,7 +1,53 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.16** - new differ option: fullContextIfIdentical
+   * 2024-03-11 01:40  **6.16.2**  remove debug msg
+      * 8bafc7b fix: remove debug print
+   * 2024-03-08 01:59  **6.16.1**  fix Differ::getStatistics()
+      * e6d485d fix: Differ::getStatistics() not working when no difference
+      * 26f93d7 chore: update deps
+   * 2024-03-05 16:44  **6.16.0**  initial release
+      * 809088e chore: $ composer fix
+      * d07f241 chore: fix deprecated php-cs-fixer options
+      * 00c7a38 chore: update deps
+      * 5d094e4 feat: add new differ option: fullContextIfIdentical (#79)
+      * bf2ddb8 chore: tidy codes
+      * e0da986 style: $ composer fix
+      * 5b70504 chore: ignore example/demo_web.php from php-cs-fixer
+      * e1575a2 chore: update deps
+      * 73069e7 chore: fix typos (#75)
+
+ * Version **6.15** - max sequence length
+   * 2023-06-15 20:29  **6.15.3**  add translation: cze
+      * 2335d9e docs: update translation readme
+      * d50beb0 chore: add traslation Czech (#74)
+   * 2023-06-05 19:41  **6.15.2**  add translation: nob
+      * 9d55d2f chore: Norwegian translation (#73)
+   * 2023-05-26 00:23  **6.15.1**  update deps
+      * b73d9e8 chore: update deps
+   * 2023-05-21 16:04  **6.15.0**  initial release
+      * 5089d99 feat: add new differOption: lengthLimit
+      * 9182995 chore: update deps
+
+ * Version **6.14** - add differ option: ignoreLineEnding
+   * 2023-03-16 03:26  **6.14.2**  (Combined) fix unmerge-able block
+      * aeb1c3c fix: (Combined) unmerge-able block shouldn't be repeated
+      * 341f943 Release of new version 6.14.1
+   * 2023-03-11 15:24  **6.14.1**  tidy codes
+      * 71f0b0e refactor: move "ignoreLineEnding" implementation to sequence matcher
+      * 77d4dbb test: tidy codes
+      * 25d344b chore: update deps
+      * df6db81 chore: fix typos
+   * 2023-03-10 20:33  **6.14.0**  initial release
+      * 3b1e344 feat: add differ option: ignoreLineEnding
+      * b194161 chore: move test files
+      * 882ea1a chore: update deps
+
  * Version **6.13** - override language
+   * 2023-02-27 19:28  **6.13.1**  another way to fix #34
+      * 7b89fd7 fix: another way to fix \r shouldn't be visualized like a newline in Combined renderer
+      * c069031 chore: add missing type hint
    * 2023-01-19 00:29  **6.13.0**  initial release
       * bfb89b6 feat: provide a way to override an existing language
       * 775a043 chore: update deps
