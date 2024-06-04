@@ -30,7 +30,7 @@ main {
     text-decoration: none;
 }
 
-&:hover {
+a:hover {
     color: #4d82dc;
     text-decoration: underline;
 }

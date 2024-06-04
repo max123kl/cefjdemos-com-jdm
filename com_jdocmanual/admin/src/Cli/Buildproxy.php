@@ -266,7 +266,7 @@ class Buildproxy
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Joomla! Help Screens</title>
         <link rel="stylesheet" href="https://help.joomla.org/media/css/help.css">
-        <link rel="stylesheet" href="/proxy/help.css">
+        <link rel="stylesheet" href="{$this->installation_subfolder}/proxy/help.css">
     </head>
     <body>
         <main>
