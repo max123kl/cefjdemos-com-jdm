@@ -410,3 +410,7 @@ ul.table-of-contents li {
 details summary, details ul li {
     padding: 0.25rem;
 }
+
+code {
+    color: #bb0000 ! important;
+}

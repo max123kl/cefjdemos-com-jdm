@@ -76,11 +76,18 @@ if(toggle) {
 
 let getPage = function(event) {
   event.preventDefault();
+  // get the current manual
+  let jdmcur = getCookie('jdmcur');
+  let curmanual = jdmcur.split('-')[0];
   // this contains the full url of the link
   let url = new URL(this);
   let paramsString = url.search;
   let searchParams = new URLSearchParams(paramsString);
   let manual = searchParams.get('manual');
+  // if there is a change of manual
+  if (curmanual != manual) {
+    location = url;
+  }
   let heading = searchParams.get('heading');
   let filename = searchParams.get('filename');
   setPanelContent(manual, heading, filename);

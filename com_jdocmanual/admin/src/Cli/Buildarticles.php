@@ -92,6 +92,8 @@ class Buildarticles
 
     protected $responsive;
 
+    protected $db;
+
     /**
      * Constructor
      *
@@ -100,6 +102,7 @@ class Buildarticles
     public function __construct()
     {
         $this->responsive = new Responsive();
+        $this->db = Factory::getContainer()->get('DatabaseDriver');
     }
 
     /**
@@ -200,7 +203,7 @@ class Buildarticles
         }
 
         $contents = file_get_contents($menu_headings_file);
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->db;
         $count = 0;
 
         foreach (preg_split("/((\r?\n)|(\r\n?))/", $contents) as $line) {
@@ -255,7 +258,7 @@ class Buildarticles
      */
     protected function html4lingo($manual, $language)
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->db;
         $count = 0;
         $summary = '';
 
@@ -273,7 +276,33 @@ class Buildarticles
                 continue;
             }
 
+            // Get the last modified timestamp
+            $last_mod = date('Y-m-d H:i:s', @filemtime($gfm_file));
+
+            // Check if there is an entry for this article.
+            $query = $db->getQuery(true);
+            $query->select($db->quotename('id'))
+            ->select($db->quotename('modified'))
+            ->from($db->quotename('#__jdm_articles'))
+            ->where($db->quotename('manual') . ' = :manual')
+            ->where($db->quotename('language') . ' = :language')
+            ->where($db->quotename('heading') . ' = :heading')
+            ->where($db->quotename('filename') . ' = :filename')
+            ->bind(':manual', $manual, ParameterType::STRING)
+            ->bind(':language', $language, ParameterType::STRING)
+            ->bind(':heading', $heading, ParameterType::STRING)
+            ->bind(':filename', $filename, ParameterType::STRING);
+            $db->setQuery($query);
+            $row = $db->loadObject();
+
+            // Skip if this article is up to date - does not work!
+            //if (!empty($row) && ($last_mod < $row->modified)) {
+            //    $count += 1;
+            //    continue;
+            //}
+            $id = empty($row) ? 0 : $row->id;
             $contents = file_get_contents($gfm_file);
+            //var_dump($last_mod, strtotime($row->modified), $gfm_file);die();
 
             // Get the title from the contents.
             // Look for Display Title.
@@ -292,21 +321,6 @@ class Buildarticles
 
             $html = Markdown2html::go($contents);
 
-            // Check if there is an entry for this article.
-            $query = $db->getQuery(true);
-            $query->select($db->quotename('id'))
-            ->from($db->quotename('#__jdm_articles'))
-            ->where($db->quotename('manual') . ' = :manual')
-            ->where($db->quotename('language') . ' = :language')
-            ->where($db->quotename('heading') . ' = :heading')
-            ->where($db->quotename('filename') . ' = :filename')
-            ->bind(':manual', $manual, ParameterType::STRING)
-            ->bind(':language', $language, ParameterType::STRING)
-            ->bind(':heading', $heading, ParameterType::STRING)
-            ->bind(':filename', $filename, ParameterType::STRING);
-            $db->setQuery($query);
-            $id = $db->loadResult();
-
             $query = $db->getQuery(true);
             if (empty($id)) {
                 // If id was empty do an insert.
@@ -324,13 +338,15 @@ class Buildarticles
             ->set($db->quotename('filename') . ' = :filename')
             ->set($db->quotename('display_title') . ' = :display_title')
             ->set($db->quotename('html') . ' = :html')
+            ->set($db->quotename('modified') . ' = :last_mod')
             ->bind(':source_url', $source_url, ParameterType::STRING)
             ->bind(':manual', $manual, ParameterType::STRING)
             ->bind(':language', $language, ParameterType::STRING)
             ->bind(':heading', $heading, ParameterType::STRING)
             ->bind(':filename', $filename, ParameterType::STRING)
             ->bind(':display_title', $display_title, ParameterType::STRING)
-            ->bind(':html', $html, ParameterType::STRING);
+            ->bind(':html', $html, ParameterType::STRING)
+            ->bind(':last_mod', $last_mod, ParameterType::STRING);
             $db->setQuery($query);
             $db->execute();
 

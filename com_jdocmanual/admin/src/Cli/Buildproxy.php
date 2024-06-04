@@ -35,6 +35,14 @@ class Buildproxy
     protected $gfmfiles_path;
 
     /**
+     * Path to local source of markdown files.
+     *
+     * @var     string
+     * @since   1.0.0
+     */
+    protected $installation_subfolder;
+
+    /**
      * Regex pattern to select first GFM H1 (#) string.
      *
      * @var     string;
@@ -153,6 +161,7 @@ class Buildproxy
         if (empty($this->gfmfiles_path)) {
             return "\nThe Markdown source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
         }
+        $this->installation_subfolder = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
         $this->settop();
         $this->setbottom();
         $counts = $this->html4lingo('help');
@@ -188,7 +197,8 @@ class Buildproxy
         $query->select($db->quoteName(array('source_url', 'language', 'heading', 'filename', 'display_title', 'html')))
         ->from('#__jdm_articles')
         ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
-        ->order($db->quoteName(array('language', 'heading', 'filename')));
+        ->where($db->quoteName('language') . ' = ' . $db->quote('en'))
+       ->order($db->quoteName(array('language', 'heading', 'filename')));
         $db->setQuery($query);
         $rows = $db->loadObjectList();
         $key_index = "<?php\n\$key_index = [\n";
@@ -203,6 +213,9 @@ class Buildproxy
             if (!is_dir(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading)) {
                 mkdir(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading, 0755, true);
             }
+            // Need to replace links to jdocmanual to remove the leading /jdm3/proxy example
+            // <a href="jdocmanual?manual=user&amp;heading=articles&amp;filename=adding-an-image-to-an-article.md">Adding an Image to an Article</a>
+            $html = str_replace('href="jdocmanual?', 'href="' . $this->installation_subfolder . '/jdocmanual?', $html);
             File::write(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading . '/' . $outfile, $html);
             if (isset($counts[$row->language])) {
                 $counts[$row->language] += 1;
