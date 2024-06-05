@@ -1,0 +1,21 @@
+<changelogs>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
+        <version>3.0.3</version>
+        <addition>
+            <item>Added changelog.xml</item>
+        </addition>
+        <change>
+            <item>Removed code border in jdocmanual.css</item>
+        </change>
+    </changelog>
+    <changelog>
+	    <element>com_jdocmanual</element>
+	    <type>component</type>
+	    <version>3.0.0</version>
+        <addition>
+            <item>First release.</item>
+        </addition>
+    </changelog>
+</changelogs>
