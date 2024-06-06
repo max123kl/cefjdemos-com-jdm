@@ -101,7 +101,7 @@
 		</submenu>
 	</administration>
 
-    <changelogurl>https://github.com/ceford/cefjdemos-com-jdm/changelog.xml</changelogurl>
+    <changelogurl>https://raw.githubusercontent.com/ceford/cefjdemos-com-jdm/main/changelog.xml</changelogurl>
 
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
