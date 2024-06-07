@@ -85,10 +85,20 @@ class SetupHelper
             }
         }
 
-        // Are there query parameters to work with.
-        $manual = $app->input->get('manual', '', 'string');
-        $heading = $app->input->get('heading', '', 'string');
-        $filename = $app->input->get('filename', '', 'string');
+        // Try a query string of the form jdocmanual?article=user/articles/some-article[.html]
+        $qs =  $app->input->get('article', '', 'string');
+        if (!empty($qs)) {
+            $segments = explode('/', $qs);
+            $manual = empty($segments[0]) ? '' : $segments[0];
+            $heading = empty($segments[1]) ? '' : $segments[1];
+            $filename = empty($segments[2]) ? '' : $segments[2];
+            $filename = str_replace('.html', '', $filename) . '.md';
+        } else {
+            // Are there query parameters to work with.
+            $manual = $app->input->get('manual', '', 'string');
+            $heading = $app->input->get('heading', '', 'string');
+            $filename = $app->input->get('filename', '', 'string');
+        }
 
         // The case of a language change.
         if (empty($manual)) {

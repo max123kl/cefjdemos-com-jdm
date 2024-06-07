@@ -264,7 +264,11 @@ class Buildmenus
                 $total_articles += 1;
 
                 // The manual part of the path is for search engines.
-                $path = "manual={$manual}&heading={$heading}&filename={$filename}";
+                //$path = "manual={$manual}&heading={$heading}&filename={$filename}";
+                // Change to short form.
+                $filename = str_replace('.md', '', $filename);
+                $path = "article={$manual}/{$heading}/{$filename}";
+
                 $html .= $this->accordionItem($row->id, $row->display_title, $path);
 
                 // Store order for the Previous and Next buttons.

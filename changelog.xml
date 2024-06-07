@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>3.1.1</version>
+        <change>
+            <item>Changed link format to make it shorter and more like SEF.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>3.1.0</version>
         <addition>
             <item>Added changelog.xml</item>

@@ -83,13 +83,29 @@ let getPage = function(event) {
   let url = new URL(this);
   let paramsString = url.search;
   let searchParams = new URLSearchParams(paramsString);
+  // the manual maybe in article=user/ or in manual=user
   let manual = searchParams.get('manual');
+  let heading = '';
+  let filename = '';
+if (!manual) {
+    let sp = searchParams.get('article');
+    manual = sp.split('/')[0];
+    heading = sp.split('/')[1];
+    filename = sp.split('/')[2] + '.md';
+  } else {
+    heading = searchParams.get('heading');
+    filename = searchParams.get('filename');
+  }
   // if there is a change of manual
   if (curmanual != manual) {
+    // Is this a Site or Administrator instance?
+    if (url.href.indexOf('/administrator/') > 0) {
+        // Replace /jdocmanual with option=jdocmanual
+        url.href = url.href.replace('/administrator/jdocmanual?', '/administrator/index.php?option=com_jdocmanual&view=manual&');
+    }
     location = url;
+    return;
   }
-  let heading = searchParams.get('heading');
-  let filename = searchParams.get('filename');
   setPanelContent(manual, heading, filename);
   // add the highlight class for the selected index item
   this.parentElement.classList.add("article-active");
@@ -102,7 +118,7 @@ let getPage = function(event) {
 setlinks();
 
 function setlinks() {
-    let links = document.querySelectorAll('a[href*="filename="]');
+    let links = document.querySelectorAll('a[href*="jdocmanual"]');
     for (let i = 0; i < links.length; i += 1) {
         links[i].addEventListener('click', getPage, false);
     }
@@ -185,7 +201,8 @@ function setIndexLocation () {
 }
 
 function menuHighlight(heading, filename) {
-  let link = document.querySelector('a[href*="heading=' + heading + '&filename=' + filename + '"]');
+  filename = filename.replace('.md', '');
+  let link = document.querySelector('a[href*="/' + heading + '/' + filename + '"]');
   link.parentElement.classList.add("article-active");
   // Expand the nearest <details> tag.
   el = link.closest("details");
