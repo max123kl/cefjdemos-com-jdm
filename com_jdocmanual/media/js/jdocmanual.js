@@ -88,10 +88,10 @@ let getPage = function(event) {
   let heading = '';
   let filename = '';
 if (!manual) {
-    let sp = searchParams.get('article');
-    manual = sp.split('/')[0];
-    heading = sp.split('/')[1];
-    filename = sp.split('/')[2] + '.md';
+    let sp = searchParams.get('article').split('/');
+    manual = sp[0];
+    heading = sp[1];
+    filename = sp[2].split('.')[0] + '.md';
   } else {
     heading = searchParams.get('heading');
     filename = searchParams.get('filename');
