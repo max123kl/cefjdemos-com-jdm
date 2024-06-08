@@ -83,15 +83,27 @@ let getPage = function(event) {
   let url = new URL(this);
   let paramsString = url.search;
   let searchParams = new URLSearchParams(paramsString);
+  // First check for change of index or page language
+  if (searchParams.get('index_language_code')) {
+    location = url;
+    return;
+  }
+  if(searchParams.get('page_language_code')) {
+    location = url;
+    return;
+  }
   // the manual maybe in article=user/ or in manual=user
   let manual = searchParams.get('manual');
   let heading = '';
   let filename = '';
-if (!manual) {
-    let sp = searchParams.get('article').split('/');
-    manual = sp[0];
-    heading = sp[1];
-    filename = sp[2].split('.')[0] + '.md';
+  if (!manual) {
+    let article = searchParams.get('article');
+    if (article) {
+        sp = article.split('/');
+        manual = sp[0];
+        heading = sp[1];
+        filename = sp[2].split('.')[0] + '.md';
+    }
   } else {
     heading = searchParams.get('heading');
     filename = searchParams.get('filename');
