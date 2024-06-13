@@ -3,9 +3,9 @@
         <element>com_jdocmanual</element>
         <type>component</type>
         <version>3.1.3</version>
-        <add>
+        <addition>
             <item>Added fontawesome to proxy.</item>
-        </add>
+        </addition>
     </changelog>
     <changelog>
         <element>com_jdocmanual</element>
