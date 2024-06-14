@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>3.2.0</version>
+        <fix>
+            <item>Change language code pt-br to ptbr. Requires new download of manuals.</item>
+        </fix>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>3.1.4</version>
         <fix>
             <item>Set local image count to zero for each language.</item>

@@ -19,12 +19,13 @@ use Joomla\CMS\Router\Route;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
+    ->useScript('form.validate')
     ->useScript('com_jdocmanual.jdocmanual');
 
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_jdocmanual&layout=edit&id=' . (int) $this->item->id); ?>" 
-    method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
+<form action="<?php echo Route::_('index.php?option=com_jdocmanual&layout=edit&id=' . (int) $this->item->id); ?>"
+    method="post" name="adminForm" id="adminForm" enctype="multipart/form-data" class="form-validate">
 
     <?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 

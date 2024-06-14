@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `#__jdm_articles` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   `html` mediumtext COLLATE utf8mb4_unicode_ci,
-  `order_next` text COLLATE utf8mb4_unicode_ci, 
+  `order_next` text COLLATE utf8mb4_unicode_ci,
   `order_previous` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `state` (`state`),
@@ -61,7 +61,7 @@ INSERT IGNORE INTO `#__jdm_languages` (`id`, `code`, `title`, `index_language`, 
 (4, 'de', 'German', 1, 1, 0, 0, 1),
 (5, 'es', 'Spanish', 1, 1, 0, 0, 1),
 (6, 'pt', 'Portuguese', 1, 1, 0, 0, 1),
-(7, 'pt-br', 'Portuguese-Brazil', 1, 1, 0, 0, 1),
+(7, 'ptbr', 'Portuguese-Brazil', 1, 1, 0, 0, 1),
 (8, 'ru', 'Russian', 1, 1, 0, 0, 1);
 
 CREATE TABLE IF NOT EXISTS `#__jdm_manuals` (

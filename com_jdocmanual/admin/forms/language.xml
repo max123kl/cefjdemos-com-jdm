@@ -17,8 +17,9 @@
 			label="COM_JDOCMANUAL_LANGUAGE_CODE_LABEL"
 			description="COM_JDOCMANUAL_LANGUAGE_CODE_DESC"
 			required="true"
+            pattern="[a-z]{2,4}"
 		/>
-		
+
 		<field
 			name="index_language"
 			type="radio"
