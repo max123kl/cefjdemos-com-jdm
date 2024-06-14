@@ -184,6 +184,7 @@ class Buildarticles
                 }
                 if (is_dir($this->gfmfiles_path . $manual . '/articles/' . $language)) {
                     $headings = $this->setMenuHeadings($manual, $language);
+                    $this->local_image_count = 0;
                     list ($count, $problems) = $this->html4lingo($manual, $language);
                     $summary .= "Summary: {$manual}/{$language} Number of articles: {$count}";
                     $summary .= ", Number of local images: {$this->local_image_count}, {$headings}";
