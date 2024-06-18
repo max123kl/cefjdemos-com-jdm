@@ -394,7 +394,8 @@ class Buildarticles
             file_put_contents($destination, file_get_contents($origin));
 
             // Create an img src set and set of images from an img tag.
-            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' . $match[3] . '" alt="' . $match[1] . '" title="' . $match[4] . '">';
+            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' . $match[3] . '" alt="' . $match[1] .
+            '" title="' . $match[4] . '" class="screenshot">';
             $processed = $this->responsive->transformImage($img);
             if (!empty($processed)) {
                 $contents = str_replace($match[0], $processed, $contents);
