@@ -10,7 +10,7 @@ if (pageid === '0') {
     let manual = document.getElementById('jform_manual');
     let filename = document.getElementById('jform_filename');
     let heading = document.getElementById('jform_heading');
-    let prefix = 'jdocmanual?manual=';
+    let prefix = 'jdocmanual?article=';
 
     displaytitle.addEventListener('change', function() {
         // If the jform_page_id is not 0 do not change the source_url.
@@ -19,6 +19,10 @@ if (pageid === '0') {
         displaytitle.value = displaytitle.value.trim();
         // Space replaced by underline.
         sourceurl.value = displaytitle.value.replaceAll(' ', '_');
+        // Create the first stash line
+        let firstline = document.getElementsByClassName('cm-line')[0];
+        firstline.innerHTML = '&lt;!-- Filename: Help6.x:' + sourceurl.value + ' / ' + 'Display title: ' + displaytitle.value + ' --&gt;';
+
         // Lower case.
         let tmp = sourceurl.value.toLowerCase();
         // Replace non alpha-numeric with dash
@@ -29,10 +33,7 @@ if (pageid === '0') {
         tmp = tmp.replace(/^-/, '');
         tmp = tmp.replace(/-$/, '');
         filename.value = tmp + '.md'
-        sourceurl.value = prefix + manual.value + '&heading=' + heading.value + '&filename=' + filename.value;
-        // Select the first stash line
-        let firstline = document.getElementsByClassName('cm-line')[0];
-        firstline.innerHTML = '&lt;!-- Display title: ' + displaytitle.value + ' --&gt;';
+        sourceurl.value = prefix + manual.value + '/' + heading.value + '/' + filename.value;
     });
 
     heading.addEventListener('change', function() {
@@ -47,7 +48,7 @@ if (pageid === '0') {
         tmp = tmp.replace(/^-/, '');
         tmp = tmp.replace(/-$/, '');
         heading.value = tmp;
-        sourceurl.value = prefix + manual.value + '&heading=' + heading.value + '&filename=' + filename.value;
+        sourceurl.value = prefix + manual.value + '/' + heading.value + '/' + filename.value;
     });
 }
 

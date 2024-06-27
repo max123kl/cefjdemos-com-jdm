@@ -7,31 +7,38 @@ installation and many of the images used here are delivered from that
 source.
 
 The data for Jdocmanual are located on GitHub in GitHub Flavoured
-Markdown format. Four manuals are available in separate GitHub
-repositories. You can choose which to install.
+Markdown format. Four manuals are available in English and several 
+other languages. Each manual and language is in a separate repository 
+to make it easier for individuals to work with a limited number of 
+languages.
 
-Version 3 of Jdocmanual is not compatible with previous versions. Any previous
-version should be uninstalled before installing this new version.
+Version 4 of Jdocmanual is not compatible with versions prior to Version 3. 
+Any previous version should be uninstalled before installing this new version.
+
+## Installation Procedure
+
+Install and enable Jdocmanual as you would any other Joomla extension. It can
+be obtained from:
+
+
 
 ## In brief
 
-- Install one or more data sets
-  - **developer:** Information for Joomla developers.
-    source: https://github.com/ceford/cefjdemos-data-jdm-developer
-  - **docs:** Information for those contributing to Joomla
-    Documentation.
-    source: https://github.com/ceford/cefjdemos-data-jdm-docs
-  - **help:** The Help screens used for the Administrator pages.
-    source: https://github.com/ceford/cefjdemos-data-jdm-help
-  - **user:** Information for Joomla users with limited familiarity with
-    HTML, CSS and JavaScript.
-    source: https://github.com/ceford/cefjdemos-data-jdm-user
+- Install one or more data sets using this example pattern for the Help 
+  screens used for the Administrator pages.
+  - source: https://github.com/ceford/cefjdemos-data-jdm-help-en
+  - source: https://github.com/ceford/cefjdemos-data-jdm-help-de
 
-  Install the data in a folder ending in `/manuals/` outside your web
-  tree.
-  Example: `/home/username/data/manuals/`
-  An unzipped folder should be given the short name of the manual: one
-  of developer, docs, help or user.
+  The English version **MUST** be installed as it contains file and menu 
+  indexes. Other languages are optional: de, es, fr, nl, ptbr and ru.
+
+  The pattern is repeated for each Manual, one of developer, docs, help and user.
+
+  Install the data in a folder ending in `/manuals/[manual name]/` outside 
+  your web tree.
+  Example: `/home/username/data/manuals/help/`
+  An unzipped folder should be given the short name of the language: one
+  of en, de, es, fr, nl, ptbr or ru.
 - Set the dataset path and installation subfolder (if required) in the
   Jdocmanual Options page.
 - Build your database articles and menus: select the

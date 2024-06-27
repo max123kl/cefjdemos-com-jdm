@@ -148,7 +148,7 @@ class HtmlView extends BaseHtmlView
         ToolbarHelper::title(Text::_('COM_JDOCMANUAL_ARTICLES_STASHES'), 'code-branch');
 
         // Only show the New button if the selected language is English.
-        if ($this->state->get('filter.language') == 'en') {
+        if ($this->state->get('filter.language') == 'en'  && $this->state->get('filter.manual') != 'help') {
             $toolbar->addNew('articlestash.add');
         }
 

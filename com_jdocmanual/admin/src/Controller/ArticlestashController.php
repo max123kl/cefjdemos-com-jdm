@@ -310,16 +310,16 @@ class ArticlestashController extends FormController
                 $gfmfiles_path = $params->get('gfmfiles_path');
 
                 // check that the folder exists
-                $folder_path = $data['manual'] . '/articles/' . $data['language'] . '/' . $data['heading'];
+                $folder_path = $data['manual'] . '/' . $data['language'] . '/articles/' . $data['heading'];
                 if (!file_exists($gfmfiles_path . $folder_path)) {
                     mkdir($gfmfiles_path . $folder_path);
                 }
 
-                $repo_item_path = $data['manual'] . '/articles/' . $data['language'] .
-                    '/' . $data['heading'] . '/' . $data['filename'];
+                $repo_item_path = $data['manual'] . '/' . $data['language'] .
+                    '/articles/' . $data['heading'] . '/' . $data['filename'];
                 $filepath = $params->get('gfmfiles_path') . $repo_item_path;
                 // .git is in the parent folder
-                $gitpath = $params->get('gfmfiles_path') . '/' . $data['manual'];
+                $gitpath = $params->get('gfmfiles_path') . $data['manual'] . '/' . $data['language'];
 
                 // Send an appropriate message.
                 if (empty(file_put_contents($filepath, $data['markdown_text']))) {
@@ -357,11 +357,11 @@ class ArticlestashController extends FormController
                             " Response:  {$result}"
                         );
 
-                        // If this is a new article make an entry in articles-index.txt
+                        // If this is a new article make an entry in en/articles-index.txt
                         if (empty($existing_page_id)) {
-                            // Example: jdocmanual=Menu_Items=menu-items.md
+                            // Example: manual=heading=menu-items.md
                             $new_entry = $data['heading'] . '=' . $data['filename'] . '=' . $data['source_url'] ."\n";
-                            $append_to = $gfmfiles_path . '/' . $data['manual'] . '/articles/articles-index.txt';
+                            $append_to = $gfmfiles_path . '/' . $data['manual'] . '/en/articles-index.txt';
                             $result = file_put_contents($append_to, $new_entry, FILE_APPEND);
                             // No messages for now?
                             if (empty($result)) {
@@ -376,6 +376,9 @@ class ArticlestashController extends FormController
                             } catch (PDOException $e) {
                                 // Carry on...
                             }
+
+                            // Output an entry to the menu-index.txt file
+
                         }
 
                         // Here, delete the stash.

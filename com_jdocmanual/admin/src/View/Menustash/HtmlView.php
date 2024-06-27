@@ -86,7 +86,7 @@ class HtmlView extends BaseHtmlView
             return false;
         }
 
-        $source = file_get_contents($basepath . '/' . $this->item->manual . '/articles/menu-index.txt');
+        $source = file_get_contents($basepath . '/' . $this->item->manual . '/en/menu-index.txt');
 
         $this->form->setValue('source', null, $source);
         require_once(JPATH_COMPONENT . '/src/Helper/diffoptions.php');

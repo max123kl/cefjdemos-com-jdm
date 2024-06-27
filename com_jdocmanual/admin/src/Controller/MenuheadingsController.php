@@ -176,7 +176,7 @@ class MenuheadingsController extends AdminController
                 $query->insert($db->quoteName('#__jdm_menu_headings'));
 
                 // Read in the menu-headings.ini file
-                $path = "{$gfmfiles_path}{$manual}/{$language}/menu-headings.ini";
+                $path = "{$gfmfiles_path}{$manual}/{$language}/articles/menu-headings.ini";
                 $menu_headings = file_get_contents($path);
                 $lines = preg_split("/((\r?\n)|(\r\n?))/", $menu_headings);
 
@@ -243,11 +243,11 @@ class MenuheadingsController extends AdminController
                 $contents .= "{$row->heading}={$row->display_title}\n";
                 $count += 1;
             }
-            $path = $gfmfiles_path . "{$manual}/{$language}/menu-headings.ini";
+            $path = $gfmfiles_path . "{$manual}/{$language}/articles/menu-headings.ini";
             file_put_contents($path, $contents);
 
             $this->app->enqueueMessage(
-                "Result: {$count} lines written to [data root]/{$manual}/{$language}/menu-headings.ini.",
+                "Result: {$count} lines written to [data root]/{$manual}/{$language}/articles/menu-headings.ini.",
                 'success'
             );
         }

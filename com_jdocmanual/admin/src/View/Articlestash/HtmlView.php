@@ -314,7 +314,7 @@ class HtmlView extends BaseHtmlView
             '/',
             array(
                 $this->item->manual,
-                'articles/en',
+                'en/articles',
                $this->item->heading,
                $this->item->filename
             )
@@ -345,7 +345,7 @@ class HtmlView extends BaseHtmlView
         // Get the last two commit hashes of a specific file.
         // git log -n 2 --pretty=format:%H  -- manuals/help/en/articles/articles.md
         // edf40a05aeffe81751fef2b9e5eea0780452c1da
-        $file_path = $basepath . $this->item->manual . '/en/' . $this->item->heading . '/' . $this->item->filename;
+        $file_path = $basepath . $this->item->manual . '/en/articles/' . $this->item->heading . '/' . $this->item->filename;
 
         // Set a default value.
         $this->english_diff = '';
@@ -357,7 +357,7 @@ class HtmlView extends BaseHtmlView
         }
 
         $repopath = str_replace('manuals/', '', $basepath);
-        $repo_item_path = 'manuals/' . $this->item->manual . '/en/' . $this->item->heading . '/' . $this->item->filename;
+        $repo_item_path = 'manuals/' . $this->item->manual . '/en/articles/' . $this->item->heading . '/' . $this->item->filename;
         $command = "cd {$repopath}; git log -n 2 --pretty=format:%H -- {$repo_item_path};";
         $result = exec($command, $output, $result_code);
 

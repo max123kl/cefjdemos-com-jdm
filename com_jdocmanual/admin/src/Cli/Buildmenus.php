@@ -131,22 +131,22 @@ class Buildmenus
             }
             $count = 0;
             // Read in menu-index.txt
-            $menu_index = $this->gfmfiles_path . $manual . '/articles/menu-index.txt';
+            $menu_index = $this->gfmfiles_path . $manual . '/en/menu-index.txt';
             if (!file_exists($menu_index)) {
-                $this->summary .= "Skipping {$manual} - file does not exists: {$menu_index}\n";
+                $this->summary .= "Skipping {$manual} - file does not exists: /en/{$menu_index}\n";
                 continue;
             }
             // Read in the menu_index
             $this->menu_index = file_get_contents($menu_index);
 
             // Get a list of the language folders in a manual
-            $languages = array_diff(scandir($this->gfmfiles_path . $manual . '/articles'), array('..', '.', '.DS_Store'));
+            $languages = array_diff(scandir($this->gfmfiles_path . $manual), array('..', '.', '.DS_Store'));
             foreach ($languages as $language) {
                 // Skip if not all languages are being updated
                 if (!($this->languagetodo === 'all' || $this->languagetodo === $language)) {
                     continue;
                 }
-                if (is_dir($this->gfmfiles_path . $manual . '/articles/' . $language)) {
+                if (is_dir($this->gfmfiles_path . $manual . '/' . $language . '/articles/')) {
                     $count += $this->menu4lingo($manual, $language);
                 }
                 // For testing
@@ -172,11 +172,11 @@ class Buildmenus
         $db = $this->db;
 
         // Read in the menu-headings.ini file for this language
-        $menu_headings = $this->gfmfiles_path . $manual . '/articles/' . $language . '/menu-headings.ini';
+        $menu_headings = $this->gfmfiles_path . $manual . '/' . $language . '/articles/menu-headings.ini';
         if (!file_exists($menu_headings)) {
             // If the language menu headings file is missing use the English menu headings
             $this->summary .=  "Warning {$manual}/{$language} - file does not exist: {$menu_headings}\n";
-            $menu_headings = $this->gfmfiles_path . $manual . '/articles/en/menu-headings.ini';
+            $menu_headings = $this->gfmfiles_path . $manual . '/en/articles/menu-headings.ini';
         }
 
         // Read in the menu_index, format: advanced-administrator=Erweiterter Administrator

@@ -284,12 +284,12 @@ class MenustashController extends FormController
                 $gfmfiles_path = $params->get('gfmfiles_path');
 
                 // check that the folder exists
-                $folder_path = $data['manual'] . '/articles/' . $data['language'] . '/' . $data['heading'];
+                $folder_path = $data['manual'] . '/' . $data['language'] . '/articles/' . $data['heading'];
                 if (!file_exists($gfmfiles_path . $folder_path)) {
                     mkdir($gfmfiles_path . $folder_path);
                 }
 
-                $repo_item_path = $data['manual'] . '/articles/menu-index.txt';
+                $repo_item_path = $data['manual'] . '/' . $data['language'] . '/articles/menu-index.txt';
                 $filepath = $gfmfiles_path . $repo_item_path;
                 // .git is in the parent folder
                 $gitpath = $gfmfiles_path . $data['manual'];

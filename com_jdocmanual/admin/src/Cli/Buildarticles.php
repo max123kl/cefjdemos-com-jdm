@@ -46,10 +46,9 @@ class Buildarticles
      * First bracket is alt text.
      * Second bracket is img url to be added to root/manual/
      * Third bracket is filename
-     * Fourth bracket is title.
+     * Fourth bracket is title or empty
      */
-    protected $pattern = '/\!\[(.*?)\]\(..\/..\/..(\/.*)?\/(.*?)\s"(.*?)".*\)/m';
-
+    protected $pattern = '/\!\[(.*?)\]\(..\/..\/..(\/.*)?\/(.*?\.png|.*?\.jpg)(.*)\)/m';
     /**
      * Regex pattern to select Display title from GFM comment string.
      *
@@ -167,7 +166,7 @@ class Buildarticles
             }
 
             // Read in articles-index.txt - changed to new format ini
-            $articles_index = $this->gfmfiles_path . $manual . '/articles/articles-index.txt';
+            $articles_index = $this->gfmfiles_path . $manual . '/en/articles-index.txt';
             if (!file_exists($articles_index)) {
                 $summary .= "Skipping {$manual} - file does not exist: {$articles_index}\n";
                 continue;
@@ -176,13 +175,16 @@ class Buildarticles
             $this->tmp = file_get_contents($articles_index);
 
             // Get a list of the language folders in a manual
-            $languages = array_diff(scandir($this->gfmfiles_path . $manual . '/articles'), array('..', '.', '.DS_Store'));
+            $languages = array_diff(scandir($this->gfmfiles_path . $manual), array('..', '.', '.DS_Store'));
             foreach ($languages as $language) {
+                if (!is_dir($this->gfmfiles_path . $manual . '/' . $language)) {
+                    continue;
+                }
                 // Skip of not all languages are being updated
                 if (!($this->languagetodo === 'all' || $this->languagetodo === $language)) {
                     continue;
                 }
-                if (is_dir($this->gfmfiles_path . $manual . '/articles/' . $language)) {
+                if (is_dir($this->gfmfiles_path . $manual . '/' . $language .'/articles/')) {
                     $headings = $this->setMenuHeadings($manual, $language);
                     $this->local_image_count = 0;
                     list ($count, $problems) = $this->html4lingo($manual, $language);
@@ -198,7 +200,7 @@ class Buildarticles
     protected function setMenuHeadings($manual, $language)
     {
         // Get the menu headings file
-        $menu_headings_file = $this->gfmfiles_path . $manual . '/articles/' . $language . '/menu-headings.ini';
+        $menu_headings_file = $this->gfmfiles_path . $manual . '/' . $language . '/articles/menu-headings.ini';
         if (!file_exists($menu_headings_file)) {
             return 'Menu headings missing: ' . $menu_headings_file . "\n";
         }
@@ -272,7 +274,7 @@ class Buildarticles
             }
             list ($heading, $filename, $source_url) = explode('=', $line);
 
-            $gfm_file = $this->gfmfiles_path . $manual . '/articles/' . $language . '/' . $heading . '/' . $filename;
+            $gfm_file = $this->gfmfiles_path . $manual . '/' . $language . '/articles/' . $heading . '/' . $filename;
             if (!file_exists($gfm_file)) {
                 continue;
             }
@@ -373,14 +375,14 @@ class Buildarticles
     private function fiximages($manual, $contents)
     {
         // links are like this and must be on one line
-        // ![action logs module form](../../../images/help/en/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
+        // ![action logs module form](../../../help/en/images/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
         $test = preg_match_all($this->pattern, $contents, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             // $match[0] is the whole line to be replaced with a picture tag.
             // $match[1] is the alt tag.
             // $match[2] is the path to the image in the repo source
             // $match[3] is the image filename
-            // $match[4] is the title.
+            // $match[4] is the title or empty.
 
             // Copy the image to the images folder.
             $destination_dir = JPATH_ROOT . '/jdmimages/manuals/' . $manual . $match[2];
@@ -393,9 +395,15 @@ class Buildarticles
             $origin = $this->gfmfiles_path . $manual . $match[2] . '/' . $match[3];
             file_put_contents($destination, file_get_contents($origin));
 
+            $title = '';
+            if (!empty($match[4])) {
+                list ($gar, $title, $bage) = explode('"', $match[4]);
+                $title = ' title="' . $title . '"';
+            }
             // Create an img src set and set of images from an img tag.
-            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' . $match[3] . '" alt="' . $match[1] .
-            '" title="' . $match[4] . '" class="screenshot">';
+            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' . 
+            $match[3] . '" alt="' . $match[1] . '"' .
+            $title . ' class="screenshot">';
             $processed = $this->responsive->transformImage($img);
             if (!empty($processed)) {
                 $contents = str_replace($match[0], $processed, $contents);
