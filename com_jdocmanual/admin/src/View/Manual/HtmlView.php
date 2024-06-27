@@ -228,6 +228,12 @@ class HtmlView extends BaseHtmlView
 
             $layout = new FileLayout('toolbar.toggle-joomla-menu', JPATH_COMPONENT_ADMINISTRATOR . '/layouts');
             $childBar->appendButton('Custom', $layout->render([]), 'toggle-joomla-menu');
+
+            $childBar->linkButton('notes')
+            ->text('Installation notes')
+            ->buttonClass('install-notes')
+            ->url('index.php?option=com_jdocmanual&view=manual&&layout=notes')
+            ->icon('icon-bookmark');
         } else {
             ToolbarHelper::title('Installation Notes', 'book');
         }

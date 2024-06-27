@@ -78,7 +78,11 @@ let getPage = function(event) {
   event.preventDefault();
   // get the current manual
   let jdmcur = getCookie('jdmcur');
-  let curmanual = jdmcur.split('-')[0];
+  // Set a default current manual.
+  let curmanual = 'user';
+  if (jdmcur) {
+    curmanual = jdmcur.split('-')[0];
+  }
   // this contains the full url of the link
   let url = new URL(this);
   let paramsString = url.search;
@@ -227,10 +231,12 @@ function menuHighlight(heading, filename) {
 document.addEventListener('DOMContentLoaded', function(event) {
   // Get the heading and filename from the cookies.
   let jdmcur = getCookie('jdmcur');
-  let manual = 'jdm' + jdmcur.split('-')[0];
-  let handf = getCookie(manual).split('--');
-  menuHighlight(handf[0], handf[1]);
-  setIndexLocation();
+  if (jdmcur) {
+    let manual = 'jdm' + jdmcur.split('-')[0];
+    let handf = getCookie(manual).split('--');
+    menuHighlight(handf[0], handf[1]);
+    setIndexLocation();  
+  }
 });
 
 window.addEventListener('resize', setIndexLocation);
