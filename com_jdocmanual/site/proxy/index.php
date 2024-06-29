@@ -28,7 +28,9 @@ require_once __DIR__ . '/key-index.php';
 list ($version, $key) = explode(':', $keyref, 2);
 
 // Check the $version is Help4x or Help5x or
-if (!(strpos($version, 'Help4') === 0 || strpos($version, 'Help5') === 0)) {
+if (!(strpos($version, 'Help4') === 0 ||
+    strpos($version, 'Help5') === 0 ||
+    strpos($version, 'Help6') === 0)) {
     echo "\nThere is no Help data available here for Joomla version {$version}\n";
     exit();
 }
