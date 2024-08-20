@@ -41,6 +41,9 @@ class InthispageHelper
         }
         $content = $dom->saveHTML();
 
+        // Seems to be a bug that inserts </source></source> in picture tags.
+        $content = str_replace('</source></source>', '', $content);
+
         // Remove the xml statement added above.
         $content = str_replace('<?xml encoding="utf-8" ?>', '', $content);
 

@@ -35,7 +35,7 @@ class Responsive
     private $qualityAVIF    = 40;
     private $scaleUp        = false;
     private $driver         = 'gd';
-    private $validSizes     = [320, 768, 1200];
+    private $validSizes     = [576, 768, 992, 1200];
     private $validExt       = ['jpg', 'jpeg', 'png']; // 'webp', 'avif'
     private $breakpoints;
 
@@ -145,21 +145,22 @@ class Responsive
         if (isset($srcSets->avif) && count($srcSets->avif->srcset) > 0) {
             $srcSetAvif = $this->getSrcSets($srcSets->avif->srcset);
             if ($srcSetAvif !== '') {
-                $output .= '<source type="image/avif"  srcset="' . $base . '/' . $srcSetAvif . '" ' . $sizesAttr . '>';
+                $output .= '<source type="image/avif"  srcset="' . $srcSetAvif . '" ' . $sizesAttr . '>';
             }
         }
 
         if (isset($srcSets->webp) && count($srcSets->webp->srcset) > 0) {
             $srcSetWebp = $this->getSrcSets($srcSets->webp->srcset);
             if ($srcSetWebp !== '') {
-                $output .= '<source type="image/webp" srcset="' . $base . '/' . $srcSetWebp . '"' . $sizesAttr . '>';
+                $output .= '<source type="image/webp" srcset="' . $srcSetWebp . '"' . $sizesAttr . '>';
             }
         }
 
         $srcSetOrig = $this->getSrcSets($srcSets->base->srcset);
         if ($srcSetOrig !== '') {
-            $output .= '<source type="image/' . $type . '" srcset="' . $base . '/' . $srcSetOrig . '"' . $sizesAttr . '>';
+            $output .= '<source type="image/' . $type . '" srcset="' . $srcSetOrig . '"' . $sizesAttr . '>';
         }
+        $output = str_replace('jdmimages/', $base . '/' . 'jdmimages/', $output);
 
         $heightMatches = [];
         $widthMatches  = [];
@@ -189,7 +190,7 @@ class Responsive
 
         $image->tag = preg_replace('(src="(.*?)")', 'src="' . $base . $image->dirname . '/' . $image->filename . '.' . $image->extension . '"', $image->tag);
 
-      // Create the fallback img
+        // Create the fallback img
         return  $output . $image->tag . '</picture>';
     }
 
@@ -375,3 +376,4 @@ class Responsive
         return $formated;
     }
 }
+
