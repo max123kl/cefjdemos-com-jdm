@@ -266,7 +266,7 @@ class Buildarticles
         $summary = '';
 
         // Set the time limit for every manual and language
-        set_time_limit(120);
+        set_time_limit(180);
 
         foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->tmp) as $line) {
             if (empty($line)) {
@@ -393,6 +393,15 @@ class Buildarticles
                 mkdir($destination_dir, 0755, true);
             }
             $origin = $this->gfmfiles_path . $manual . $match[2] . '/' . $match[3];
+
+            // Check whether the origin is younger than the destination
+            $mtime_origin = filemtime($origin);
+            $mtime_destination = filemtime($destination);
+            if ($mtime_destination && $mtime_destination > $mtime_origin) {
+                // Origin has not been modified so skip re-creation.
+                continue;
+            }
+
             file_put_contents($destination, file_get_contents($origin));
 
             $title = '';
@@ -401,7 +410,7 @@ class Buildarticles
                 $title = ' title="' . $title . '"';
             }
             // Create an img src set and set of images from an img tag.
-            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' . 
+            $img = '<img src="/jdmimages/manuals/' . $manual . $match[2] . '/' .
             $match[3] . '" alt="' . $match[1] . '"' .
             $title . ' class="screenshot">';
             $processed = $this->responsive->transformImage($img);
