@@ -1,7 +1,7 @@
 ## Installation Notes
 
 Jdocmanual is designed to deliver Joomla documentation in an easy to use
-reference form. It can also be used for other custom documentation. 
+reference form. It can also be used for other custom documentation.
 
 Jdocmanual consists of two parts:
 
@@ -10,7 +10,7 @@ Jdocmanual consists of two parts:
   eight languages available. You only need one to get started but the process
   is so easy you may as well get the English data for all manuals.
 
-Version 4 of Jdocmanual is not compatible with previous versions. Any previous 
+Version 4 of Jdocmanual is not compatible with previous versions. Any previous
 version should have the #\_\_jdm_articles and #\_\_jdm_menus tables emptied.
 
 ## Jdocmanual Installation
@@ -21,20 +21,20 @@ be obtained from:
 https://github.com/ceford/cefjdemos-com-jdm
 
 Select the green **Code** button and then the **Download ZIP** item. Save the
-ZIP file in your Downloads directory. In your Joomla installation select 
+ZIP file in your Downloads directory. In your Joomla installation select
 System > Install > Extensions and then select the **Upload Package File** tab.
 
 You will also need the Jdocmanualcli plugin. It used to run data installation
-commands from the command line with a little more flexibility than the 
+commands from the command line with a little more flexibility than the
 Jdocmanual component within Joomla. It can be obtained from:
 
 https://github.com/ceford/cefjdemos-plg-jdocmanualcli
 
 Install and enable the plugin.
 
-## Data Files 
+## Data Files
 
-The data files should be located in your filespace but outside your 
+The data files should be located in your filespace but outside your
 website tree. The parent directory must be named **Manuals**. This is
 a suggested Linux structure:
 ```
@@ -44,8 +44,44 @@ a suggested Linux structure:
 /home/username/manuals/user/
 /home/username/public_html (where your Joomla website is located)
 ```
-Obtain the English data files for each manual from the GitHub. You can 
-download ZIP files or use git clone:
+Obtain the English data files for each manual from the GitHub. You can
+download ZIP files or use git clone.
+
+This is a set of commands to use for git clone for English and German:
+```
+    cd /home/username
+    mdkdir manuals
+    cd manuals
+    mkdir developer
+    mkdir docs
+    mkdir help
+    mkdir user
+
+    cd help
+
+    git clone https://github.com/ceford/cefjdemos-data-jdm-help-en
+    mv cefjdemos-data-jdm-help-en en
+    clone https://github.com/ceford/cefjdemos-data-jdm-help-de
+    mv cefjdemos-data-jdm-help-de de
+
+    cd ../developer
+    git clone https://github.com/ceford/cefjdemos-data-jdm-developer-en
+    mv cefjdemos-data-jdm-developer-en en
+    git clone https://github.com/ceford/cefjdemos-data-jdm-developer-de
+    mv cefjdemos-data-jdm-developer-de de
+
+    cd ../docs
+    git clone https://github.com/ceford/cefjdemos-data-jdm-docs-en
+    mv cefjdemos-data-jdm-docs-en en
+
+    cd ../user
+    git clone https://github.com/ceford/cefjdemos-data-jdm-user-en
+    mv cefjdemos-data-jdm-user-en en
+    git clone https://github.com/ceford/cefjdemos-data-jdm-user-de
+    mv cefjdemos-data-jdm-user-de de
+```
+
+These are the links to download ZIP files in English:
 
 * https://github.com/ceford/cefjdemos-data-jdm-developer-en
 * https://github.com/ceford/cefjdemos-data-jdm-docs-en
@@ -56,8 +92,8 @@ Unpack each in its appropriate directory. For example, unpack the .../user/en
 data set in the manuals/user/ directory. You will get a folder with the same
 name as the repository
 
-**Change the name of the folder** to the **language** abbreviation. You 
-should end up with a directort structure like this:
+**Change the name of the folder** to the **language** abbreviation. You
+should end up with a directory structure like this:
 ```
 /home/username/manuals/user/en/articles/
 /home/username/manuals/user/en/images/
@@ -66,11 +102,11 @@ should end up with a directort structure like this:
 ```
 If you add data for another language it will follow the same pattern, except
 that the articles-index.txt and menus-index.txt files are only present in the
-in the **/en/** folder. 
+in the **/en/** folder.
 
 ## Jdocmanual Configuration
 
-From the Administrator menu open the Jdocmanual > Manual page. Until the 
+From the Administrator menu open the Jdocmanual > Manual page. Until the
 component is properly configured you will see this **Installation Notes**
 page.
 
@@ -79,7 +115,7 @@ page.
 ```
 /home/username/manuals/
 ```
-* If your website is in a sub-directory then enter the sub-directory name 
+* If your website is in a sub-directory then enter the sub-directory name
 with a leading slash, for example /jdm4.
 * Save & Close
 
@@ -93,14 +129,14 @@ the User Manual:
 * Select the **Jooomla User Manual** to open its Edit page.
 * Change the *Status* to **Publihsed** and **Save**
 * From the *Actions* dropdown list select **Build Articles**. This may take
-  a long time and the only indicator is busy icon in the browser tab. Be 
+  a long time and the only indicator is busy icon in the browser tab. Be
   patient for 2 minutes or so. Jdocmanual will build all of the articles in
   all of the available languages and it will create responsive images in a
   variety of sizes. There will be a summary message, which include problem
   reports.
-* From the *Actions* dropdown list select **Build Menus**. This is much 
+* From the *Actions* dropdown list select **Build Menus**. This is much
   quicker.
-* For the *Help* Manual only, select **Build Proxy**. This is very quick. It 
+* For the *Help* Manual only, select **Build Proxy**. This is very quick. It
   builds files to use as your own Help server. To use it, edit your
   configuration.php and change the `$helpurl` domain name to that of this
   Joomla installation.
@@ -117,7 +153,7 @@ From time to time there will be updates to the Jdocmanual data files. You
 can download the source files and repeat the data installation process:
 build the articles and menus **in that order**. This is very easy to do
 with **git**: just do `git pull` in the appropriate language folder, the
-switch to the *cli* folder and run the cli commands. You can build a cron job 
+switch to the *cli* folder and run the cli commands. You can build a cron job
 to do this.
 
 ## Build Articles and Menus - Command Line Method
@@ -141,7 +177,7 @@ Proceed as follows:
 
 In these commands, **user** is the name of the manual to be processed and
 **all** is a language specifier, which might be a single such as **en** or
-**all** languages. 
+**all** languages.
 
 The Markdown format is converted to HTML and stored in the database. Also,
 if there are any images in the data source a set of 6 responsive images
@@ -157,7 +193,7 @@ database manual by manual and/or language by language.
 If you do not have access to the command line, common with shared
 hosting, you should be able to call these commands from a cron job. Make
 sure you give the full path to the php executable, example:
-`/usr/local/opt/php@8.1/bin/php`. You need to find out where the php 
+`/usr/local/opt/php@8.1/bin/php`. You need to find out where the php
 executable is located on your host operating system.
 
 ## Site Menu
