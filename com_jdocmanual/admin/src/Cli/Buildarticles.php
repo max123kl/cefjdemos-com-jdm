@@ -396,7 +396,7 @@ class Buildarticles
 
             // Check whether the origin is younger than the destination
             $mtime_origin = filemtime($origin);
-            $mtime_destination = filemtime($destination);
+            $mtime_destination = @filemtime($destination);
             if ($mtime_destination && $mtime_destination > $mtime_origin) {
                 // Origin has not been modified so skip re-creation.
                 $new_image = false;
