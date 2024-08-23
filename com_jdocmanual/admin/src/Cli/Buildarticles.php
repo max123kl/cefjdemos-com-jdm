@@ -266,7 +266,7 @@ class Buildarticles
         $summary = '';
 
         // Set the time limit for every manual and language
-        set_time_limit(240);
+        set_time_limit(300);
 
         foreach (preg_split("/((\r?\n)|(\r\n?))/", $this->tmp) as $line) {
             if (empty($line)) {
