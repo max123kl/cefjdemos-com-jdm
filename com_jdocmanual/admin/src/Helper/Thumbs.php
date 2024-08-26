@@ -37,7 +37,7 @@ class Thumbs
             if ($options->scaleUp || ($img->width >= (int) $options->validSizes[$i])) {
                 $fileSrc = $img->dirname . '/' . $img->filename . $options->separator . trim($options->validSizes[$i]);
 
-        // Load the image
+                // Load the image
                 if ($img->type === 'jpeg') {
                     ini_set('gd.jpeg_ignore_warning', 1);
                     $sourceImage = \imagecreatefromjpeg(JPATH_ROOT . '/' . $img->dirname . '/' . $img->filename . '.' . $img->extension);
@@ -53,14 +53,14 @@ class Thumbs
                 $orgHeight   = \imagesy($sourceImage);
                 $thumbHeight = floor($orgHeight * ((int) $options->validSizes[$i] / $orgWidth));
                 $destImage   = \imagecreatetruecolor((int) $options->validSizes[$i], $thumbHeight);
-        // Retain the alpha data
+                // Retain the alpha data
                 if ($img->type === 'png') {
                     \imageAlphaBlending($destImage, false);
                     \imageSaveAlpha($destImage, true);
                 }
                 \imagecopyresampled($destImage, $sourceImage, 0, 0, 0, 0, (int) $options->validSizes[$i], $thumbHeight, $orgWidth, $orgHeight);
 
-        // Save the image
+                // Save the image
                 if ($img->type === 'jpeg') {
                     \imagejpeg($destImage, JPATH_ROOT . '/' . $fileSrc . '.' . $img->extension);
                     $hash = hash_file('md5', JPATH_ROOT . '/' . $fileSrc . '.' . $img->extension, false);

@@ -298,14 +298,8 @@ class Buildarticles
             $db->setQuery($query);
             $row = $db->loadObject();
 
-            // Skip if this article is up to date - does not work!
-            if (!empty($row) && ($last_mod <= $row->modified)) {
-                $count += 1;
-                continue;
-            }
             $id = empty($row) ? 0 : $row->id;
             $contents = file_get_contents($gfm_file);
-            //var_dump($last_mod, strtotime($row->modified), $gfm_file);die();
 
             // Get the title from the contents.
             // Look for Display Title.
@@ -394,16 +388,7 @@ class Buildarticles
             }
             $origin = $this->gfmfiles_path . $manual . $match[2] . '/' . $match[3];
 
-            // Check whether the origin is younger than the destination
-            $mtime_origin = filemtime($origin);
-            $mtime_destination = @filemtime($destination);
-            if ($mtime_destination && $mtime_destination > $mtime_origin) {
-                // Origin has not been modified so skip re-creation.
-                $new_image = false;
-            } else {
-                $new_image = true;
-                file_put_contents($destination, file_get_contents($origin));
-            }
+            file_put_contents($destination, file_get_contents($origin));
 
             $title = '';
             if (!empty($match[4])) {
