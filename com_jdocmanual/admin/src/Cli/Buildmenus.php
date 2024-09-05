@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\ParameterType;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\BuildHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('JPATH_PLATFORM') or die;
@@ -121,8 +122,11 @@ class Buildmenus
             $this->summary .= "\nThe Markdown source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
         }
 
-        // Get a list of manual folders in /Users/ceford/data/manuals/
-        $manuals = array_diff(scandir($this->gfmfiles_path), array('..', '.', '.DS_Store'));
+        // Get a list of active manuals.
+        $manuals = BuildHelper::getActiveManuals($this->db);
+
+        // Get a list of active languages
+        $active_languages = BuildHelper::getActiveLanguages($this->db);
 
         foreach ($manuals as $manual) {
             // Skip of not all manuals are being updated
@@ -141,9 +145,15 @@ class Buildmenus
 
             // Get a list of the language folders in a manual
             $languages = array_diff(scandir($this->gfmfiles_path . $manual), array('..', '.', '.DS_Store'));
+
             foreach ($languages as $language) {
                 // Skip if not all languages are being updated
-                if (!($this->languagetodo === 'all' || $this->languagetodo === $language)) {
+                if (!($this->languagetodo === 'all' ||
+                    $this->languagetodo === $language)) {
+                    continue;
+                }
+                // skip if this is not an active language.
+                if (!in_array($language, $active_languages)) {
                     continue;
                 }
                 if (is_dir($this->gfmfiles_path . $manual . '/' . $language . '/articles/')) {

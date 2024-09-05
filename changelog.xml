@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.0.1</version>
+        <change>
+            <item>Bug fix: output Proxy pages for all languages.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.0.0</version>
         <change>
             <item>Need to put each language in individual repos!</item>

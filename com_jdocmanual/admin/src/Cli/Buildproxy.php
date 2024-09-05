@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\Filesystem\File;
 use Joomla\Database\ParameterType;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\BuildHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('JPATH_PLATFORM') or die;
@@ -114,6 +115,8 @@ class Buildproxy
      */
     protected $summary = '';
 
+    protected $db;
+
     /**
      * Entry point to convert md to html and save.
      *
@@ -164,7 +167,14 @@ class Buildproxy
         $this->installation_subfolder = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
         $this->settop();
         $this->setbottom();
+
+        $this->db = Factory::getContainer()->get('DatabaseDriver');
+
+        // Get a list of active languages
+        $active_languages = BuildHelper::getActiveLanguages($this->db);
+
         $counts = $this->html4lingo('help');
+
         foreach ($counts as $key => $count) {
             $this->summary .= 'Language: ' . $key . ' Count: ' . $count . "\n";
         }
@@ -190,14 +200,14 @@ class Buildproxy
     protected function html4lingo($manual)
     {
         $count = 0;
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->db;
 
         // get the already converted html from the database
         $query = $db->getQuery(true);
         $query->select($db->quoteName(array('source_url', 'language', 'heading', 'filename', 'display_title', 'html')))
         ->from('#__jdm_articles')
         ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
-        ->where($db->quoteName('language') . ' = ' . $db->quote('en'))
+        //->where($db->quoteName('language') . ' = ' . $db->quote('en'))
        ->order($db->quoteName(array('language', 'heading', 'filename')));
         $db->setQuery($query);
         $rows = $db->loadObjectList();

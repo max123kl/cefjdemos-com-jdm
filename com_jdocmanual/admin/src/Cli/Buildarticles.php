@@ -16,6 +16,7 @@ use Joomla\Database\ParameterType;
 use Joomla\CMS\Plugin\PluginHelper;
 use Cefjdemos\Component\Jdocmanual\Administrator\Helper\Markdown2html;
 use Cefjdemos\Component\Jdocmanual\Administrator\Helper\Responsive;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\BuildHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('JPATH_PLATFORM') or die;
@@ -155,8 +156,9 @@ class Buildarticles
             return "\nThe Markdown source could not be found: {$this->gfmfiles_path}. Set in Jdocmanual configuration.\n";
         }
 
-        // Get a list of manual folders in /Users/ceford/data/manuals/
-        $manuals = array_diff(scandir($this->gfmfiles_path), array('*.txt', '..', '.', '.DS_Store'));
+        // Get a list of active manuals.
+        $manuals = BuildHelper::getActiveManuals($this->db);
+
         $summary = '';
 
         foreach ($manuals as $manual) {
