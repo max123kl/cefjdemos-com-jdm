@@ -37,7 +37,7 @@ Install and enable the plugin.
 The data files should be located in your filespace but outside your
 website tree. The parent directory must be named **Manuals**. This is
 a suggested Linux structure:
-```
+```bash
 /home/username/manuals/developer/
 /home/username/manuals/docs/
 /home/username/manuals/help/
@@ -48,7 +48,7 @@ Obtain the English data files for each manual from the GitHub. You can
 download ZIP files or use git clone.
 
 This is a set of commands to use for git clone for English and German:
-```
+```bash
     cd /home/username
     mdkdir manuals
     cd manuals
@@ -61,7 +61,7 @@ This is a set of commands to use for git clone for English and German:
 
     git clone https://github.com/ceford/cefjdemos-data-jdm-help-en
     mv cefjdemos-data-jdm-help-en en
-    clone https://github.com/ceford/cefjdemos-data-jdm-help-de
+    git clone https://github.com/ceford/cefjdemos-data-jdm-help-de
     mv cefjdemos-data-jdm-help-de de
 
     cd ../developer
@@ -94,7 +94,7 @@ name as the repository
 
 **Change the name of the folder** to the **language** abbreviation. You
 should end up with a directory structure like this:
-```
+```bash
 /home/username/manuals/user/en/articles/
 /home/username/manuals/user/en/images/
 /home/username/manuals/user/en/articles-index.txt
@@ -112,7 +112,7 @@ page.
 
 * Select the **Options** button in the Toolbar.
 * Enter the full path to the data files, ending in **manuals/**. For example:
-```
+```bash
 /home/username/manuals/
 ```
 * If your website is in a sub-directory then enter the sub-directory name
@@ -127,19 +127,20 @@ the User Manual:
 
 * Select **Components > Manuals > Sources** from the Administrator menu.
 * Select the **Jooomla User Manual** to open its Edit page.
-* Change the *Status* to **Publihsed** and **Save**
-* From the *Actions* dropdown list select **Build Articles**. This may take
+* Change the *Status* to **Published** and **Save**
+* In the *Sources* page the table of manuals has a language selector in the
+  row for each language. Select a language to build the database tables for
+  that manual and language. The first time this is done the process may take
   a long time and the only indicator is busy icon in the browser tab. Be
-  patient for 2 minutes or so. Jdocmanual will build all of the articles in
-  all of the available languages and it will create responsive images in a
-  variety of sizes. There will be a summary message, which include problem
-  reports.
-* From the *Actions* dropdown list select **Build Menus**. This is much
-  quicker.
-* For the *Help* Manual only, select **Build Proxy**. This is very quick. It
-  builds files to use as your own Help server. To use it, edit your
-  configuration.php and change the `$helpurl` domain name to that of this
-  Joomla installation.
+  patient for 5 minutes or so. Jdocmanual will build the articles and menus in
+  the selected language and it will create responsive images in a
+  variety of sizes. There will be a summary message, which may include problem
+  reports. On the next invocation the build process will be much quicker as
+  only changed pages are rebuilt.
+* For the *Help* Manual only, the build process also builds the proxy server
+  used to deliver help pages. This is very quick and is done for all installed
+  languages. To use it, edit your configuration.php and change the `$helpurl` 
+  domain name to that of this Joomla installation.
 
 ## Test
 
@@ -150,19 +151,16 @@ You should see the first page of the User Manual.
 ## Maintenance
 
 From time to time there will be updates to the Jdocmanual data files. You
-can download the source files and repeat the data installation process:
-build the articles and menus **in that order**. This is very easy to do
-with **git**: just do `git pull` in the appropriate language folder, the
-switch to the *cli* folder and run the cli commands. You can build a cron job
-to do this.
+can download the source files and repeat the data installation process. This is
+very easy to do with **git**: just do `git pull` in the appropriate language 
+folder, then use the Build selector in the Sources page or switch to the *cli* 
+folder and run the cli commands. You can build a cron job to do this.
 
 ## Build Articles and Menus - Command Line Method
 
 The database jdm_articles and jdm_menus tables are populated by reading
-the data files. This can take a long time - at least a couple of minutes
-and perhaps much longer on slow hosts. It is no quicker from the command
-line but you can be more selective over which manuals and languages to build.
-
+the data files. This can take a long time - at least a few of minutes
+and perhaps much longer on slow hosts. 
 
 Proceed as follows:
 
@@ -171,22 +169,18 @@ Proceed as follows:
     `cd /home/username/public_html/optional-subfolder/cli`
 2.  Issue the command to convert data from the markdown source files to
     html in the #__jdm_articles table of the database:<br>
-    `php joomla.php jdocmanual:action buildarticles user all`
+    `php joomla.php jdocmanual:action buildarticles user en`
 3.  Issue the command to create the menus:<br>
-    `php joomla.php jdocmanual:action buildmenus user all`
+    `php joomla.php jdocmanual:action buildmenus user en`
 
 In these commands, **user** is the name of the manual to be processed and
-**all** is a language specifier, which might be a single such as **en** or
-**all** languages.
+**en** is a language specifier.
 
 The Markdown format is converted to HTML and stored in the database. Also,
-if there are any images in the data source a set of 6 responsive images
+if there are any images in the data source a set of responsive images
 is created.
 
-If you encounter **out of memory** problems or **out of time** problems
-you can replace the `all` parameter with a single language code, one of
-`de en es fr nl pt ptbr ru`. Using that method you can build the
-database manual by manual and/or language by language.
+If you encounter **out of memory** problems or **out of time** problems ...
 
 ## Database Population - Cron Method
 
@@ -290,7 +284,7 @@ to the Administrator interface.
 ## Some Reminders
 
 The System - Joomla Accessibility Checker flags the anchors
-as having empty links. So in comment out line 70 of administrator/components/com_jdocmanual/libraries/vendor/league/commonmark/src/Extension/HeadingPermalink/HeadingPermalinkRenderer.php
+as having empty links. So comment out line 70 of administrator/components/com_jdocmanual/libraries/vendor/league/commonmark/src/Extension/HeadingPermalink/HeadingPermalinkRenderer.php
 ```php
         //$attrs->set('href', '#' . $fragmentPrefix . $slug);
         $attrs->append('class', $this->config->get('heading_permalink/html_class'));

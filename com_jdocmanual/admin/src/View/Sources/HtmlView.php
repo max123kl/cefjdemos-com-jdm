@@ -11,6 +11,7 @@
 namespace Cefjdemos\Component\Jdocmanual\Administrator\View\Sources;
 
 use Exception;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
@@ -110,6 +111,7 @@ class HtmlView extends BaseHtmlView
         $this->filterForm    = $model->getFilterForm();
         $this->activeFilters = $model->getActiveFilters();
         $this->plugin_status = $model->checkplugin();
+        $this->activeLanguages = $model->getActiveLanguages();
 
         //$this->categorynames = $model->getCategorynames();
 
@@ -150,5 +152,38 @@ class HtmlView extends BaseHtmlView
         if ($tmpl !== 'component') {
             ToolbarHelper::help('sources', true);
         }
+    }
+
+    protected function getLanguageFormHTML($manual) {
+        // For the given manual find installed languages.
+        $params = ComponentHelper::getParams('com_jdocmanual');
+
+        // Get the the 'manuals' path from the component parameters.
+        $manual_path = $params->get('gfmfiles_path') . '/' . $manual;
+
+        // Scan for language folders.
+        $items = scandir($manual_path);
+        $dirs = [];
+        foreach($items as $item) {
+            if (is_dir($manual_path . '/' . $item)) {
+                $dirs[] = $item;
+            }
+        }
+
+        // If the English data is not installed return an error.
+        if (!in_array('en', $dirs)) {
+            return '<div class="alert alert-danger">English data not installed!</div>';
+        }
+
+        // Compose the Select element.
+        $html = '<select id="' . $manual . '" name="' . $manual . '" class="form-select buildhtml">' . "\n";
+        $html .= '<option value="">- Select -</option>' . "\n";
+        foreach ($this->activeLanguages as $activeLanguage) {
+            if (in_array($activeLanguage, $dirs)) {
+                $html .= '<option value="' . $activeLanguage . '">' . $activeLanguage . '</option>' . "\n";
+            }
+        }
+        $html .= '</select>' . "\n";
+        return $html;
     }
 }

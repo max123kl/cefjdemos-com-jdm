@@ -48,7 +48,8 @@ class BuildHelper
         $query = $db->getQuery(true);
         $query->select($db->quoteName('code'))
         ->from($db->quoteName('#__jdm_languages'))
-        ->where($db->quoteName('state') . ' = 1');
+        ->where($db->quoteName('state') . ' = 1')
+        ->order($db->quoteName('code') . ' ASC');
         $db->setQuery($query);
         return $db->loadColumn();
     }

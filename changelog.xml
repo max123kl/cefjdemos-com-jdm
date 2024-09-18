@@ -2,6 +2,19 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.1.0</version>
+        <change>
+            <item>The Build selector in the Sources page builds articles,
+            menus and, for the Help manual only, the proxy server.</item>
+            <item>Build must be per language.</item>
+            <item>The cli build only builds changed md files or md files 
+            containing changed images unless force=true is set in the command 
+            line.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.0.1</version>
         <change>
             <item>Bug fix: output Proxy pages for all languages.</item>

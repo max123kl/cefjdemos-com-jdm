@@ -12,6 +12,7 @@ namespace Cefjdemos\Component\Jdocmanual\Administrator\Model;
 
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\ParameterType;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\BuildHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -160,5 +161,10 @@ class SourcesModel extends ListModel
             return 1;
         }
         return 2;
+    }
+
+    public function getActiveLanguages() {
+        $db    = $this->getDatabase();
+        return BuildHelper::getActivelanguages($db);
     }
 }

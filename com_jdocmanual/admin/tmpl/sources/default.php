@@ -25,7 +25,8 @@ $params = ComponentHelper::getParams('com_jdocmanual');
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
 $wa->useStyle('com_jdocmanual.jdocmanual')
-->useScript('com_jdocmanual.jdocmanual');
+->useScript('com_jdocmanual.jdocmanual')
+->useScript('com_jdocmanual.builders');
 
 $listOrder  = $this->escape($this->state->get('list.ordering'));
 $listDirn   = $this->escape($this->state->get('list.direction'));
@@ -90,6 +91,9 @@ $source_edit_route = 'index.php?option=com_jdocmanual&task=source.edit&id=';
                                         $listOrder
                                     ); ?>
                                 </th>
+                                <th>
+                                    Build
+                                </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_(
                                         'searchtools.sort',
@@ -120,6 +124,11 @@ $source_edit_route = 'index.php?option=com_jdocmanual&task=source.edit&id=';
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                 <?php echo $item->manual; ?>
+                                </td>
+                                <td>
+                                <?php if (!empty($item->state)) : ?>
+                                    <?php echo $this->getLanguageFormHTML($item->manual); ?>
+                                <?php endif; ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                 <?php echo $item->id; ?>

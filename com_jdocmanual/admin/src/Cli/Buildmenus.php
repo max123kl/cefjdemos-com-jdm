@@ -211,7 +211,7 @@ class Buildmenus
         $total_articles = 0;
 
         foreach ($lines as $line) {
-            // Skip empty lines or lines begining with a semi-colon;
+            // Skip empty lines or lines beginning with a semi-colon;
             if (empty(trim($line))) {
                 continue;
             }
@@ -244,9 +244,11 @@ class Buildmenus
                 ->from($db->quoteName('#__jdm_articles'))
                 ->where($db->quoteName('manual') . ' = :manual')
                 ->where($db->quoteName('language') . ' = :language')
+                ->where($db->quoteName('heading') . ' = :heading')
                 ->where($db->quoteName('filename') . ' = :filename')
                 ->bind(':manual', $manual, ParameterType::STRING)
                 ->bind(':language', $language, ParameterType::STRING)
+                ->bind(':heading', $heading, ParameterType::STRING)
                 ->bind(':filename', $filename, ParameterType::STRING);
                 $db->setQuery($query);
                 $row = $db->loadObject();
@@ -258,8 +260,10 @@ class Buildmenus
                     ->from($db->quoteName('#__jdm_articles'))
                     ->where($db->quoteName('manual') . ' = :manual')
                     ->where($db->quoteName('language') . ' = ' . $db->quote('en'))
+                    ->where($db->quoteName('heading') . ' = :heading')
                     ->where($db->quoteName('filename') . ' = :filename')
                     ->bind(':manual', $manual, ParameterType::STRING)
+                    ->bind(':heading', $heading, ParameterType::STRING)
                     ->bind(':filename', $filename, ParameterType::STRING);
                     $db->setQuery($query);
                     $row = $db->loadObject();
@@ -268,7 +272,7 @@ class Buildmenus
                 }
                 if (empty($row)) {
                     // There is a menu item but no article - issue a warning and skip?
-                    $this->summary .=  "Skipping: there is no article for {$manual}/{$language}/{$filename}\n";
+                    $this->summary .=  "Skipping: there is no article for {$manual}/{$language}/{$heading}/{$filename}\n";
                     continue;
                 }
                 $total_articles += 1;

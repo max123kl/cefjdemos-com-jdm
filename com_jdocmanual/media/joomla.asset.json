@@ -17,6 +17,17 @@
       }
     },
     {
+      "name": "com_jdocmanual.builders",
+      "type": "script",
+      "uri": "com_jdocmanual/builders.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
       "name": "com_jdocmanual.menuheadings",
       "type": "script",
       "uri": "com_jdocmanual/menuheadings.js",

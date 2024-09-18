@@ -57,7 +57,7 @@ class LanguagesModel extends ListModel
      *
      * @since   1.6
      */
-    protected function populateState($ordering = 'a.id', $direction = 'asc')
+    protected function populateState($ordering = 'a.code', $direction = 'asc')
     {
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
@@ -132,7 +132,7 @@ class LanguagesModel extends ListModel
         }
 
         // Add the list ordering clause.
-        $orderCol  = $this->state->get('list.ordering', 'a.id');
+        $orderCol  = $this->state->get('list.ordering', 'a.language');
         $orderDirn = $this->state->get('list.direction', 'ASC');
 
         $query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));

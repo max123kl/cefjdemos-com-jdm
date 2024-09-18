@@ -12,3 +12,4 @@ DROP TABLE IF EXISTS `#__jdm_menu_headings`;
 
 DROP TABLE IF EXISTS `#__jdm_menu_stashes`;
 
+DROP TABLE IF EXISTS `#__jdm_git_updates`;

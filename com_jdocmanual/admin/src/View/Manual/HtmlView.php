@@ -82,6 +82,14 @@ class HtmlView extends BaseHtmlView
     protected $plugin_status;
 
     /**
+     * Set to 1 if there are records in the the #__jdm_articles table.
+     * 
+     * @var integer;
+     * @since 4.0
+     */
+    protected $dbisgood;
+
+    /**
      * Method to display the view.
      *
      * @param   string  $tpl  A template file to load. [optional]

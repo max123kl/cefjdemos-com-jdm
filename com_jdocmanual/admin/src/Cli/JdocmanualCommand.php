@@ -90,6 +90,11 @@ class JdocmanualCommand extends AbstractCommand
             InputArgument::REQUIRED,
             'two letter code, example: de'
         );
+        $this->addArgument(
+            'force',
+            InputArgument::OPTIONAL,
+            'for articles only, true or false (default if omitted)'
+        );
 
         $this->setDescription('Called on command line or by cron to run Jdocmanual action jobs.');
         $this->setHelp($help);
@@ -112,11 +117,12 @@ class JdocmanualCommand extends AbstractCommand
         $action = $this->cliInput->getArgument('action');
         $manual = $this->cliInput->getArgument('manual');
         $language = $this->cliInput->getArgument('language');
+        $force = $this->cliInput->getArgument('force');
 
         switch ($action) {
             case 'buildarticles':
                 $buildarticles = new Buildarticles();
-                $result = $buildarticles->go($manual, $language);
+                $result = $buildarticles->go($manual, $language, $force);
                 break;
             case 'buildmenus':
                 $buildmenus = new Buildmenus();
