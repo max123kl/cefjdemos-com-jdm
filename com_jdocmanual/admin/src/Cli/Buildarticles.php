@@ -214,12 +214,10 @@ class Buildarticles
         $this->gitpath = $this->params->get('gfmfiles_path') . $manual . '/' . $language;
 
         $command1 = "git --version;";
-        ob_start();
-        passthru($command1);
-        $result = ob_get_clean();
+        exec($command1, $result);
 
         // Was git installed: sh: git: command not found
-        if (str_contains($result, 'command not found')) {
+        if (str_contains($result[0], 'command not found')) {
             // git not installed so can't use this method
             $this->git_installed = false;
         }
@@ -320,12 +318,10 @@ class Buildarticles
 
         // Use the find command to locate files that have changed since the last update.
         $command1 = "find {$articles} {$images} -mtime -" . $this->minutes . "m";
-        ob_start();
-        passthru($command1);
-        $result = ob_get_clean();
+        exec($command1, $result);
 
         $articles = [];
-        foreach (preg_split("/((\r?\n)|(\r\n?))/", $result) as $line) {
+        foreach ($result as $line) {
             // Skip any extraneous lines.
             if (str_ends_with($line, '.md')) {
                 $articles[] = $line;
@@ -344,13 +340,10 @@ class Buildarticles
                 // Search in the articles for the image.
                 $path = str_replace('/images', '/articles', $path);
                 $command2 = "grep --include=\*.md -rnw '{$path}' -e '{$img_name}'";
-
-                ob_start();
-                passthru($command2);
-                $mdfiles = ob_get_clean();
+                exec($command2, $mdfiles);
 
                 // The output is filename:line no:line content. Could be more than 1?
-                foreach (preg_split("/((\r?\n)|(\r\n?))/", $mdfiles) as $mdfile) {
+                foreach ($mdfiles as $mdfile) {
                     $filename = explode(':', $mdfile);
 
                     // Sometimes an empty string to skip.
