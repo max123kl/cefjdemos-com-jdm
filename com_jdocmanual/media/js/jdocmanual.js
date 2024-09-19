@@ -219,10 +219,12 @@ function setIndexLocation () {
 function menuHighlight(heading, filename) {
   filename = filename.replace('.md', '');
   let link = document.querySelector('a[href*="/' + heading + '/' + filename + '"]');
-  link.parentElement.classList.add("article-active");
-  // Expand the nearest <details> tag.
-  el = link.closest("details");
-  el.setAttribute('open', '');
+  if (link) {
+    link.parentElement.classList.add("article-active");
+    // Expand the nearest <details> tag.
+    el = link.closest("details");
+    el.setAttribute('open', '');  
+  }
 }
 
 /**

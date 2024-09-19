@@ -8,7 +8,6 @@ let updateHTML = function(event) {
 		// Set an alert message using the system message container.
 		const elem = document.getElementById('system-message-container');
 		elem.innerHTML = '<div class="alert alert-info text-center">Please Wait!</div>';
-		window.scrollTo(0, 0);
 		let url = '?option=com_jdocmanual&task=sources.buildhtml&manual=' + this.id + '&language=' + this.value;
 		location = url;
 	}
