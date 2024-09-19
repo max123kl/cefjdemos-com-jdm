@@ -304,8 +304,8 @@ class Buildarticles
      */
     protected function getArticlesUpdated($manual, $language)
     {
-        // Example command:
-        // find /Users/ceford/git/cefjdemos/manuals/help/en/articles -mtime -20000m
+        // Example command to find files changed less than 60 minutes ago:
+        // find /Users/ceford/git/cefjdemos/manuals/help/en/articles -mmin -60
 
         // if the date is empty return false to do a full rebuild.
         //if (empty($row->last_update)) {
@@ -317,7 +317,7 @@ class Buildarticles
         $images = $this->gitpath . '/images';
 
         // Use the find command to locate files that have changed since the last update.
-        $command1 = "find {$articles} {$images} -mtime -" . $this->minutes . "m";
+        $command1 = "find {$articles} {$images} -mmin -" . $this->minutes;
         exec($command1, $result);
 
         $articles = [];

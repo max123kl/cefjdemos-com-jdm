@@ -21,6 +21,7 @@ use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Registry\Registry;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\CheckdbHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -91,6 +92,8 @@ class HtmlView extends BaseHtmlView
 
     protected $plugin_status;
 
+    protected $dbisgood;
+
     /**
      * Method to display the view.
      *
@@ -112,6 +115,8 @@ class HtmlView extends BaseHtmlView
         $this->activeFilters = $model->getActiveFilters();
         $this->plugin_status = $model->checkplugin();
         $this->activeLanguages = $model->getActiveLanguages();
+
+        $this->dbisgood = CheckdbHelper::isGood();
 
         //$this->categorynames = $model->getCategorynames();
 

@@ -49,35 +49,6 @@ class ManualModel extends ListModel
     }
 
     /**
-     * Check that the jdm_articles and jdm_menus tables have been populated.
-     *
-     * @return int  Flag for tables populated, value, 0 or 1.
-     */
-    public function checkDatabase()
-    {
-        $db = $this->getDatabase();
-        $query = $db->getQuery(true);
-        $query->select('COUNT(id)')
-        ->from('#__jdm_articles');
-        $db->setQuery($query);
-        $articles_total = $db->loadResult();
-        if (empty($articles_total)) {
-            return 0;
-        }
-
-        $query = $db->getQuery(true);
-        $query->select('COUNT(id)')
-        ->from('#__jdm_menus');
-        $db->setQuery($query);
-        $menus_total = $db->loadResult();
-        if (empty($menus_total)) {
-            return 0;
-        }
-
-        return 1;
-    }
-
-    /**
      * Get the first article on page load.
      *
      * @param string $manual        The name of the manual.

@@ -17,6 +17,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Cefjdemos\Component\Jdocmanual\Administrator\Helper\SetupHelper;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\CheckdbHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -105,7 +106,7 @@ class HtmlView extends BaseHtmlView
         $model = $this->getModel();
 
         // Check the database has been populated.
-        $this->dbisgood = $model->checkDatabase();
+        $this->dbisgood = CheckdbHelper::isGood();
 
         $this->plugin_status = $model->checkplugin();
 
