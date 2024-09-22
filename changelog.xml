@@ -4,6 +4,10 @@
         <type>component</type>
         <version>4.1.0</version>
         <change>
+            <item>Fixed bug in setting path of small images.</item>
+        </change>
+        <version>4.1.0</version>
+        <change>
             <item>Build of articles and menus must be per language.</item>
             <item>The Build selector in the Sources page builds articles,
             menus and, for the Help manual only, the proxy server.</item>

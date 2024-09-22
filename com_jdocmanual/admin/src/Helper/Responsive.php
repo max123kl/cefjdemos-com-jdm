@@ -129,14 +129,15 @@ class Responsive
    */
     private function buildSrcset(object $image): string
     {
-        $srcSets = $this->createImages(str_replace('%20', ' ', $image->dirname), $image->filename, $image->extension);
-        if (null === $srcSets || $srcSets === false) {
-            return $image->tag;
-        }
-
       // When called from the web interface with Joomla in a subfolder this
       // function returns the subfolder name. But from the cli $base is empty;
-        $base = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
+      $base = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
+
+      $srcSets = $this->createImages(str_replace('%20', ' ', $image->dirname), $image->filename, $image->extension);
+        if (null === $srcSets || $srcSets === false) {
+            $image->tag = str_replace('jdmimages/', $base . '/' . 'jdmimages/', $image->tag);
+            return $image->tag;
+        }
 
         $type   = in_array(mb_strtolower($image->extension), ['jpg', 'jpeg']) ? 'jpeg' : mb_strtolower($image->extension);
         $output = '<picture class="responsive-image">';
@@ -241,40 +242,42 @@ class Responsive
         $imageBits = ($info['bits'] / 8) * $channels;
 
       // Do some memory checking
-        if (!self::checkMemoryLimit(['width' => $imageWidth, 'height' => $imageHeight, 'bits' => $imageBits], $dirname . '/' . $filename . '.' . $extension)) {
+        if (!self::checkMemoryLimit(['width' => $imageWidth, 
+            'height' => $imageHeight, 
+            'bits' => $imageBits], $dirname . '/' . $filename . '.' . $extension)) {
             return;
         }
 
         $srcSets = (object) [
-        'base' => (object) [
-        'srcset' => [],
-        'sizes' => [],
-        'width' => $info[0],
-        'height' => $info[1],
-        'version' => $hash,
+            'base' => (object) [
+            'srcset' => [],
+            'sizes' => [],
+            'width' => $info[0],
+            'height' => $info[1],
+            'version' => $hash,
         ]
         ];
-      // (max-width: 300px) 100vw, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px 320, 768, 1200
-      // array_push($srcSets->base->sizes, '(max-width: 320px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 1200px');
+        // (max-width: 300px) 100vw, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px 320, 768, 1200
+        // array_push($srcSets->base->sizes, '(max-width: 320px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 1200px');
         array_push($srcSets->base->sizes);
         $img = (object) [
-        'dirname'   => $dirname,
-        'filename'  => $filename,
-        'extension' => $extension,
-        'width'     => $imageWidth,
-        'height'    => $imageHeight,
-        'type'      => $sourceType,
+            'dirname'   => $dirname,
+            'filename'  => $filename,
+            'extension' => $extension,
+            'width'     => $imageWidth,
+            'height'    => $imageHeight,
+            'type'      => $sourceType,
         ];
         $options = (object) [
-        'destination' => 'media/cached-resp-images/',
-        'enableWEBP'  => $this->enableWEBP,
-        'enableAVIF'  => $this->enableAVIF,
-        'qualityJPG'  => $this->qualityJPG,
-        'qualityWEBP' => $this->qualityWEBP,
-        'qualityAVIF' => $this->qualityAVIF,
-        'scaleUp'     => $this->scaleUp,
-        'separator'   => trim($this->separator),
-        'validSizes'  => $this->validSizes,
+            'destination' => 'media/cached-resp-images/',
+            'enableWEBP'  => $this->enableWEBP,
+            'enableAVIF'  => $this->enableAVIF,
+            'qualityJPG'  => $this->qualityJPG,
+            'qualityWEBP' => $this->qualityWEBP,
+            'qualityAVIF' => $this->qualityAVIF,
+            'scaleUp'     => $this->scaleUp,
+            'separator'   => trim($this->separator),
+            'validSizes'  => $this->validSizes,
         ];
 
         try {
@@ -299,7 +302,7 @@ class Responsive
     private static function checkMemoryLimit($properties, $imagePath): bool
     {
         $memorycheck  = ($properties['width'] * $properties['height'] * $properties['bits']);
-      // $memorycheck_text = $memorycheck / (1024 * 1024);
+        // $memorycheck_text = $memorycheck / (1024 * 1024);
         $phpMemory    = ini_get('memory_limit');
         $memory_limit = is_numeric($phpMemory) ? $phpMemory : self::toByteSize($phpMemory);
 
@@ -339,8 +342,8 @@ class Responsive
         $path = (substr($path, 0, 1) === '/' ? $path : '/' . $path);
 
         return (object) [
-        'path' => str_replace('%20', ' ', $path),
-        'pathReal' => realpath(JPATH_ROOT . str_replace('%20', ' ', $path)),
+            'path' => str_replace('%20', ' ', $path),
+            'pathReal' => realpath(JPATH_ROOT . str_replace('%20', ' ', $path)),
         ];
     }
 
@@ -376,4 +379,3 @@ class Responsive
         return $formated;
     }
 }
-

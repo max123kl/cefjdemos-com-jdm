@@ -78,6 +78,7 @@ class Thumbs
                     }
                     $srcSets->webp->srcset[$options->validSizes[$i]] = str_replace(' ', '%20', $fileSrc) . '.webp' . '?version=' . $hash . ' ' . $options->validSizes[$i] . 'w';
                 }
+
                 if ($options->enableAVIF && \imagewebp($destImage, JPATH_ROOT . '/' . $fileSrc . '.avif', $options->qualityAVIF)) {
                     $hash = hash_file('md5', JPATH_ROOT . '/' . $fileSrc . '.avif', false);
                     if (!isset($srcSets->avif)) {
@@ -170,25 +171,3 @@ class Thumbs
         throw new \RuntimeException('GD library is required for manipulation of images.');
     }
 }
-
-/**
-$img = (object) [
-    'dirname'   => string,
-    'filename'  => string,
-    'extension' => string,
-    'width'     => int,
-    'height'    => int,
-    'type'      => jpg||png,
-];
-$options = (object) [
-    'destination' => 'media/cached-resp-images/',
-    'enableWEBP'  => bool,
-    'enableAVIF'  => bool,
-    'qualityJPG'  => int,
-    'qualityWEBP' => int,
-    'qualityAVIF' => int,
-    'scaleUp'     => bool,
-    'seperator'   => '_,
-    'validSizes'  => array,
-]
- */
