@@ -124,7 +124,7 @@ let getPage = function(event) {
   }
   setPanelContent(manual, heading, filename);
   // add the highlight class for the selected index item
-  this.parentElement.classList.add("article-active");
+  //this.parentElement.classList.add("article-active");
   setlinks();
 };
 
@@ -150,6 +150,16 @@ async function setPanelContent(manual, heading, filename) {
   }
 
   // remove the highlight class from the selected index item
+  /**
+   * ChatGPT Conclusion:
+   * call is generally used to control the context (this) within a function, 
+   * not specifically for array processing. However, it can be applied in cases 
+   * where you need to invoke a function with a specific this value for each 
+   * array element. For standard array processing, methods like forEach, map, 
+   * and reduce are more appropriate.
+   * 
+   * index_items is a list of objects...
+   */ 
   let index_items = document.getElementsByClassName('article-active');
   [].forEach.call(index_items, function(el) {
     el.classList.remove("article-active");
