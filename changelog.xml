@@ -2,10 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
-        <version>4.1.0</version>
+        <version>4.1.1</version>
         <change>
             <item>Fixed bug in setting path of small images.</item>
         </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.1.0</version>
         <change>
             <item>Build of articles and menus must be per language.</item>
