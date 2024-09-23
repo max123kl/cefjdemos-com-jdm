@@ -11,6 +11,7 @@
 namespace Cefjdemos\Component\Jdocmanual\Administrator\Controller;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Router\Route;
 use Cefjdemos\Component\Jdocmanual\Administrator\Cli\Buildarticles;
@@ -98,6 +99,34 @@ class SourcesController extends AdminController
             $summary .= $bp->go($manual, $language);
         } else {
             $summary .= 'Select the <strong>help</strong> manual to build the proxy server';
+        }
+        $this->app->enqueueMessage(nl2br($summary, true));
+        $this->setRedirect(Route::_('index.php?option=com_jdocmanual&view=sources', false));
+    }
+
+    /**
+     * Issue a git pull command for a specific manual and language
+     *
+     * @return  $void
+     *
+     * @since   1.0.0
+     */
+    public function gitpull()
+    {
+        $manual = $this->app->input->get('manual', '', 'string');
+        $language = $this->app->input->get('language', '', 'string');
+
+        $summary = "Git Pull Request\n";
+        
+        if (empty($manual) || empty($language)) {
+            $summary .= "\nMissing manual or language!\n";
+        } else {
+            $params = ComponentHelper::getParams('com_jdocmanual');
+            // Get the the 'manuals' path from the component parameters.
+            $path = $params->get('gfmfiles_path') . '/' . $manual . '/' . $language;
+            $command = "cd $path; git pull";
+            exec($command, $result);
+            $summary .= implode("\n", $result);
         }
         $this->app->enqueueMessage(nl2br($summary, true));
         $this->setRedirect(Route::_('index.php?option=com_jdocmanual&view=sources', false));

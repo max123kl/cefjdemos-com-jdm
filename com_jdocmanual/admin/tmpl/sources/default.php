@@ -40,6 +40,8 @@ $states = array (
 
 $source_edit_route = 'index.php?option=com_jdocmanual&task=source.edit&id=';
 
+$is_gitpull_enabled = $this->is_gitpull_enabled();
+
 ?>
 
 <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'details', 'recall' => true)); ?>
@@ -94,6 +96,11 @@ $source_edit_route = 'index.php?option=com_jdocmanual&task=source.edit&id=';
                                 <th>
                                     Build
                                 </th>
+                                <?php if ($is_gitpull_enabled) : ?>
+                                <th>
+                                    Pull
+                                </th>
+                                <?php endif; ?>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_(
                                         'searchtools.sort',
@@ -127,9 +134,16 @@ $source_edit_route = 'index.php?option=com_jdocmanual&task=source.edit&id=';
                                 </td>
                                 <td>
                                 <?php if (!empty($item->state)) : ?>
-                                    <?php echo $this->getLanguageFormHTML($item->manual); ?>
+                                    <?php echo $this->getLanguageFormHTML($item->manual, 'buildhtml'); ?>
                                 <?php endif; ?>
                                 </td>
+                                <?php if ($is_gitpull_enabled) : ?>
+                                <td>
+                                <?php if (!empty($item->state)) : ?>
+                                    <?php echo $this->getLanguageFormHTML($item->manual, 'gitpull'); ?>
+                                <?php endif; ?>
+                                </td>
+                                <?php endif; ?>
                                 <td class="d-none d-md-table-cell">
                                 <?php echo $item->id; ?>
                                 </td>

@@ -159,7 +159,12 @@ class HtmlView extends BaseHtmlView
         }
     }
 
-    protected function getLanguageFormHTML($manual) {
+    protected function is_gitpull_enabled() {
+        $params = ComponentHelper::getParams('com_jdocmanual');
+        return $params->get('enable_gitpull');
+    }
+
+    protected function getLanguageFormHTML($manual, $action) {
         // For the given manual find installed languages.
         $params = ComponentHelper::getParams('com_jdocmanual');
 
@@ -181,7 +186,7 @@ class HtmlView extends BaseHtmlView
         }
 
         // Compose the Select element.
-        $html = '<select id="' . $manual . '" name="' . $manual . '" class="form-select buildhtml">' . "\n";
+        $html = '<select id="' . $manual . '" name="' . $manual . '" class="form-select ' . $action . '">' . "\n";
         $html .= '<option value="">- Select -</option>' . "\n";
         foreach ($this->activeLanguages as $activeLanguage) {
             if (in_array($activeLanguage, $dirs)) {

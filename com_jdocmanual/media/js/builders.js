@@ -13,10 +13,19 @@ let updateHTML = function(event) {
 	}
 	return false;
 }
-  
+
 let links = document.querySelectorAll('.buildhtml');
 for (let i = 0; i < links.length; i += 1) {
 	links[i].addEventListener('change', updateHTML, false);
 }
 
+let gitPull = function(event) {
+	event.preventDefault();
+	let url = '?option=com_jdocmanual&task=sources.gitpull&manual=' + this.id + '&language=' + this.value;
+	location = url;
+}
 
+let plinks = document.querySelectorAll('.gitpull');
+for (let i = 0; i < plinks.length; i += 1) {
+	plinks[i].addEventListener('change', gitPull, false);
+}
