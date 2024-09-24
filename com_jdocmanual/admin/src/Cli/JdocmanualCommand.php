@@ -83,7 +83,7 @@ class JdocmanualCommand extends AbstractCommand
         $this->addArgument(
             'manual',
             InputArgument::REQUIRED,
-            'one of developer, help or user'
+            'one of developer, docs, help or user'
         );
         $this->addArgument(
             'language',
@@ -127,10 +127,6 @@ class JdocmanualCommand extends AbstractCommand
             case 'buildmenus':
                 $buildmenus = new Buildmenus();
                 $result = $buildmenus->go($manual, $language);
-                break;
-            case 'buildproxy':
-                $buildproxy = new Buildproxy();
-                $result = $buildproxy->go($manual, $language);
                 break;
             case 'buildproxy':
                 $buildproxy = new Buildproxy();

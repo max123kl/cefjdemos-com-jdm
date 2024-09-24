@@ -41,8 +41,8 @@ class SourcesController extends AdminController
      */
     public function buildhtml()
     {
-        $manual = $this->app->input->get('manual', '', 'string');
-        $language = $this->app->input->get('language', '', 'string');
+        $manual = $this->input->get('manual', '', 'string');
+        $language = $this->input->get('language', '', 'string');
 
         if (!empty($manual)) {
             $ba = new Buildarticles();
@@ -68,8 +68,8 @@ class SourcesController extends AdminController
      */
     public function buildmenus()
     {
-		$manual = $this->app->input->get('manual', '', 'string');
-        $language = $this->app->input->get('language', '', 'string');
+		$manual = $this->input->get('manual', '', 'string');
+        $language = $this->input->get('language', '', 'string');
 
 		if (!empty($manual)) {
             $bm = new Buildmenus();
@@ -89,8 +89,8 @@ class SourcesController extends AdminController
      */
     public function buildproxy()
     {
-		$manual = $this->app->input->get('manual', '', 'string');
-        $language = $this->app->input->get('language', '', 'string');
+		$manual = $this->input->get('manual', '', 'string');
+        $language = $this->input->get('language', '', 'string');
 
 		$summary = "Building Proxy\n";
 
@@ -113,11 +113,11 @@ class SourcesController extends AdminController
      */
     public function gitpull()
     {
-        $manual = $this->app->input->get('manual', '', 'string');
-        $language = $this->app->input->get('language', '', 'string');
+        $manual = $this->input->get('manual', '', 'string');
+        $language = $this->input->get('language', '', 'string');
 
         $summary = "Git Pull Request\n";
-        
+
         if (empty($manual) || empty($language)) {
             $summary .= "\nMissing manual or language!\n";
         } else {

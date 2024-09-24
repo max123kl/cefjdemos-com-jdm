@@ -112,8 +112,8 @@ class MenuheadingsController extends AdminController
     {
         Session::checkToken('post') or die('Is your session expired? Try a page reload!'); //|Invalid Token' );
         // Get some the currently selected manual.
-        $manual = $this->app->input->get('filter')['manual'];
-        $language = $this->app->input->get('filter')['language'];
+        $manual = $this->input->get('filter')['manual'];
+        $language = $this->input->get('filter')['language'];
         if (empty($language) || empty($manual)) {
             $this->app->enqueueMessage("Result: no action! Either Manual or Language were not set.", 'warning');
         } else {
@@ -218,8 +218,8 @@ class MenuheadingsController extends AdminController
         Session::checkToken('post') or die('Is your session expired? Try a page reload!'); //|Invalid Token' );
 
         // Get some the currently selected manual.
-        $manual = $this->app->input->get('filter')['manual'];
-        $language = $this->app->input->get('filter')['language'];
+        $manual = $this->input->get('filter')['manual'];
+        $language = $this->input->get('filter')['language'];
 
         if (empty($language) || empty($manual)) {
             $this->app->enqueueMessage("Result: no action! Either Manual or Language were not set.", 'warning');

@@ -44,22 +44,6 @@ class Buildmenus
     protected $menu_index;
 
     /**
-     * Path fragment of manual to process.
-     *
-     * @var     string
-     * @since  1.0.0
-     */
-    protected $manualtodo;
-
-    /**
-     * Path fragment of language to process.
-     *
-     * @var     string
-     * @since  1.0.0
-     */
-    protected $languagetodo;
-
-    /**
      * Accumulate a summary to return to caller.
      *
      * @var     string
@@ -76,12 +60,10 @@ class Buildmenus
     /**
      * Entry point to convert menu-index.txt to htmal and save.
      *
-     * @param   $manual     The path fragment of the manual to process.
-     * @param   $language   The path fragment of the language to process.
+     * @param   string  $manual     The name of the manual to process.
+     * @param   string  $language   The code of the language to process.
      *
      * @return  $string     A message reporting the outcome.
-     *
-     * @since   1.0.0
      */
     public function go($manual, $language)
     {
@@ -91,13 +73,10 @@ class Buildmenus
 
         // The echo items appear in the CLI but not in Joomla.
 
-        $this->manualtodo = $manual;
-        $this->languagetodo = $language;
-
         $memlimit = ini_get('memory_limit');
         ini_set("memory_limit", "2048M");
 
-        $this->build();
+        $this->build($manual, $language);
 
         $time_end = \microtime(true);
         $execution_time = $time_end - $time_start;
@@ -110,11 +89,12 @@ class Buildmenus
     /**
      * Cycle over manuals and languages to convert txt to html and save.
      *
-     * @return  $string     A message reporting the outcome.
+     * @param   string  $manualtodo     The name of the manual to process.
+     * @param   string  $languagetodo   The code of the language to process.
      *
-     * @since   1.0.0
+     * @return void
      */
-    protected function build()
+    protected function build($manualtodo, $languagetodo)
     {
         // Get the data source path from the component parameters
         $this->gfmfiles_path = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('gfmfiles_path', ',');
@@ -130,7 +110,7 @@ class Buildmenus
 
         foreach ($manuals as $manual) {
             // Skip of not all manuals are being updated
-            if (!($this->manualtodo === 'all' || $this->manualtodo === $manual)) {
+            if (!($manual === 'all' || $manual === $manualtodo)) {
                 continue;
             }
             $count = 0;
@@ -148,8 +128,7 @@ class Buildmenus
 
             foreach ($languages as $language) {
                 // Skip if not all languages are being updated
-                if (!($this->languagetodo === 'all' ||
-                    $this->languagetodo === $language)) {
+                if (!($language === 'all' || $languagetodo === $language)) {
                     continue;
                 }
                 // skip if this is not an active language.
@@ -170,12 +149,10 @@ class Buildmenus
     /**
      * Convert a menu-headings file to html and save.
      *
-     * @param   $manual     The path fragment of the manual to process.
-     * @param   $language   The path fragment of the language to process.
+     * @param   string  $manual     The name of the manual to process.
+     * @param   string  $language   The code of the language to process.
      *
-     * @return  $int        Count of the number of files.
-     *
-     * @since   1.0.0
+     * @return  int     Count of the number of files.
      */
     protected function menu4lingo($manual, $language)
     {
@@ -302,12 +279,10 @@ class Buildmenus
     /**
      * Save the Previous and Next button code in the #__jdm_articles table.
      *
-     * @param   $orderid        The article order.
-     * @param   $orderpath      The link for each item.
+     * @param   integer     $orderid        The article order.
+     * @param   string      $orderpath      The link for each item.
      *
-     * @return  $void
-     *
-     * @since   1.0.0
+     * @return  void
      */
     protected function setOrder($order_id, $order_path, $order_display_title)
     {
@@ -352,13 +327,11 @@ class Buildmenus
     /**
      * Save a menu in html to the #__jdm_menus table.
      *
-     * @param   $manual     The path fragment of the manual to save.
-     * @param   $language   The path fragment of the language to save.
-     * @param   $html       The html to save
+     * @param   string  $manual     The name of the manual to save.
+     * @param   string  $language   The code of the language to save.
+     * @param   string  $html       The html to save
      *
      * @return  $void
-     *
-     * @since   1.0.0
      */
     protected function saveMenu($manual, $language, $html)
     {
@@ -398,12 +371,10 @@ class Buildmenus
     /**
      * Create an accordian start code.
      *
-     * @param   $id     The sequence number of the accordion.
-     * @param   $label  A summary label.
+     * @param   integer $id     The sequence number of the accordion.
+     * @param   string  $label  A summary label.
      *
      * @return  $html   The required html code.
-     *
-     * @since   1.0.0
      */
     protected function accordionStart($id, $label)
     {
@@ -428,9 +399,7 @@ EOF;
     /**
      * Create an accordian end code.
      *
-     * @return  $html   The required html code.
-     *
-     * @since   1.0.0
+     * @return  string  The required html code.
      */
     protected function accordionEnd()
     {
@@ -440,21 +409,18 @@ EOF;
     /**
      * Create an accordian item code.
      *
-     * @param   $id             The sequence number of the accordion.
-     * @param   $display_title  The display title.
+     * @param   integer     $id             The sequence number of the accordion.
+     * @param   string      $display_title  The display title.
+     * @param   string      $path           The link path
      *
-     * @return  $html   The required html code.
-     *
-     * @since   1.0.0
+     * @return  string      The required html code.
      */
     protected function accordionItem($id, $display_title, $path)
     {
         // Escape any " character in the link.
         //'<li><span class="icon-file-alt icon-fw icon-jdocmanual" aria-hidden="true"></span>';
-        $html = '';
-        $route = 'jdocmanual?';
-        $html .= '<li id="article-' . $id . '">';
-        $html .= '<a href="' . $route . $path . '" class="content-link">' . $display_title . '</a></li>' . "\n";
+        $html = '<li id="article-' . $id . '">';
+        $html .= '<a href="jdocmanual?' . $path . '" class="content-link">' . $display_title . '</a></li>' . "\n";
         return $html;
     }
 }

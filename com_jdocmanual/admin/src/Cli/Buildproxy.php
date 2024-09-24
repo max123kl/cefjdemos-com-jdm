@@ -60,14 +60,6 @@ class Buildproxy
     protected $pattern2 = '/<!-- Filename:.*Display title:(.*)? -->/m';
 
     /**
-     * Regex pattern to select Help key from full Help url.
-     *
-     * @var     string
-     * @since  1.0.0
-     */
-    protected $pattern3 = '/.*Help[\d]\.x:(.*)/';
-
-    /**
      * Path fragment of manual to process.
      *
      * @var     string
@@ -234,14 +226,14 @@ class Buildproxy
             }
             if ($row->language == 'en') {
                 // Extract key from full URL.
-                // https://docs.joomla.org/Help5.x:Admin_Modules:_Action_Logs_-_Latest
+                // Help5.x:Admin_Modules:_Action_Logs_-_Latest
                 // Needs to be Admin_Modules:_Action_Logs_-_Latest
-                $test = preg_match($this->pattern3, $row->source_url, $matches);
-                if (empty($test)) {
+                $parts = explode(':', $row->source_url, 2);
+                if (empty($parts[1])) {
                     echo "Problem extracting key from {$row->source_url}\n";
                 } else {
                     // A source_url may contain single quotes
-                    $key = str_replace("'", "\'", $matches[1]);
+                    $key = str_replace("'", "\'", $parts[1]);
                     $filename = str_replace('.md', '.html', $row->filename);
                     $key_index .= "    '{$key}' => '{$row->heading}/{$filename}',\n";
                 }
