@@ -152,14 +152,14 @@ async function setPanelContent(manual, heading, filename) {
   // remove the highlight class from the selected index item
   /**
    * ChatGPT Conclusion:
-   * call is generally used to control the context (this) within a function, 
-   * not specifically for array processing. However, it can be applied in cases 
-   * where you need to invoke a function with a specific this value for each 
-   * array element. For standard array processing, methods like forEach, map, 
+   * call is generally used to control the context (this) within a function,
+   * not specifically for array processing. However, it can be applied in cases
+   * where you need to invoke a function with a specific this value for each
+   * array element. For standard array processing, methods like forEach, map,
    * and reduce are more appropriate.
-   * 
+   *
    * index_items is a list of objects...
-   */ 
+   */
   let index_items = document.getElementsByClassName('article-active');
   [].forEach.call(index_items, function(el) {
     el.classList.remove("article-active");
@@ -233,7 +233,17 @@ function menuHighlight(heading, filename) {
     link.parentElement.classList.add("article-active");
     // Expand the nearest <details> tag.
     el = link.closest("details");
-    el.setAttribute('open', '');  
+    el.setAttribute('open', '');
+
+    // Traverse up the DOM tree to find all ancestor <details> elements
+
+    while (el && el.tagName === "DETAILS") {
+        // Set the desired attribute on the <details>
+        el.setAttribute('open', 'true');
+
+        // Move up to the next parent <details>
+        el = el.parentElement.closest("details");
+    }
   }
 }
 
@@ -247,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     let manual = 'jdm' + jdmcur.split('-')[0];
     let handf = getCookie(manual).split('--');
     menuHighlight(handf[0], handf[1]);
-    setIndexLocation();  
+    setIndexLocation();
   }
 });
 

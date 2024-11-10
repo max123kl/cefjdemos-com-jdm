@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.1.3</version>
+        <change>
+            <item>Added code to allow nested menu items.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.1.2</version>
         <change>
             <item>Added code to allow git pull from Sources page.</item>

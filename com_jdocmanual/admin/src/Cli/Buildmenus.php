@@ -186,6 +186,8 @@ class Buildmenus
         $html = '';
         $total_translated = 0;
         $total_articles = 0;
+        $previous_heading_level = 0;
+        $new_heading_level = 0;
 
         foreach ($lines as $line) {
             // Skip empty lines or lines beginning with a semi-colon;
@@ -196,11 +198,28 @@ class Buildmenus
                 continue;
             }
             list($key, $heading, $filename) = explode('=', $line);
+
+            // Does the key have a heading level? heading or heading-1 or heading-2
+            if (strpos($key, 'heading') === 0) {
+                if (strpos($key, '-') &&
+                list($k, $l) = explode('-', $key)) {
+                    // This is a new subheading of level l
+                    $new_heading_level = $l;
+                    $key = $k;
+                } else {
+                    $new_heading_level = 0;
+                }
+            }
+
             if ($key == 'heading') {
                 // If the line starts with 'heading=' start a new accordion
                 if ($accordionid > 0) {
                     // End the previous accordion
-                    $html .= $this->accordionEnd();
+                    while ($previous_heading_level >= $new_heading_level) {
+                        $html .= $this->accordionEnd();
+                        $previous_heading_level--;
+                    }
+                    $previous_heading_level++;
                 }
                 $accordionid += 1;
                 // If the display_title is missing
@@ -268,7 +287,11 @@ class Buildmenus
                 $order_displaytitle[] = $row->display_title;
             }
         }
-        $html .= $this->accordionEnd();
+        // End the previous accordion
+        while ($previous_heading_level >= $new_heading_level) {
+            $html .= $this->accordionEnd();
+            $previous_heading_level--;
+        }
 
         $this->summary .=  "Summary: {$manual}/{$language} translated/total: {$total_translated}/{$total_articles}\n";
         $this->saveMenu($manual, $language, $html);
@@ -403,7 +426,7 @@ EOF;
      */
     protected function accordionEnd()
     {
-        return "\n</ul>\n</details>\n"; //</div>\n</div>\n</div>\n";
+        return "\n</ul>\n</details>\n";
     }
 
     /**
