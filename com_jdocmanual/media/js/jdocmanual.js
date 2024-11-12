@@ -244,6 +244,8 @@ function menuHighlight(heading, filename) {
         // Move up to the next parent <details>
         el = el.parentElement.closest("details");
     }
+    // Change the browser bar URL
+    history.replaceState(null, '', link.href);
   }
 }
 
