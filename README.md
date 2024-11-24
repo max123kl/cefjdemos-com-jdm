@@ -279,7 +279,7 @@ if this is a local test site):
 
 ```
 <div class="navbar-brand">
-<div class="site-logo">Jdocmanual</div>
+<div class="site-logo"><a href="jdocmanual">Jdocmanual</a></div>
 <div class="site-description">A site for Joomla! documentation</div>
 </div>
 ```
@@ -289,11 +289,30 @@ if this is a local test site):
 - Set **Module Style** to *noCard*.
 
 There are some CSS statements to position the Search form to the right and
-centre it vertically in the top bar.
+centre it vertically in the top bar. Create a `user.css` file in your
+template and add the following style statements:
 
-#### Search Form Module
+```
+.site-logo {
+    font-weight: 700;
+}
 
-The Search form has the following settings:
+.site-logo a {
+    text-decoration: none !important;
+}
+
+.site-description {
+    margin-left: 0rem;
+}
+
+.container-below-top {
+    align-items: center !important;
+}
+```
+
+#### Smart Search Module
+
+The Smart Search form has the following settings:
 - **Title** set to *Hide*
 - Set **Search Field Label** to *Hide*.
 - Set **Menu Assignment** to *Only on the pages selected* with the Jdocmanual

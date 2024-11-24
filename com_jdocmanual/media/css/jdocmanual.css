@@ -416,7 +416,10 @@ code {
 
 .site-logo {
     font-weight: 700;
-    text-decoration: none;
+}
+
+.site-logo a {
+    text-decoration: none !important;
 }
 
 .site-description {
