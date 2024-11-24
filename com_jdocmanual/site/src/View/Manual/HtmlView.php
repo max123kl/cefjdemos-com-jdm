@@ -156,7 +156,7 @@ class HtmlView extends BaseHtmlView
             $childBar->linkButton($language->code)
             ->text($language->title)
             ->buttonClass('set-language border-bottom')
-            ->url('jdocmanual?page_language_code='  . $language->code)
+            ->url($language->code . '/jdocmanual?page_language_code='  . $language->code)
             ->icon($icon);
         }
 

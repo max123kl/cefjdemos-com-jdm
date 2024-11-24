@@ -413,3 +413,16 @@ details summary, details ul li {
 code {
     color: #bb0000 ! important;
 }
+
+.site-logo {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.site-description {
+    margin-left: 0rem;
+}
+
+.container-below-top {
+    align-items: center !important;
+}
