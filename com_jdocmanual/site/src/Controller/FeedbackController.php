@@ -99,7 +99,7 @@ class FeedbackController extends AdmincontentController
 
         if ($stage === 1) {
             // If there was no previous comment don't change the label
-            if (empty($row->id)) {
+            if (empty($row->id) || empty($comment)) {
                 $comment_label = "Would you like to comment on this article?";
             } else {
                 $comment_label = "Would you like to change your comment on this article?";
