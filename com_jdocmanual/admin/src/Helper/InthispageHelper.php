@@ -10,6 +10,7 @@
 
 namespace Cefjdemos\Component\Jdocmanual\Administrator\Helper;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -54,9 +55,56 @@ class InthispageHelper
 
     public static function getPreviousNext($previous, $next)
     {
+        // Code for the feedback button triggers
+        $dislike = '
+        data-bs-toggle="modal"
+	    data-bs-target="#jdmFeedback"
+	    data-bs-id="dislike"';
+
+        $like = '
+        data-bs-toggle="modal"
+	    data-bs-target="#jdmFeedback"
+	    data-bs-id="like"';
+
+        $comment = '
+        data-bs-toggle="modal"
+	    data-bs-target="#jdmFeedback"
+	    data-bs-id="comment"';
+
+        // Are feedback thumbs and comments enabled?
+        $params = ComponentHelper::getParams('com_jdocmanual');
+        $enable_likeordislike = $params->get('enable_likeordislike');
+        $enable_comments = $params->get('enable_comments');
+
         // Add the next and previous links to $content
-        $pn = '<div class="order-links">' . $previous;
-        $pn.= $next . '</div>';
-        return $pn;
+        $tmpl = '
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    ' . $previous . '
+                </div>
+                ';
+        if ($enable_likeordislike) {
+        $tmpl .= '
+                <div class="col">
+                    <button type="button" class="btn btn-outline-secondary"' . $dislike . '><i class="fa-solid fa-thumbs-down"></i></button>
+                    ';
+                if ($enable_comments) {
+                    $tmpl .= '
+                    <button type="button" class="btn btn-outline-secondary"' . $comment . '><i class="fa-solid fa-question"></i></button>
+                    ';
+                }
+                $tmpl .= '
+                    <button type="button" class="btn btn-outline-secondary"' . $like . '><i class="fa-solid fa-thumbs-up"></i></button>
+                </div>
+                ';
+        }
+        $tmpl .= '
+                <div class="col">
+                    ' . $next . '
+                </div>
+            </div>
+        </div>';
+        return $tmpl;
     }
 }

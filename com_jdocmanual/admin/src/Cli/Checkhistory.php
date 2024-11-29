@@ -65,7 +65,7 @@ class Checkhistory
         $this->languagetodo = $language;
 
         // Check that the database table exists.
-        $db    = Factory::getDbo();
+        $db = Factory::getContainer()->get('DatabaseDriver');
         $query = $db->getQuery(true);
         $query->select('id, source_url, last_update')
         ->from($db->quotename('#__jdm_articles_history'))

@@ -32,6 +32,31 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+
+		<field
+			name="enable_likeordislike"
+			type="radio"
+			label="COM_JDOCMANUAL_PARAMS_ENABLE_LIKESORDISLIKES_LABEL"
+			description="COM_JDOCMANUAL_PARAMS_ENABLE_LIKESORDISLIKES_DESC"
+			layout="joomla.form.field.radio.switcher"
+			default="0"
+			>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+
+		<field
+			name="enable_comments"
+			type="radio"
+			label="COM_JDOCMANUAL_PARAMS_ENABLE_COMMENTS_LABEL"
+			description="COM_JDOCMANUAL_PARAMS_ENABLE_COMMENTS_DESC"
+			layout="joomla.form.field.radio.switcher"
+			default="0"
+			>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+
 	</fieldset>
 
 	<fieldset

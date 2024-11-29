@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.3.0</version>
+        <change>
+            <item>Added code for elementary feedback</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.2.0</version>
         <change>
             <item>Added code for Search function</item>

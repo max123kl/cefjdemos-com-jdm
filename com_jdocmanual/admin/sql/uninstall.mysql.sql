@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS `#__jdm_articles`;
 
 DROP TABLE IF EXISTS `#__jdm_article_stashes`;
 
+DROP TABLE IF EXISTS `#__jdm_feedback`;
+
 DROP TABLE IF EXISTS `#__jdm_languages`;
 
 DROP TABLE IF EXISTS `#__jdm_manuals`;

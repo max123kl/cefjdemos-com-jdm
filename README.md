@@ -136,6 +136,11 @@ page.
 * If you are using clones of the original git sources and would like to pull
   updates from time time you cn set **Enable Pull** to *Yes*. This is used
   in the *Sources* page of the component menu.
+* **Enable Like or Dislike buttons** These are Thumb up and Thumb down buttons
+  at the bottom of every page. An experimental feature to be enabled or disabled
+  as reuired.
+* **Enable Comments form** the central button allows submission of comments
+  without using Thumb up or Thumb down.
 * **Save & Close**
 
 ## Enable Languages
