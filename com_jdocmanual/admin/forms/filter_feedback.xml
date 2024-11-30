@@ -6,8 +6,7 @@
 			name="manual"
 			type="sql"
 			label="COM_JDOCMANUAL_ARTICLES_MANUAL_SELECT"
-			onchange="this.form.submit();"
-			default=""
+			class="js-select-submit-on-change"
 			query = "SELECT manual, title FROM `#__jdm_manuals` WHERE state = 1 ORDER BY title ASC"
 			key_field="manual"
 			value_field="title"
@@ -19,23 +18,22 @@
 			name="language"
 			type="sql"
 			label="Language"
-			onchange="this.form.submit();"
-			default="en"
+			class="js-select-submit-on-change"
+			default=""
 			query = "SELECT locale, title FROM `#__jdm_languages` WHERE state = 1 ORDER BY title ASC"
 			key_field="locale"
 			value_field="title"
 		>
-			<option value="0">COM_JDOCMANUAL_MANUAL_LANGUAGE_SELECT</option>
+			<option value="">COM_JDOCMANUAL_MANUAL_LANGUAGE_SELECT</option>
 		</field>
 
 		<field
 			name="likeitornot"
 			type="list"
 			label="Like"
-			onchange="this.form.submit();"
-			default=""
+			class="js-select-submit-on-change"
 		>
-			<option value="0">COM_JDOCMANUAL_FEEDBACK_SELECT_LIKE</option>
+			<option value="">COM_JDOCMANUAL_FEEDBACK_SELECT_LIKE</option>
             <option value = 'like'>JYES</option>
             <option value = 'dislike'>JNO</option>
             <option value = 'comment'>Empty</option>
@@ -58,7 +56,7 @@
 			type="list"
 			label="JGLOBAL_SORT_BY"
 			statuses="*,0,1,2,-2"
-			onchange="this.form.submit();"
+			class="js-select-submit-on-change"
 			default="a.id DESC"
 			validate="options"
 			>
@@ -80,7 +78,7 @@
 			type="limitbox"
 			label="JGLOBAL_LIST_LIMIT"
 			default="25"
-			onchange="this.form.submit();"
+			class="js-select-submit-on-change"
 		/>
 	</fields>
 </form>

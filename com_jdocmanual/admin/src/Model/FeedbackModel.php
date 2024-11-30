@@ -67,23 +67,23 @@ class FeedbackModel extends ListModel
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
 
-        $manual = $this->getUserStateFromRequest($this->context . '.filter.manual', 'filter_manual', '');
+        $manual = $this->getUserStateFromRequest($this->context . '.filter.manual', 'filter_manual');
         if (!empty($manual)){
             $this->setState('filter.manual', $manual);
         }
 
-        $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
+        $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language');
         if (!empty($language)) {
             $this->setState('filter.language', $language);
         }
 
-        $likeitornot = $this->getUserStateFromRequest($this->context . '.filter.likeitornot', 'filter_likeitornot', '');
-        if (!empty($likeitornot)) {
+        $likeitornot = $this->getUserStateFromRequest($this->context . '.filter.likeitornot', 'filter_likeitornot');
+        //if (!empty($likeitornot)) {
             $this->setState('filter.likeitornot', $likeitornot);
-        }
+        //}
 
-        $date_created = $this->getUserStateFromRequest($this->context . '.filter.date_created', 'date_created', '');
-        $this->setState('filter.date_created', $date_created);
+        //$date_created = $this->getUserStateFromRequest($this->context . '.filter.date_created', 'date_created', '');
+        //$this->setState('filter.date_created', $date_created);
 
         // List state information.
         parent::populateState($ordering, $direction);
@@ -109,7 +109,7 @@ class FeedbackModel extends ListModel
         $id .= ':' . $this->getState('filter.manual');
         $id .= ':' . $this->getState('filter.language');
         $id .= ':' . $this->getState('filter.likeitornot');
-        $id .= ':' . $this->getState('filter.date_created');
+        //$id .= ':' . $this->getState('filter.date_created');
 
         return parent::getStoreId($id);
     }
@@ -160,11 +160,13 @@ class FeedbackModel extends ListModel
         }
 
         // Filter by search in title.
-        $search = $this->getState('filter.search');
+        $search = trim($this->getState('filter.search'));
 
         if (!empty($search)) {
-            $search = '%' . str_replace(' ', '%', trim($search) . '%');
-            $query->where($db->quoteName('a.title') . ' LIKE :search')
+            $search = '%' . str_replace(' ', '%',$search) . '%';
+            $query->where($db->quoteName('a.heading') . ' LIKE :search
+            OR ' . $db->quoteName('a.filename') . ' LIKE :search
+            OR ' . $db->quoteName('a.comment') . ' LIKE :search')
             ->bind(':search', $search, ParameterType::STRING);
         }
 

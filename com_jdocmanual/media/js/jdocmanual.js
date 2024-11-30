@@ -255,11 +255,14 @@ function menuHighlight(heading, filename) {
  * Set data in the feedback form.
  */
 function setFeedback(manual, language, heading, filename) {
-    document.getElementById("manual").value = manual;
-    document.getElementById("language").value = language;
-    document.getElementById("heading").value = heading;
-    document.getElementById("filename").value = filename;
-    document.getElementById("comment").value = '';
+    // Check this is the Manual page
+    if (document.getElementById("manual")) {
+        document.getElementById("manual").value = manual;
+        document.getElementById("language").value = language;
+        document.getElementById("heading").value = heading;
+        document.getElementById("filename").value = filename;
+        document.getElementById("comment").value = '';
+    }
 }
 
 /**
