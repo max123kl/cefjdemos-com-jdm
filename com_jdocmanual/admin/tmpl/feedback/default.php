@@ -30,7 +30,7 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 
 $listOrder  = $this->escape($this->state->get('list.ordering'));
 $listDirn   = $this->escape($this->state->get('list.direction'));
-$likeitornot = ['like' => 'Yes', 'dislike' => 'No'];
+
 ?>
 
 <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'details', 'recall' => true)); ?>
@@ -140,9 +140,11 @@ $likeitornot = ['like' => 'Yes', 'dislike' => 'No'];
                                 </td>
                                 <td>
                                 <?php
-                                    //if (in_array($item->likeitornot, $likeitornot)) {
-                                        echo $likeitornot[$item->likeitornot];
-                                    //}
+                                    if ($item->likeitornot === 'like') {
+                                        echo Text::_('JYES');
+                                    } else if ($item->likeitornot === 'dislike') {
+                                        echo Text::_('JNO');
+                                    }
                                 ?>
                                 </td>
                                 <td class="">
