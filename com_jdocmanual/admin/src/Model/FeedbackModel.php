@@ -160,9 +160,10 @@ class FeedbackModel extends ListModel
         }
 
         // Filter by search in title.
-        $search = trim($this->getState('filter.search'));
+        $search = $this->getState('filter.search');
 
         if (!empty($search)) {
+            $search = trim($search);
             $search = '%' . str_replace(' ', '%',$search) . '%';
             $query->where($db->quoteName('a.heading') . ' LIKE :search
             OR ' . $db->quoteName('a.filename') . ' LIKE :search
