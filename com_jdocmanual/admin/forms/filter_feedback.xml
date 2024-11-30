@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addfieldprefix="Cefjdemos\Component\Jdocmanual\Administrator\Field">
+	<fields name="filter">
+
+		<field
+			name="manual"
+			type="sql"
+			label="COM_JDOCMANUAL_ARTICLES_MANUAL_SELECT"
+			onchange="this.form.submit();"
+			default=""
+			query = "SELECT manual, title FROM `#__jdm_manuals` WHERE state = 1 ORDER BY title ASC"
+			key_field="manual"
+			value_field="title"
+			>
+			<option value="">COM_JDOCMANUAL_ARTICLES_MANUAL_SELECT</option>
+		</field>
+
+		<field
+			name="language"
+			type="sql"
+			label="Language"
+			onchange="this.form.submit();"
+			default="en"
+			query = "SELECT locale, title FROM `#__jdm_languages` WHERE state = 1 ORDER BY title ASC"
+			key_field="locale"
+			value_field="title"
+		>
+			<option value="0">COM_JDOCMANUAL_MANUAL_LANGUAGE_SELECT</option>
+		</field>
+
+		<field
+			name="likeitornot"
+			type="list"
+			label="Like"
+			onchange="this.form.submit();"
+			default=""
+		>
+			<option value="0">COM_JDOCMANUAL_FEEDBACK_SELECT_LIKE</option>
+            <option value = 'like'>JYES</option>
+            <option value = 'dislike'>JNO</option>
+            <option value = 'comment'>Empty</option>
+		</field>
+
+		<field
+			name="search"
+			type="text"
+			inputmode="search"
+			label="COM_JDOCMANUAL_FEEDBACK_FILTER_SEARCH_LABEL"
+			description="COM_JDOCMANUAL_FEEDBACK_FILTER_SEARCH_DESC"
+			hint="JSEARCH_FILTER"
+		/>
+
+	</fields>
+
+	<fields name="list">
+		<field
+			name="fullordering"
+			type="list"
+			label="JGLOBAL_SORT_BY"
+			statuses="*,0,1,2,-2"
+			onchange="this.form.submit();"
+			default="a.id DESC"
+			validate="options"
+			>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<option value="a.manual ASC">COM_JDOCMANUAL_FEEDBACK_MANUAL_ASC</option>
+			<option value="a.manual DESC">COM_JDOCMANUAL_FEEDBACK_MANUAL_DESC</option>
+			<option value="a.language ASC">COM_JDOCMANUAL_FEEDBACK_LANGUAGE_ASC</option>
+			<option value="a.language DESC">COM_JDOCMANUAL_FEEDBACK_LANGUAGE_DESC</option>
+			<option value="a.heading ASC, a.filename ASC">COM_JDOCMANUAL_ARTICLES_HEADING_AND_FILENAME_ASC</option>
+			<option value="a.likeordislike ASC">COM_JDOCMANUAL_FEEDBACK_LIKE_ASC</option>
+			<option value="a.likeordislike DESC">COM_JDOCMANUAL_FEEDBACK_LIKE_DESC</option>
+
+			<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+			<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+		</field>
+
+		<field
+			name="limit"
+			type="limitbox"
+			label="JGLOBAL_LIST_LIMIT"
+			default="25"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>
