@@ -247,7 +247,14 @@ function menuHighlight(heading, filename) {
         el = el.parentElement.closest("details");
     }
     // Change the browser bar URL
-    history.replaceState(null, '', link.href);
+    let jdmcur = getCookie('jdmcur');
+    if (jdmcur) {
+        // user-en-en
+        let parts = jdmcur.split('-');
+        let lang = parts[2];
+        let href = link.href.replace('jdocmanual?', lang + '/jdocmanual?');
+        history.replaceState(null, '', href);
+    }
   }
 }
 
