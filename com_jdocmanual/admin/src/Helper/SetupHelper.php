@@ -100,6 +100,21 @@ class SetupHelper
             $filename = $app->input->get('filename', '', 'string');
         }
 
+        $db = Factory::getContainer()->get('DatabaseDriver');
+
+        // Checking for page language change in url bar for site map purposes
+        $plc = $app->input->get('page_language_code', '', 'string');
+        if (empty($plc)) {
+            $lc = $app->input->get('language', '', 'string');
+            // Get the current language code.
+            $query = $db->getQuery(true);
+            $query->select($db->quoteName('code'))
+                ->from($db->quotename('#__jdm_languages'))
+                ->where($db->quoteName('locale') . ' = ' . $db->quote($lc));
+            $db->setQuery($query);
+            $page_language_code = $db->loadResult();
+        }
+
         // The case of a language change.
         if (empty($manual)) {
             $new_index_language_code = $app->input->get('index_language_code', '', 'string');
@@ -115,8 +130,6 @@ class SetupHelper
                 $manual = $old_manual;
             }
         }
-
-        $db = Factory::getContainer()->get('DatabaseDriver');
 
         // The case of a manual change.
         if (!empty($manual) && empty($heading)) {

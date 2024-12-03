@@ -69,10 +69,6 @@ class Router extends RouterView
         $manual->setKey('id');
         $this->registerView($manual);
 
-        $jdmpage = new RouterViewConfiguration('jdmpage');
-        //$jdmpage->setKey('id');
-        $this->registerView($jdmpage);
-
         parent::__construct($app, $menu);
 
         $this->attachRule(new MenuRules($this));

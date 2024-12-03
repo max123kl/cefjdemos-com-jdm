@@ -14,7 +14,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\Database\ParameterType;
 use Cefjdemos\Component\Jdocmanual\Administrator\Helper\InthispageHelper;
-use Cefjdemos\Component\Jdocmanual\Administrator\Helper\SetupHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;

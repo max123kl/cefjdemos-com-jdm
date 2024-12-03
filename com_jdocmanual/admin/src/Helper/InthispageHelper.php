@@ -87,15 +87,15 @@ class InthispageHelper
         if ($enable_likeordislike) {
         $tmpl .= '
                 <div class="col">
-                    <button type="button" class="btn btn-outline-secondary"' . $dislike . '><i class="fa-solid fa-thumbs-down"></i></button>
+                    <button type="button" class="btn btn-outline-secondary" aria-label="This article was not helpful"' . $dislike . '><i class="fa-solid fa-thumbs-down"></i></button>
                     ';
                 if ($enable_comments) {
                     $tmpl .= '
-                    <button type="button" class="btn btn-outline-secondary"' . $comment . '><i class="fa-solid fa-question"></i></button>
+                    <button type="button" class="btn btn-outline-secondary" aria-label="Invitation to comment on this article"' . $comment . '><i class="fa-solid fa-question"></i></button>
                     ';
                 }
                 $tmpl .= '
-                    <button type="button" class="btn btn-outline-secondary"' . $like . '><i class="fa-solid fa-thumbs-up"></i></button>
+                    <button type="button" class="btn btn-outline-secondary" aria-label="This article was helpful"' . $like . '><i class="fa-solid fa-thumbs-up"></i></button>
                 </div>
                 ';
         }

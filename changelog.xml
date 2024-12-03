@@ -2,9 +2,20 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.3.2</version>
+        <change>
+            <item>Added code to be used in sitemap.</item>
+        </change>
+        <change>
+            <item>Added missing aria labels.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.3.1</version>
         <change>
-            <item>Added admin code to show elementary feedback</item>
+            <item>Added admin code to show elementary feedback.</item>
         </change>
     </changelog>
     <changelog>
@@ -12,7 +23,7 @@
         <type>component</type>
         <version>4.3.0</version>
         <change>
-            <item>Added code for elementary feedback</item>
+            <item>Added code for elementary feedback.</item>
         </change>
     </changelog>
     <changelog>
@@ -20,7 +31,7 @@
         <type>component</type>
         <version>4.2.0</version>
         <change>
-            <item>Added code for Search function</item>
+            <item>Added code for Search function.</item>
         </change>
     </changelog>
     <changelog>
