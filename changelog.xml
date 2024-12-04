@@ -4,10 +4,13 @@
         <type>component</type>
         <version>4.3.2</version>
         <change>
-            <item>Added code to be used in sitemap.</item>
+            <item>Added language code to url to be used in sitemap.</item>
         </change>
         <change>
             <item>Added missing aria labels.</item>
+        </change>
+        <change>
+            <item>Added ordering to Admin Sources view.</item>
         </change>
     </changelog>
     <changelog>

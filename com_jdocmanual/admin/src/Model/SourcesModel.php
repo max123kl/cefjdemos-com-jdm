@@ -41,7 +41,8 @@ class SourcesModel extends ListModel
                     'manual', 'a.manual',
                     'title', 'a.title',
                     'state', 'a.state',
-            );
+                    'ordering', 'a.ordering',
+                );
         }
 
         parent::__construct($config);
@@ -59,7 +60,7 @@ class SourcesModel extends ListModel
      *
      * @since   1.6
      */
-    protected function populateState($ordering = 'a.id', $direction = 'asc')
+    protected function populateState($ordering = 'a.ordering', $direction = 'asc')
     {
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
@@ -134,7 +135,7 @@ class SourcesModel extends ListModel
         }
 
         // Add the list ordering clause.
-        $orderCol  = $this->state->get('list.ordering', 'a.id');
+        $orderCol  = $this->state->get('list.ordering', 'a.ordering');
         $orderDirn = $this->state->get('list.direction', 'ASC');
         $query->order($db->escape($orderCol) . ' ' . $db->escape($orderDirn));
 

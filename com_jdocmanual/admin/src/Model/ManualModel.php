@@ -110,7 +110,7 @@ class ManualModel extends ListModel
         $order = InthispageHelper::getPreviousNext($row->order_previous, $row->order_next);
 
         $content .= $order;
-        
+
         return array($row->display_title, $in_this_page, $content);
     }
 
@@ -195,7 +195,7 @@ class ManualModel extends ListModel
         $query->select('*')
         ->from($db->quoteName('#__jdm_manuals'))
         ->where($db->quoteName('state') . ' = 1')
-        ->order($db->quoteName('id'));
+        ->order($db->quoteName('ordering'));
         $db->setQuery($query);
         return $db->loadObjectList();
     }

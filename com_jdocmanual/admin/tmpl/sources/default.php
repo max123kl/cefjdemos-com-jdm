@@ -16,6 +16,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+
 $params = ComponentHelper::getParams('com_jdocmanual');
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -30,6 +32,12 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 
 $listOrder  = $this->escape($this->state->get('list.ordering'));
 $listDirn   = $this->escape($this->state->get('list.direction'));
+$saveOrder = $listOrder == 'a.ordering';
+
+if ($saveOrder && !empty($this->items)) {
+    $saveOrderingUrl = 'index.php?option=com_jdocmanual&task=sources.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+    HTMLHelper::_('draggablelist.draggable');
+}
 
 $states = array (
         '0' => Text::_('JUNPUBLISHED'),
@@ -60,11 +68,14 @@ $is_gitpull_enabled = $this->is_gitpull_enabled();
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
-                    <table class="table" id="jdocmanualList">
+                    <table id="jdocmanualList" class="table">
                         <thead>
                             <tr>
                                 <th class="text-center">
                                     <?php echo HTMLHelper::_('grid.checkall'); ?>
+                                </th>
+                                <th scope="col" class="w-1 text-center d-none d-md-table-cell">
+                                    <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-sort'); ?>
                                 </th>
                                 <th scope="col">
                                     <?php echo HTMLHelper::_(
@@ -112,14 +123,33 @@ $is_gitpull_enabled = $this->is_gitpull_enabled();
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                        <?php
+                        <tbody <?php if ($saveOrder) :
+                            ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>" data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true"<?php
+                               endif; ?>>
+                            <?php
                             $n = count($this->items);
-                        foreach ($this->items as $i => $item) :
+                            foreach ($this->items as $i => $item) :
                             ?>
-                            <tr class="row<?php echo $i % 2; ?>">
+                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="0"
+                                data-item-id="<?php echo $item->id; ?>" data-parents=""
+                                data-level="0">
                                 <td class="text-center">
-                                <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
+                                    <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
+                                </td>
+                                <td class="text-center d-none d-md-table-cell">
+                                    <?php
+                                    $iconClass = '';
+                                    if (!$saveOrder) {
+                                        $iconClass = ' inactive" title="' . Text::_('JORDERINGDISABLED');
+                                    }
+                                    ?>
+                                    <span class="sortable-handler<?php echo $iconClass ?>">
+                                        <span class="icon-ellipsis-v" aria-hidden="true"></span>
+                                    </span>
+                                    <?php if ($saveOrder) : ?>
+                                        <input type="text" name="order[]" size="5"
+                                        value="<?php echo $item->id; ?>" class="width-20 text-area-order hidden">
+                                    <?php endif; ?>
                                 </td>
                                 <td class="class="article-status"">
                                 <?php echo $states[$item->state]; ?>

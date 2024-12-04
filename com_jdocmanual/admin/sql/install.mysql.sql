@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `#__jdm_manuals` (
   `heading_ini` VARCHAR(128) NULL DEFAULT NULL,
   `filename_ini` VARCHAR(128) NULL DEFAULT NULL,
   `state` tinyint(3) NOT NULL DEFAULT '1',
+  `ordering` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
