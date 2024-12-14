@@ -24,6 +24,14 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 //->addInlineScript($scripts);
 
 //$wa->registerAndUseStyle('jdocmanual-site', 'com_jdocmanual/jdocmanual-site.css', [], [], []);
+// Register and attach a custom item in one run
+$wa->registerAndUseStyle('highlight', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css', [], [], []);
+
+// Register and attach a custom item in one run
+$wa->registerAndUseScript('highlight','https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js', [], [], ['core']);
+
+// Add an inline content as usual, will be rendered in flow after all assets
+$wa->addInlineScript('hljs.highlightAll();');
 
 $proxy = false;
 

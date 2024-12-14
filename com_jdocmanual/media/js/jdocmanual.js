@@ -256,6 +256,8 @@ function menuHighlight(heading, filename) {
         history.replaceState(null, '', href);
     }
   }
+  // Syntax highlighting
+  hljs.highlightAll();
 }
 
 /**
