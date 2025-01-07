@@ -84,7 +84,7 @@ class HtmlView extends BaseHtmlView
 
     /**
      * Set to 1 if there are records in the the #__jdm_articles table.
-     * 
+     *
      * @var integer;
      * @since 4.0
      */

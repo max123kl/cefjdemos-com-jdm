@@ -21,8 +21,9 @@ use Joomla\CMS\Factory;
  *
  * @since  4.0
  */
-class CheckdbHelper {
-	/**
+class CheckdbHelper
+{
+    /**
      * Check that the jdm_articles and jdm_menus tables have been populated.
      *
      * @return int  Flag for tables populated, value, 0 or 1.

@@ -84,21 +84,21 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
                                 </th>
                                 <th>
                                 <?php echo HTMLHelper::_(
-                                        'searchtools.sort',
-                                        'COM_JDOCMANUAL_ARTICLES_FILENAME',
-                                        'a.heading, a.filename',
-                                        $listDirn,
-                                        $listOrder
-                                    ); ?>
+                                    'searchtools.sort',
+                                    'COM_JDOCMANUAL_ARTICLES_FILENAME',
+                                    'a.heading, a.filename',
+                                    $listDirn,
+                                    $listOrder
+                                ); ?>
                                 </th>
                                 <th>
                                 <?php echo HTMLHelper::_(
-                                        'searchtools.sort',
-                                        'COM_JDOCMANUAL_FEADBACK_LIKEITORNOT',
-                                        'a.likeitornot',
-                                        $listDirn,
-                                        $listOrder
-                                    ); ?>
+                                    'searchtools.sort',
+                                    'COM_JDOCMANUAL_FEADBACK_LIKEITORNOT',
+                                    'a.likeitornot',
+                                    $listDirn,
+                                    $listOrder
+                                ); ?>
                                 </th>
                                 <th>
                                     <?php echo Text::_('COM_JDOCMANUAL_FEADBACK_COMMENT'); ?>
@@ -120,32 +120,32 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
                         <tbody>
                         <?php
                             $n = count($this->items);
-                            foreach ($this->items as $i => $item) :
+                        foreach ($this->items as $i => $item) :
                             ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="text-center">
-                                <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
+                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
                                 <td scope="row" class="has-context">
-                                    <?php echo $item->manual; ?>
+                                <?php echo $item->manual; ?>
                                 </td>
                                 <td class="">
-                                <?php echo $item->language; ?>
+                            <?php echo $item->language; ?>
                                 </td>
                                 <td class="">
-                                <?php echo $item->heading; ?>
+                            <?php echo $item->heading; ?>
                                 </td>
                                 <td class="">
-                                <?php echo $item->filename; ?>
+                            <?php echo $item->filename; ?>
                                 </td>
                                 <td>
-                                <?php
-                                    if ($item->likeitornot === 'like') {
-                                        echo Text::_('JYES');
-                                    } else if ($item->likeitornot === 'dislike') {
-                                        echo Text::_('JNO');
-                                    }
-                                ?>
+                            <?php
+                            if ($item->likeitornot === 'like') {
+                                echo Text::_('JYES');
+                            } elseif ($item->likeitornot === 'dislike') {
+                                echo Text::_('JNO');
+                            }
+                            ?>
                                 </td>
                                 <td class="">
                                 <?php echo $item->comment; ?>

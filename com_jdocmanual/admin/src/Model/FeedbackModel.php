@@ -68,7 +68,7 @@ class FeedbackModel extends ListModel
         $this->setState('filter.search', $search);
 
         $manual = $this->getUserStateFromRequest($this->context . '.filter.manual', 'filter_manual');
-        if (!empty($manual)){
+        if (!empty($manual)) {
             $this->setState('filter.manual', $manual);
         }
 
@@ -164,7 +164,7 @@ class FeedbackModel extends ListModel
 
         if (!empty($search)) {
             $search = trim($search);
-            $search = '%' . str_replace(' ', '%',$search) . '%';
+            $search = '%' . str_replace(' ', '%', $search) . '%';
             $query->where($db->quoteName('a.heading') . ' LIKE :search
             OR ' . $db->quoteName('a.filename') . ' LIKE :search
             OR ' . $db->quoteName('a.comment') . ' LIKE :search')

@@ -12,7 +12,7 @@ if (pageid === '0') {
     let heading = document.getElementById('jform_heading');
     let prefix = 'jdocmanual?article=';
 
-    displaytitle.addEventListener('change', function() {
+    displaytitle.addEventListener('change', function () {
         // If the jform_page_id is not 0 do not change the source_url.
 
         // Set the source_url from the display title.
@@ -36,7 +36,7 @@ if (pageid === '0') {
         sourceurl.value = prefix + manual.value + '/' + heading.value + '/' + filename.value;
     });
 
-    heading.addEventListener('change', function() {
+    heading.addEventListener('change', function () {
         // Lower case.
         let tmp = heading.value.trim();
         tmp = tmp.toLowerCase();
@@ -59,26 +59,27 @@ if (pageid === '0') {
 let msg = document.getElementById('jform_commit_message');
 let commit = document.getElementsByClassName('button-gfm-commit');
 if (commit) {
-	for (let i = 0; i < commit.length; i++) {
-		commit[i].addEventListener('click', committer, false);
-	}
+    for (let i = 0; i < commit.length; i++) {
+        commit[i].addEventListener('click', committer, false);
+    }
 }
 
-function committer(event) {
-	// Get the length of the commit message.
-	if (msg.value.length < 25) {
-		alert('The Commit Message is missing or too short!');
-		return false;
-	} else {
-		// form.submit();
-		if(confirm('This action will commit and merge the changes in this PR.')) {
-			let form = document.getElementById('adminForm');
-			let task = document.getElementById('task');
-			task.value = document.getElementById('toolbar-gfm-commit').getAttribute('task');
-			form.submit();
-			return true;
-		}
-		return false;
-	}
+function committer(event)
+{
+    // Get the length of the commit message.
+    if (msg.value.length < 25) {
+        alert('The Commit Message is missing or too short!');
+        return false;
+    } else {
+        // form.submit();
+        if (confirm('This action will commit and merge the changes in this PR.')) {
+            let form = document.getElementById('adminForm');
+            let task = document.getElementById('task');
+            task.value = document.getElementById('toolbar-gfm-commit').getAttribute('task');
+            form.submit();
+            return true;
+        }
+        return false;
+    }
 }
 

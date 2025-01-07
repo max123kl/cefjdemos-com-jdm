@@ -48,7 +48,7 @@ $states = array (
 
 $source_edit_route = 'index.php?option=com_jdocmanual&task=source.edit&id=';
 
-$is_gitpull_enabled = $this->is_gitpull_enabled();
+$isGitpullEnabled = $this->isGitpullEnabled();
 
 ?>
 
@@ -107,7 +107,7 @@ $is_gitpull_enabled = $this->is_gitpull_enabled();
                                 <th>
                                     Build
                                 </th>
-                                <?php if ($is_gitpull_enabled) : ?>
+                                <?php if ($isGitpullEnabled) : ?>
                                 <th>
                                     Pull
                                 </th>
@@ -129,7 +129,7 @@ $is_gitpull_enabled = $this->is_gitpull_enabled();
                             <?php
                             $n = count($this->items);
                             foreach ($this->items as $i => $item) :
-                            ?>
+                                ?>
                             <tr class="row<?php echo $i % 2; ?>" data-draggable-group="0"
                                 data-item-id="<?php echo $item->id; ?>" data-parents=""
                                 data-level="0">
@@ -167,18 +167,18 @@ $is_gitpull_enabled = $this->is_gitpull_enabled();
                                     <?php echo $this->getLanguageFormHTML($item->manual, 'buildhtml'); ?>
                                 <?php endif; ?>
                                 </td>
-                                <?php if ($is_gitpull_enabled) : ?>
+                                <?php if ($isGitpullEnabled) : ?>
                                 <td>
-                                <?php if (!empty($item->state)) : ?>
-                                    <?php echo $this->getLanguageFormHTML($item->manual, 'gitpull'); ?>
-                                <?php endif; ?>
+                                    <?php if (!empty($item->state)) : ?>
+                                        <?php echo $this->getLanguageFormHTML($item->manual, 'gitpull'); ?>
+                                    <?php endif; ?>
                                 </td>
                                 <?php endif; ?>
                                 <td class="d-none d-md-table-cell">
                                 <?php echo $item->id; ?>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
 

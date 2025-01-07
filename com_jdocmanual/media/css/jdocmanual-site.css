@@ -6,42 +6,42 @@
 }
 
 .sidebar, .toc {
-	width: 15rem;
-	padding: 1rem;
+    width: 15rem;
+    padding: 1rem;
 }
 
 .main-content {
-	flex-grow: 1;
-	padding: 1rem;
-	border: 1px solid grey;
+    flex-grow: 1;
+    padding: 1rem;
+    border: 1px solid grey;
 }
 
 .panel {
-	padding: .5em;
-	overflow: hidden;
+    padding: .5em;
+    overflow: hidden;
 }
 p.ambox {
-	margin: .5em 0 0 0;
+    margin: .5em 0 0 0;
 }
 .panel.ambox-tip {
-	background-color: #bad0e3;
-	border-color: #bad0e3;
+    background-color: #bad0e3;
+    border-color: #bad0e3;
 }
 
 .panel.ambox-serious {
-	background-color: #FFBABA;
-	border-color: #FFBABA;
+    background-color: #FFBABA;
+    border-color: #FFBABA;
 }
 
 .ambox-title {
-	display: inline-block;
-	vertical-align: middle;
-	line-height: 1.2;
-	margin-left: .25em;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.2;
+    margin-left: .25em;
 }
 
 .table-of-contents {
-	width: 25%;
-	max-width: 250px;
-	float:right;
+    width: 25%;
+    max-width: 250px;
+    float:right;
 }

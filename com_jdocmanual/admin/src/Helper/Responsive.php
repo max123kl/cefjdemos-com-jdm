@@ -131,9 +131,9 @@ class Responsive
     {
       // When called from the web interface with Joomla in a subfolder this
       // function returns the subfolder name. But from the cli $base is empty;
-      $base = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
+        $base = ComponentHelper::getComponent('com_jdocmanual')->getParams()->get('installation_subfolder', '');
 
-      $srcSets = $this->createImages(str_replace('%20', ' ', $image->dirname), $image->filename, $image->extension);
+        $srcSets = $this->createImages(str_replace('%20', ' ', $image->dirname), $image->filename, $image->extension);
         if (null === $srcSets || $srcSets === false) {
             $image->tag = str_replace('jdmimages/', $base . '/' . 'jdmimages/', $image->tag);
             return $image->tag;
@@ -242,9 +242,11 @@ class Responsive
         $imageBits = ($info['bits'] / 8) * $channels;
 
       // Do some memory checking
-        if (!self::checkMemoryLimit(['width' => $imageWidth, 
-            'height' => $imageHeight, 
-            'bits' => $imageBits], $dirname . '/' . $filename . '.' . $extension)) {
+        if (
+            !self::checkMemoryLimit(['width' => $imageWidth,
+            'height' => $imageHeight,
+            'bits' => $imageBits], $dirname . '/' . $filename . '.' . $extension)
+        ) {
             return;
         }
 
@@ -255,7 +257,7 @@ class Responsive
             'width' => $info[0],
             'height' => $info[1],
             'version' => $hash,
-        ]
+            ]
         ];
         // (max-width: 300px) 100vw, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px 320, 768, 1200
         // array_push($srcSets->base->sizes, '(max-width: 320px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 1200px');

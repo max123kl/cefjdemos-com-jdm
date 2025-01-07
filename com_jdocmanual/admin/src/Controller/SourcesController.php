@@ -62,15 +62,15 @@ class SourcesController extends AdminController
 
         if (!empty($manual)) {
             $ba = new Buildarticles();
-			$summary = "Building Articles\n";
+            $summary = "Building Articles\n";
             $summary .= $ba->go($manual, $language);
             $this->app->enqueueMessage(nl2br($summary, true));
 
-			$this->buildmenus();
+            $this->buildmenus();
 
-			if ($manual == 'help') {
-				$this->buildproxy();
-			}
+            if ($manual == 'help') {
+                $this->buildproxy();
+            }
         }
         $this->setRedirect(Route::_('index.php?option=com_jdocmanual&view=sources', false));
     }
@@ -84,12 +84,12 @@ class SourcesController extends AdminController
      */
     public function buildmenus()
     {
-		$manual = $this->input->get('manual', '', 'string');
+        $manual = $this->input->get('manual', '', 'string');
         $language = $this->input->get('language', '', 'string');
 
-		if (!empty($manual)) {
+        if (!empty($manual)) {
             $bm = new Buildmenus();
-			$summary = "Building Menus\n";
+            $summary = "Building Menus\n";
             $summary .= $bm->go($manual, $language);
             $this->app->enqueueMessage(nl2br($summary, true));
         }
@@ -105,10 +105,10 @@ class SourcesController extends AdminController
      */
     public function buildproxy()
     {
-		$manual = $this->input->get('manual', '', 'string');
+        $manual = $this->input->get('manual', '', 'string');
         $language = $this->input->get('language', '', 'string');
 
-		$summary = "Building Proxy\n";
+        $summary = "Building Proxy\n";
 
         if (!empty($manual) && $manual == 'help') {
             $bp = new Buildproxy();

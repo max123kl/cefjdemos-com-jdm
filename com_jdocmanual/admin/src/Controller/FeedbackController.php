@@ -30,5 +30,4 @@ use Cefjdemos\Component\Jdocmanual\Administrator\Cli\Buildproxy;
 class FeedbackController extends AdminController
 {
     protected $text_prefix = 'COM_JDOCMANUAL_FEEDBACK';
-
 }

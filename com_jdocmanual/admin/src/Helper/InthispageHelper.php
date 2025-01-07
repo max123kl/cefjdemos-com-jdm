@@ -85,15 +85,15 @@ class InthispageHelper
                 </div>
                 ';
         if ($enable_likeordislike) {
-        $tmpl .= '
+            $tmpl .= '
                 <div class="col">
                     <button type="button" class="btn btn-outline-secondary" aria-label="This article was not helpful"' . $dislike . '><i class="fa-solid fa-thumbs-down"></i></button>
                     ';
-                if ($enable_comments) {
-                    $tmpl .= '
+            if ($enable_comments) {
+                $tmpl .= '
                     <button type="button" class="btn btn-outline-secondary" aria-label="Invitation to comment on this article"' . $comment . '><i class="fa-solid fa-question"></i></button>
                     ';
-                }
+            }
                 $tmpl .= '
                     <button type="button" class="btn btn-outline-secondary" aria-label="This article was helpful"' . $like . '><i class="fa-solid fa-thumbs-up"></i></button>
                 </div>

@@ -133,7 +133,7 @@ $stash_edit_route = 'index.php?option=com_jdocmanual&task=articlestash.edit&id='
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="text-center text-nowrap">
                             <?php if ($item->nstashes == 0) : ?>
-                                    <?php echo $states[$item->state]; ?>
+                                    <?php //echo $states[$item->state]; ?>
                             <?php else : ?>
                                     <?php echo Text::_('COM_JDOCMANUAL_ARTICLE_STASHES') . ' ' . $item->nstashes; ?>
                                     <?php if ($item->nprs > 0) : ?>

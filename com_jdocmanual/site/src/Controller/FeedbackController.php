@@ -32,7 +32,8 @@ class FeedbackController extends AdmincontentController
      * or a comment and returns a thank you message.
      * @return never
      */
-    public function likeitornot() {
+    public function likeitornot()
+    {
         $likeitornot = $this->app->input->get('likeitornot', '', 'WORD');
         $manual = $this->app->input->get('manual', '', 'CMD');
         $language = $this->app->input->get('language', '', 'CMD');

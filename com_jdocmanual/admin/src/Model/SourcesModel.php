@@ -164,7 +164,8 @@ class SourcesModel extends ListModel
         return 2;
     }
 
-    public function getActiveLanguages() {
+    public function getActiveLanguages()
+    {
         $db    = $this->getDatabase();
         return BuildHelper::getActivelanguages($db);
     }

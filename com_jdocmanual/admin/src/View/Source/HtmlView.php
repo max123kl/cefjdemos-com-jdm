@@ -100,7 +100,7 @@ class HtmlView extends BaseHtmlView
         ToolbarHelper::save('source.save');
 
         if (empty($isNew)) {
-            ToolbarHelper::cancel('source.cancel', 'JTOOLBAR_CLOSE');   
+            ToolbarHelper::cancel('source.cancel', 'JTOOLBAR_CLOSE');
         } else {
             ToolbarHelper::cancel('source.cancel');
         }

@@ -125,5 +125,4 @@ class HtmlView extends BaseHtmlView
             ToolbarHelper::help('feedback', true);
         }
     }
-
 }

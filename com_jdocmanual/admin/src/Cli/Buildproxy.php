@@ -200,7 +200,7 @@ class Buildproxy
         ->from('#__jdm_articles')
         ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
         //->where($db->quoteName('language') . ' = ' . $db->quote('en'))
-       ->order($db->quoteName(array('language', 'heading', 'filename')));
+        ->order($db->quoteName(array('language', 'heading', 'filename')));
         $db->setQuery($query);
         $rows = $db->loadObjectList();
         $key_index = "<?php\n\$key_index = [\n";

@@ -201,8 +201,10 @@ class Buildmenus
 
             // Does the key have a heading level? heading or heading-1 or heading-2
             if (strpos($key, 'heading') === 0) {
-                if (strpos($key, '-') &&
-                list($k, $l) = explode('-', $key)) {
+                if (
+                    strpos($key, '-') &&
+                    list($k, $l) = explode('-', $key)
+                ) {
                     // This is a new subheading of level l
                     $new_heading_level = $l;
                     $key = $k;
@@ -318,11 +320,10 @@ class Buildmenus
         $linkend_previous = '" class="btn btn-outline-secondary previous"><i class="fa-solid fa-hand-point-left"></i> ' . $previous . '</a>';
 
         foreach ($order_id as $i => $value) {
-
             // The first item does not have a Previous link
             if ($i > 0) {
                 // Save the previous link.
-                $link = $linkstart . $order_path[$i-1] . $linkend_previous;
+                $link = $linkstart . $order_path[$i - 1] . $linkend_previous;
                 $query = $db->getQuery(true);
                 $query->update($db->quoteName('#__jdm_articles'))
                 ->set($db->quoteName('order_previous') . ' = :op')
@@ -335,7 +336,7 @@ class Buildmenus
             // The last item does not have a Next link.
             if ($i < count($order_id) - 1) {
                 // Save the next link.
-                $link = $linkstart . $order_path[$i+1] . $linkend_next;
+                $link = $linkstart . $order_path[$i + 1] . $linkend_next;
                 $query = $db->getQuery(true);
                 $query->update($db->quoteName('#__jdm_articles'))
                 ->set($db->quoteName('order_next') . ' = :op')

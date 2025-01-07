@@ -122,7 +122,7 @@
   }
 }
 @media (min-width: 1400px) {
-	  .navbar-expand-xxl .offcanvas-header {
+      .navbar-expand-xxl .offcanvas-header {
     display: none;
   }
   .navbar-expand-xxl .offcanvas {
@@ -286,5 +286,5 @@
 }
 
 #page-panel {
-	background-color: #fff;
+    background-color: #fff;
 }

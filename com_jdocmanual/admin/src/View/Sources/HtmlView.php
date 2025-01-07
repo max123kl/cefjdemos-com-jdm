@@ -159,12 +159,14 @@ class HtmlView extends BaseHtmlView
         }
     }
 
-    protected function is_gitpull_enabled() {
+    protected function isGitpullEnabled()
+    {
         $params = ComponentHelper::getParams('com_jdocmanual');
         return $params->get('enable_gitpull');
     }
 
-    protected function getLanguageFormHTML($manual, $action) {
+    protected function getLanguageFormHTML($manual, $action)
+    {
         // For the given manual find installed languages.
         $params = ComponentHelper::getParams('com_jdocmanual');
 
@@ -174,7 +176,7 @@ class HtmlView extends BaseHtmlView
         // Scan for language folders.
         $items = scandir($manual_path);
         $dirs = [];
-        foreach($items as $item) {
+        foreach ($items as $item) {
             if (is_dir($manual_path . '/' . $item)) {
                 $dirs[] = $item;
             }

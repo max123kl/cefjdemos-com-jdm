@@ -100,7 +100,7 @@ class Buildarticles
      *
      * @since   1.0.0
      */
-    public function go($manual, $language, $force=false)
+    public function go($manual, $language, $force = false)
     {
         $time_start = microtime(true);
 
@@ -133,7 +133,7 @@ class Buildarticles
         }
         $summary = '';
         $total = 0;
-        foreach($articles as $article) {
+        foreach ($articles as $article) {
             list ($heading, $filename) = explode('/', $article);
             list ($count, $note) = $this->setOneArticle($manual, $language, $heading, $filename);
             $summary .= $note;
@@ -174,7 +174,8 @@ class Buildarticles
      *
      * @return array    [true/false, message].
      */
-    protected function preFlightCheck($manual, $language) {
+    protected function preFlightCheck($manual, $language)
+    {
         $params = ComponentHelper::getParams('com_jdocmanual');
 
         // Get the the 'manuals' path from the component parameters.
@@ -191,7 +192,6 @@ class Buildarticles
 
         // If there is an articles directory assume valid.
         if (is_dir($gitpath . '/articles')) {
-
             // Check for an entry in the #__jdm_git_updates table.
             $query = $db->getQuery(true);
             $query->select($db->quoteName('last_update'))
@@ -219,10 +219,10 @@ class Buildarticles
                 $db->execute();
             }
             // Convert $last_update to minutes in the past and save it
-            $now = new \DateTime;
+            $now = new \DateTime();
             $past = new \DateTime($last_update);
             $interval = $past->diff($now);
-            $this->minutes = $interval->days * 24 * 60 + $interval->h *60 + $interval->i;
+            $this->minutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
             return [true, "\nGood to go"];
         }
         return [false, "The quoted manual and/or language are not installed: {$manual}/{$language}\n"];
@@ -236,7 +236,8 @@ class Buildarticles
      *
      * @return array    [true|false, message]
      */
-    protected function getArticlesIndex($manual, $language) {
+    protected function getArticlesIndex($manual, $language)
+    {
         // Read in articles-index.txt - changed to new format ini
         $articles_index = $this->gfmfiles_path . $manual . '/en/articles-index.txt';
         if (!file_exists($articles_index)) {
@@ -291,7 +292,7 @@ class Buildarticles
             // Skip any extraneous lines.
             if (str_ends_with($line, '.md')) {
                 $articles[] = $line;
-            } else if (str_ends_with($line, '.png') || str_ends_with($line, '.jpg')) {
+            } elseif (str_ends_with($line, '.png') || str_ends_with($line, '.jpg')) {
                 // For each image file - need to find the article that contains it.
                 // This command returns the path/to/filename.md:line no:line containing search term
                 //grep --include=\*.md -rnw '/Users/ceford/git/cefjdemos/manuals/help/en/articles/' -e "articles/articles-list.png"
@@ -316,7 +317,6 @@ class Buildarticles
                     if (str_ends_with($filename[0], '.md')) {
                         $articles[] = $filename[0];
                     }
-
                 }
             }
         }
@@ -345,7 +345,8 @@ class Buildarticles
      *
      * @return array    [0|1, message].
      */
-    protected function setOneArticle($manual, $language, $heading, $filename) {
+    protected function setOneArticle($manual, $language, $heading, $filename)
+    {
         $db = $this->db;
         $gfm_file = $this->gfmfiles_path . $manual . '/' . $language . '/articles/' . $heading . '/' . $filename;
         if (!file_exists($gfm_file)) {

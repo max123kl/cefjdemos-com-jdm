@@ -9,17 +9,16 @@ declare(strict_types=1);
 
 namespace Nette\Utils;
 
-
 /**
  * Type of image file.
  */
 /*enum*/ final class ImageType
 {
-	public const
-		JPEG = IMAGETYPE_JPEG,
-		PNG = IMAGETYPE_PNG,
-		GIF = IMAGETYPE_GIF,
-		WEBP = IMAGETYPE_WEBP,
-		AVIF = 19, // IMAGETYPE_AVIF,
-		BMP = IMAGETYPE_BMP;
+    public const
+        JPEG = IMAGETYPE_JPEG,
+        PNG = IMAGETYPE_PNG,
+        GIF = IMAGETYPE_GIF,
+        WEBP = IMAGETYPE_WEBP,
+        AVIF = 19, // IMAGETYPE_AVIF,
+        BMP = IMAGETYPE_BMP;
 }
