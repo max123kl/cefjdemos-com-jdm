@@ -116,7 +116,7 @@ let getPage = function (event) {
         filename = searchParams.get('filename');
     }
   // if there is a change of manual
-    if (curmanual != manual) {
+    if (curmanual !== manual || heading === null || filename === null) {
       // Is this a Site or Administrator instance?
         if (url.href.indexOf('/administrator/') > 0) {
             // Replace /jdocmanual with option=jdocmanual
