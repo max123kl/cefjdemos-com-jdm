@@ -9,7 +9,7 @@ function setCookie(name, value, days)
     let date = new Date();
   // is the siteroot set for this template
     let paths = Joomla.getOptions(["system.paths"], "No good");
-    let root = paths.root;
+    let root = paths.root ? paths.root : '/';
     let path = "; path=" + root;
 
     const samesite = "; samesite=None; secure=true";
@@ -21,9 +21,6 @@ function setCookie(name, value, days)
         date.setTime(date.getTime());
     }
     expires = "; expires=" + date.toGMTString();
-    if (typeof root === undefined) {
-        path = "; path=/";
-    }
     document.cookie = name + "=" + value + expires + path + samesite;
 }
 
