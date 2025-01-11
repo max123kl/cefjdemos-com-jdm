@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.4.1</version>
+        <fix>
+            <item>Rename web asset link name for code block syntax highlighting.</item>
+        </fix>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.4.0</version>
         <change>
             <item>Added code block syntax highlighting.</item>

@@ -240,11 +240,11 @@ function menuHighlight(heading, filename)
     let link = document.querySelector('a[href*="/' + heading + '/' + filename + '"]');
     if (link) {
         link.parentElement.classList.add("article-active");
-      // Expand the nearest <details> tag.
+        // Expand the nearest <details> tag.
         el = link.closest("details");
         el.setAttribute('open', '');
 
-      // Traverse up the DOM tree to find all ancestor <details> elements
+        // Traverse up the DOM tree to find all ancestor <details> elements
 
         while (el && el.tagName === "DETAILS") {
             // Set the desired attribute on the <details>
@@ -253,17 +253,33 @@ function menuHighlight(heading, filename)
             // Move up to the next parent <details>
             el = el.parentElement.closest("details");
         }
-      // Change the browser bar URL
+        // Get a highlight value from the url bar if present
+        // Example URL: https://example.com?highlight=WyJuZXdzZmVlZHMiXQ==
+
+        // Get the current URL
+        const currentUrl = window.location.href;
+
+        // Create a URL object
+        const url = new URL(currentUrl);
+
+        // Get a specific query parameter
+        const highlight = url.searchParams.get('highlight');
+
+        // Change the browser bar URL
         let jdmcur = getCookie('jdmcur');
         if (jdmcur) {
             // user-en-en
             let parts = jdmcur.split('-');
             let lang = parts[2];
             let href = link.href.replace('jdocmanual?', lang + '/jdocmanual?');
+            if (highlight) {
+                // This has undesirable side effects!
+                //href = href + '&highlight=' + highlight;
+            }
             history.replaceState(null, '', href);
         }
     }
-  // Syntax highlighting
+    // Syntax highlighting
     hljs.highlightAll();
 }
 
