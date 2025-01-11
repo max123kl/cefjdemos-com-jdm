@@ -276,7 +276,9 @@ function menuHighlight(heading, filename)
                 // This has undesirable side effects!
                 //href = href + '&highlight=' + highlight;
             }
-            history.replaceState(null, '', href);
+            if (url.href.indexOf('/administrator/') < 0) {
+                history.replaceState(null, '', href);
+            }
         }
     }
     // Syntax highlighting
