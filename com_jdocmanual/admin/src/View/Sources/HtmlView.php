@@ -150,6 +150,13 @@ class HtmlView extends BaseHtmlView
 
         $toolbar->addNew('source.add');
 
+        $toolbar->standardButton('sources-unpublish-deleted')
+        ->icon('fa fa-database')
+        ->text('COM_JDOCMANUAL_SOURCES_UNPUBLISH_DELETED')
+        ->task('sources.unpublishdeleted')
+        ->onclick('return false')
+        ->listCheck(false);
+
         if ($user->authorise('core.admin', 'com_jdocmanual') || $user->authorise('core.options', 'com_jdocmanual')) {
             $toolbar->preferences('com_jdocmanual');
         }

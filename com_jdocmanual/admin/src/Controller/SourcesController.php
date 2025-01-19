@@ -17,6 +17,7 @@ use Joomla\CMS\Router\Route;
 use Cefjdemos\Component\Jdocmanual\Administrator\Cli\Buildarticles;
 use Cefjdemos\Component\Jdocmanual\Administrator\Cli\Buildmenus;
 use Cefjdemos\Component\Jdocmanual\Administrator\Cli\Buildproxy;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\SourcesHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -144,6 +145,23 @@ class SourcesController extends AdminController
             exec($command, $result);
             $summary .= implode("\n", $result);
         }
+        $this->app->enqueueMessage(nl2br($summary, true));
+        $this->setRedirect(Route::_('index.php?option=com_jdocmanual&view=sources', false));
+    }
+
+    /**
+     * Unpublish articles that have been deleted from the source files.
+     *
+     * @return  $void
+     *
+     * @since   1.0.0
+     */
+    public function unpublishdeleted()
+    {
+        $sh = new SourcesHelper;
+
+        $summary = $sh->unpublishDeleted();
+
         $this->app->enqueueMessage(nl2br($summary, true));
         $this->setRedirect(Route::_('index.php?option=com_jdocmanual&view=sources', false));
     }

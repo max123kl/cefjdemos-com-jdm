@@ -32,6 +32,13 @@ p {
 </head>
 <body>
 <h1>Sources</h1>
-<p>ToDo</p>
+<p>The Sources page contains a list of Manuals and indicates their published states. Edit a Manual to change its published state. </p>
+<h2>Unpublish Deleted</h2>
+<p>When an article is deleted from a Markdown source (or renamed) its HTML conversion is not deleted from the database. The <em>Unpublish Deleted</em> button is a utility that unpublishes deleted articles so they do not appear in search results.</p>
+<p><strong>Important:</strong> Rerun the Smart Search Indexer after unpublishing articles.</p>
+<h2>Build</h2>
+<p>Select a Language for a Manual to rebuild the HTML content and Menus after any change. The first time the build process is run it may take 5 to 10 minutes to complete. Subsequent runs are much quicker because only changed source files are rebuilt.</p>
+<h2>Pull</h2>
+<p>This column should be present if you need to pull changes to the Markdown files from the GitHub repositories. Otherwise it can be omitted in the Jdocmanual configuration options. When select, it does a <em>git pull</em> for the selected language and manual.</p>
 </body>
 </html>
