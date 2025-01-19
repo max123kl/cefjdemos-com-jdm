@@ -3,9 +3,9 @@
         <element>com_jdocmanual</element>
         <type>component</type>
         <version>4.4.2</version>
-        <add>
+        <addition>
             <item>Added utility to unpublish deleted Markdown source files.</item>
-        </add>
+        </addition>
     </changelog>
     <changelog>
         <element>com_jdocmanual</element>
