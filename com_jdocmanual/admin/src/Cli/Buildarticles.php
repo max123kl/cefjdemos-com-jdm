@@ -134,7 +134,7 @@ class Buildarticles
         $total = 0;
         foreach ($articles as $article) {
             list ($heading, $filename) = explode('/', $article);
-            list ($count, $note) = $this->setOneArticle($manual, $language, $heading, $filename);
+            list ($count, $note) = $this->setOneArticle($manual, $language, $heading, $filename . '.md');
             $summary .= $note;
             $total += $count;
         }

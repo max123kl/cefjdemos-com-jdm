@@ -197,6 +197,17 @@ class Buildmenus
             if (strpos($line, ';') === 0) {
                 continue;
             }
+
+            // skip lines containing close-1-headings
+            if (strpos($line, 'close-') === 0) {
+                // get the number of headings to close
+                $n = (int) substr($line, 6, 1);
+                for ($i = 0; $i < $n; $i++) {
+                    $html .= $this->accordionEnd();
+                    $previous_heading_level--;
+                }
+                continue;
+            }
             list($key, $heading, $filename) = explode('=', $line);
 
             // Does the key have a heading level? heading or heading-1 or heading-2
