@@ -1,6 +1,10 @@
 <changelogs>
     <changelog>
         <element>com_jdocmanual</element>
+        <version>4.4.4</version>
+        <fix>
+            <item>Bug in getting updated articles for rebuild.</item>
+        </fix>
         <type>component</type>
         <version>4.4.3</version>
         <addition>

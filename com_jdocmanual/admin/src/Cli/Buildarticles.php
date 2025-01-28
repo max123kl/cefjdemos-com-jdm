@@ -279,18 +279,19 @@ class Buildarticles
         // Tried git too but decided not to use it
         // git diff --name-only "@{2024-09-14 22:00:00}"
 
-        $articles = $this->gfmfiles_path . '/' . $manual . '/' . $language . '/articles';
-        $images = $this->gfmfiles_path . '/' . $manual . '/' . $language . '/images';
+        $articles = $this->gfmfiles_path . $manual . '/' . $language . '/articles';
+        $images = $this->gfmfiles_path . $manual . '/' . $language . '/images';
 
         // Use the find command to locate files that have changed since the last update.
-        $command1 = "find {$articles} {$images} -mmin -" . $this->minutes;
+        $command1 = "find {$articles} {$images} -mmin -" . $this->minutes + 1;
         exec($command1, $result);
 
         $articles = [];
         foreach ($result as $line) {
             // Skip any extraneous lines.
             if (str_ends_with($line, '.md')) {
-                $articles[] = $line;
+                // drop the .md
+                $articles[] = rtrim('.md', $line);
             } elseif (str_ends_with($line, '.png') || str_ends_with($line, '.jpg')) {
                 // For each image file - need to find the article that contains it.
                 // This command returns the path/to/filename.md:line no:line containing search term
