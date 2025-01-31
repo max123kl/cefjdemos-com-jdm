@@ -6,6 +6,10 @@
         <fix>
             <item>Bug in wrong addition of .md to filename for rebuild.</item>
         </fix>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.4.4</version>
         <fix>
             <item>Bug in getting updated articles for rebuild.</item>
