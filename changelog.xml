@@ -1,6 +1,10 @@
 <changelogs>
     <changelog>
         <element>com_jdocmanual</element>
+        <version>4.4.5</version>
+        <fix>
+            <item>Bug in wrong addition of .md to filename for rebuild.</item>
+        </fix>
         <version>4.4.4</version>
         <fix>
             <item>Bug in getting updated articles for rebuild.</item>

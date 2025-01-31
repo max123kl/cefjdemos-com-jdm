@@ -134,7 +134,7 @@ class Buildarticles
         $total = 0;
         foreach ($articles as $article) {
             list ($heading, $filename) = explode('/', $article);
-            list ($count, $note) = $this->setOneArticle($manual, $language, $heading, $filename . '.md');
+            list ($count, $note) = $this->setOneArticle($manual, $language, $heading, $filename);
             $summary .= $note;
             $total += $count;
         }
@@ -283,15 +283,14 @@ class Buildarticles
         $images = $this->gfmfiles_path . $manual . '/' . $language . '/images';
 
         // Use the find command to locate files that have changed since the last update.
-        $command1 = "find {$articles} {$images} -mmin -" . $this->minutes + 1;
+        $command1 = "find {$articles} {$images} -mmin -" . $this->minutes + 5;
         exec($command1, $result);
 
         $articles = [];
         foreach ($result as $line) {
             // Skip any extraneous lines.
             if (str_ends_with($line, '.md')) {
-                // drop the .md
-                $articles[] = rtrim('.md', $line);
+                $articles[] = $line;
             } elseif (str_ends_with($line, '.png') || str_ends_with($line, '.jpg')) {
                 // For each image file - need to find the article that contains it.
                 // This command returns the path/to/filename.md:line no:line containing search term
