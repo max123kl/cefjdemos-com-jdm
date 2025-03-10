@@ -11,7 +11,7 @@
         <downloads>
             <downloadurl type="full" format="zip">https://github.com/ceford/cefjdemos-com-jdm/archive/refs/heads/main.zip</downloadurl>
         </downloads>
-        <changelogurl>https://github.com/ceford/cefjdemos-com-jdm/changelog.xml</changelogurl>
+        <changelogurl>https://raw.githubusercontent.com/ceford/cefjdemos-com-jdm/refs/heads/main/changelog.xml</changelogurl>
         <tags>
             <tag>stable</tag>
         </tags>
