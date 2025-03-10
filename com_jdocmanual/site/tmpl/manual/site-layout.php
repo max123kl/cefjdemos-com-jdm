@@ -37,7 +37,7 @@ HTMLHelper::_('bootstrap.offcanvas', '.offcanvas', []);
             </nav>
             </div>
         </div>
-        <div class="col-12 col-md-6" id="page-panel">
+        <section class="col-12 col-md-6" id="page-panel" aria-label="Page Content">
             <div class="row">
                 <div class="col document-title pb-1">
                     <button class="btn btn-secondary btn-sm d-bloc d-sm-none float-start me-2 mt-2" type="button"
@@ -55,9 +55,10 @@ HTMLHelper::_('bootstrap.offcanvas', '.offcanvas', []);
                 <div class="col-12 col-md-9" id="document-panel" tabindex="0">
                     <?php echo $this->page_content; ?>
                 </div>
-                <div class="col-12 col-md-3 d-none d-lg-block" id="toc-panel">
+                <nav class="col-12 col-md-3 d-none d-lg-block"
+                    aria-label="Page Menu" id="toc-panel">
                     <?php echo $this->in_this_page; ?>
-                </div>
+                </nav>
             </div>
         </div>
     </div>
