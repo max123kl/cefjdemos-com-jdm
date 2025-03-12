@@ -9,12 +9,13 @@ declare(strict_types=1);
 
 namespace Nette;
 
+
 interface HtmlStringable
 {
-    /**
-     * Returns string in HTML format
-     */
-    function __toString(): string;
+	/**
+	 * Returns string in HTML format
+	 */
+	function __toString(): string;
 }
 
 

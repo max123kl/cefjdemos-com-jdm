@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.4.7</version>
+        <change>
+            <item>Updated libraries.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.4.6</version>
         <addition>
             <item>Added 2 landmarks to aid keyboard navigation.</item>

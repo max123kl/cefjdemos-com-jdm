@@ -10,7 +10,7 @@ return array(
     'Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),
     'League\\Config\\' => array($vendorDir . '/league/config/src'),
     'League\\CommonMark\\' => array($vendorDir . '/league/commonmark/src'),
-    'Jfcherng\\Utility\\' => array($vendorDir . '/jfcherng/php-mb-string/src', $vendorDir . '/jfcherng/php-color-output/src'),
-    'Jfcherng\\Diff\\' => array($vendorDir . '/jfcherng/php-sequence-matcher/src', $vendorDir . '/jfcherng/php-diff/src'),
+    'Jfcherng\\Utility\\' => array($vendorDir . '/jfcherng/php-color-output/src', $vendorDir . '/jfcherng/php-mb-string/src'),
+    'Jfcherng\\Diff\\' => array($vendorDir . '/jfcherng/php-diff/src', $vendorDir . '/jfcherng/php-sequence-matcher/src'),
     'Dflydev\\DotAccessData\\' => array($vendorDir . '/dflydev/dot-access-data/src'),
 );

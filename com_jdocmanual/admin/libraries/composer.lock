@@ -1,9 +1,14 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "59967b37949286c62b5b0823bf1303fd",
     "packages": [
         {
             "name": "dflydev/dot-access-data",
             "version": "v3.0.3",
-            "version_normalized": "3.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
@@ -25,14 +30,12 @@
                 "squizlabs/php_codesniffer": "^3.5",
                 "vimeo/psalm": "^4.0.0"
             },
-            "time": "2024-07-08T12:26:09+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-main": "3.x-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Dflydev\\DotAccessData\\": "src/"
@@ -76,12 +79,11 @@
                 "issues": "https://github.com/dflydev/dflydev-dot-access-data/issues",
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.3"
             },
-            "install-path": "../dflydev/dot-access-data"
+            "time": "2024-07-08T12:26:09+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
             "version": "3.0.0",
-            "version_normalized": "3.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-color-output.git",
@@ -103,9 +105,7 @@
                 "phpunit/phpunit": ">=7 <10",
                 "squizlabs/php_codesniffer": "^3.5"
             },
-            "time": "2021-05-27T02:45:54+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Jfcherng\\Utility\\": "src/"
@@ -138,12 +138,11 @@
                     "type": "custom"
                 }
             ],
-            "install-path": "../jfcherng/php-color-output"
+            "time": "2021-05-27T02:45:54+00:00"
         },
         {
             "name": "jfcherng/php-diff",
             "version": "6.16.2",
-            "version_normalized": "6.16.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-diff.git",
@@ -168,9 +167,7 @@
                 "phpunit/phpunit": "^9",
                 "squizlabs/php_codesniffer": "^3.6"
             },
-            "time": "2024-03-10T17:40:29+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Jfcherng\\Diff\\": "src/"
@@ -207,12 +204,11 @@
                     "type": "custom"
                 }
             ],
-            "install-path": "../jfcherng/php-diff"
+            "time": "2024-03-10T17:40:29+00:00"
         },
         {
             "name": "jfcherng/php-mb-string",
             "version": "2.0.1",
-            "version_normalized": "2.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-mb-string.git",
@@ -237,9 +233,7 @@
                 "ext-iconv": "Either \"ext-iconv\" or \"ext-mbstring\" is requried.",
                 "ext-mbstring": "Either \"ext-iconv\" or \"ext-mbstring\" is requried."
             },
-            "time": "2023-04-17T14:23:16+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Jfcherng\\Utility\\": "src/"
@@ -266,12 +260,11 @@
                     "type": "custom"
                 }
             ],
-            "install-path": "../jfcherng/php-mb-string"
+            "time": "2023-04-17T14:23:16+00:00"
         },
         {
             "name": "jfcherng/php-sequence-matcher",
             "version": "4.0.3",
-            "version_normalized": "4.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
@@ -292,9 +285,7 @@
                 "phpunit/phpunit": "^9 || ^10",
                 "squizlabs/php_codesniffer": "^3.7"
             },
-            "time": "2023-05-21T07:57:08+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Jfcherng\\Diff\\": "src/"
@@ -325,12 +316,11 @@
                     "type": "custom"
                 }
             ],
-            "install-path": "../jfcherng/php-sequence-matcher"
+            "time": "2023-05-21T07:57:08+00:00"
         },
         {
             "name": "league/commonmark",
             "version": "2.6.1",
-            "version_normalized": "2.6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
@@ -373,14 +363,12 @@
             "suggest": {
                 "symfony/yaml": "v2.3+ required if using the Front Matter extension"
             },
-            "time": "2024-12-29T14:10:59+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-main": "2.7-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "League\\CommonMark\\": "src"
@@ -435,12 +423,11 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../league/commonmark"
+            "time": "2024-12-29T14:10:59+00:00"
         },
         {
             "name": "league/config",
             "version": "v1.2.0",
-            "version_normalized": "1.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/config.git",
@@ -464,14 +451,12 @@
                 "unleashedtech/php-coding-standard": "^3.1",
                 "vimeo/psalm": "^4.7.3"
             },
-            "time": "2022-12-11T20:36:23+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-main": "1.2-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "League\\Config\\": "src"
@@ -520,12 +505,11 @@
                     "type": "github"
                 }
             ],
-            "install-path": "../league/config"
+            "time": "2022-12-11T20:36:23+00:00"
         },
         {
             "name": "nette/schema",
             "version": "v1.3.2",
-            "version_normalized": "1.3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
@@ -546,14 +530,12 @@
                 "phpstan/phpstan-nette": "^1.0",
                 "tracy/tracy": "^2.8"
             },
-            "time": "2024-10-06T23:10:23+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.3-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -585,12 +567,11 @@
                 "issues": "https://github.com/nette/schema/issues",
                 "source": "https://github.com/nette/schema/tree/v1.3.2"
             },
-            "install-path": "../nette/schema"
+            "time": "2024-10-06T23:10:23+00:00"
         },
         {
             "name": "nette/utils",
             "version": "v4.0.5",
-            "version_normalized": "4.0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
@@ -623,14 +604,12 @@
                 "ext-mbstring": "to use Strings::lower() etc...",
                 "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
             },
-            "time": "2024-08-07T15:39:19+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "4.0-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -674,12 +653,11 @@
                 "issues": "https://github.com/nette/utils/issues",
                 "source": "https://github.com/nette/utils/tree/v4.0.5"
             },
-            "install-path": "../nette/utils"
+            "time": "2024-08-07T15:39:19+00:00"
         },
         {
             "name": "psr/event-dispatcher",
             "version": "1.0.0",
-            "version_normalized": "1.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/event-dispatcher.git",
@@ -694,14 +672,12 @@
             "require": {
                 "php": ">=7.2.0"
             },
-            "time": "2019-01-08T18:20:26+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\EventDispatcher\\": "src/"
@@ -727,12 +703,11 @@
                 "issues": "https://github.com/php-fig/event-dispatcher/issues",
                 "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
             },
-            "install-path": "../psr/event-dispatcher"
+            "time": "2019-01-08T18:20:26+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
             "version": "v3.5.1",
-            "version_normalized": "3.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
@@ -747,7 +722,6 @@
             "require": {
                 "php": ">=8.1"
             },
-            "time": "2024-09-25T14:20:29+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -758,7 +732,6 @@
                     "dev-main": "3.5-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "function.php"
@@ -797,12 +770,11 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/deprecation-contracts"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
             "version": "v1.31.0",
-            "version_normalized": "1.31.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -817,7 +789,6 @@
             "require": {
                 "php": ">=7.2"
             },
-            "time": "2024-09-09T11:45:10+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -825,7 +796,6 @@
                     "name": "symfony/polyfill"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -880,9 +850,16 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-php80"
+            "time": "2024-09-09T11:45:10+00:00"
         }
     ],
-    "dev": true,
-    "dev-package-names": []
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
