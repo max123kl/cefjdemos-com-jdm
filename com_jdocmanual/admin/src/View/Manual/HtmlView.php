@@ -55,12 +55,36 @@ class HtmlView extends BaseHtmlView
     protected $categories = [];
 
     /**
+     * An array for the list of index languages
+     *
+     * @var    array
+     * @since  1.6
+     */
+    protected $index_languages = [];
+
+    /**
      * An array of items
      *
      * @var    array
      * @since  1.6
      */
     protected $items = [];
+
+    /**
+     * An array for the list of manuals
+     *
+     * @var    array
+     * @since  1.6
+     */
+    protected $manuals = [];
+
+    /**
+     * An array for the list of page languages
+     *
+     * @var    array
+     * @since  1.6
+     */
+    protected $page_languages = [];
 
     /**
      * The pagination object
@@ -81,6 +105,17 @@ class HtmlView extends BaseHtmlView
     protected $active_manual;
 
     protected $plugin_status;
+
+    protected $manual;
+    protected $index_language_code;
+    protected $page_language_code;
+    protected $heading;
+    protected $filename;
+    protected $display_title;
+    protected $in_this_page;
+    protected $page_content;
+    protected $menu;
+    protected $source;
 
     /**
      * Set to 1 if there are records in the the #__jdm_articles table.
@@ -201,7 +236,8 @@ class HtmlView extends BaseHtmlView
                     $icon = 'icon-check';
                 }
                 $childBar->linkButton($language->code)
-                ->text($language->title)
+                ->text('<img src="media/mod_languages/images/' .
+                str_replace('-', '_', strtolower($language->locale))  . '.gif" alt="">' . ' ' . $language->locale)
                 ->buttonClass('set-language index')
                 ->url('index.php?option=com_jdocmanual&view=manual&index_language_code='  . $language->code)
                 ->icon($icon);
@@ -221,7 +257,7 @@ class HtmlView extends BaseHtmlView
                     $icon = 'icon-check';
                 }
                 $childBar->linkButton($language->code)
-                ->text($language->title)
+                ->text('<img src="media/mod_languages/images/' . str_replace('-', '_', strtolower($language->locale))  . '.gif" alt="">' . ' ' . $language->title)
                 ->buttonClass('set-language')
                 ->url('index.php?option=com_jdocmanual&view=manual&page_language_code='  . $language->code)
                 ->icon($icon);

@@ -362,6 +362,7 @@ details.jdm {
 
 .table-of-contents {
     max-width: 250px;
+    padding-left: 0;
 }
 
 .heading-permalink {

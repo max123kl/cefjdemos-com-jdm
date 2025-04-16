@@ -21,6 +21,38 @@ class InthispageHelper
 {
     public static function doToc($html)
     {
+        // Remove Markdown generated content (or rebuild all articles)
+        $pattern = '/<ul class="table-of-contents">.*?<!-- /s';
+        $html = preg_replace($pattern, '<!-- ', $html);
+
+        // Get a list of headings in the article.
+        $pattern = '/<h([1-6])>([^<]*).*?h[1-6]>/s';
+        //$pattern = '/<h([1-6])[^>]*>(.*?)<a.*><\/h[1-6]>/i';
+        preg_match_all($pattern, $html, $headings2, PREG_SET_ORDER);
+
+        $menu = [];
+        // The text of the article needs to have anchors (id values) added to headings
+        foreach ($headings2 as $i => $heading) {
+            $old = '<h' . $heading[1] . '>' . $heading[2] . '</h' . $heading[1] . '>';
+            $item = str_replace(' ', '-', $heading[2]);
+            $menu[] = array($heading[1], $item, $heading[2]);
+            $new = '<h' . $heading[1] . ' id="' . $item . '">' . $heading[2] . '</h' . $heading[1] . '>';
+            $html = str_replace($heading[0], $new, $html);
+        }
+
+        $in_this_page = '<h2 class="toc fs-4">' . Text::_('COM_JDOCMANUAL_MANUAL_TOC_IN_THIS_ARTICLE') . '</h2>' . "\n";
+        $in_this_page .= '<ul class="table-of-contents">' . "\n";
+        foreach ($menu as $i => $item) {
+            $in_this_page .= '<li class="fs-' . $item[0] + 3 . ' ps-' . ($item[0] - 2) * 2 . '">' . "\n";
+            $in_this_page .= '<a href="#' . $item[1] .'" class="link-underline-light">' . $item[2] . '</a>' . "\n";
+            $in_this_page .= '</li>'. "\n";
+        }
+        $in_this_page .= '</ul>' . "\n";
+        return array($in_this_page, $html);
+    }
+
+    public static function doTocOld($html)
+    {
         // The commonmark menu position feature does not work.
         // So extract it here from the 'top' position.
         $dom = new \DOMDocument('1.0', 'utf-8');

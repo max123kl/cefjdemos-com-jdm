@@ -213,7 +213,7 @@ class ManualModel extends ListModel
     {
         $db = $this->getDatabase();
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array('id', 'code', 'title')))
+        $query->select($db->quoteName(array('id', 'code', 'locale', 'title')))
         ->from($db->quoteName('#__jdm_languages'))
         ->where($db->quoteName('state') . ' = 1')
         ->where($db->quoteName($indexorpage . '_language') . ' = 1')

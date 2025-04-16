@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.5.0</version>
+        <change>
+            <item>Changed method to generate page ToC.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.4.7</version>
         <change>
             <item>Updated libraries.</item>

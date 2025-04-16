@@ -134,7 +134,8 @@ class HtmlView extends BaseHtmlView
                 $icon = 'icon-check';
             }
             $childBar->linkButton($language->code)
-            ->text($language->title)
+            ->text('<img src="media/mod_languages/images/' .
+            str_replace('-', '_', strtolower($language->locale))  . '.gif" alt="">' . ' ' . $language->locale)
             ->buttonClass('set-language index border-bottom')
             ->url('jdocmanual?index_language_code='  . $language->code)
             ->icon($icon);
@@ -154,7 +155,7 @@ class HtmlView extends BaseHtmlView
                 $icon = 'icon-check';
             }
             $childBar->linkButton($language->code)
-            ->text($language->title)
+            ->text('<img src="media/mod_languages/images/' . str_replace('-', '_', strtolower($language->locale))  . '.gif" alt="">' . ' ' . $language->title)
             ->buttonClass('set-language border-bottom')
             ->url($language->code . '/jdocmanual?page_language_code='  . $language->code)
             ->icon($icon);

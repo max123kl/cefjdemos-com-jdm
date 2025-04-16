@@ -17,8 +17,8 @@ require JPATH_ROOT . '/administrator/components/com_jdocmanual/libraries/vendor/
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
-use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
+//use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
+//use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\MarkdownConverter;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -44,7 +44,8 @@ class Markdown2html
     public static function go($md)
     {
         // Define your configuration, if needed
-        $config = [
+        $config = [];
+        /*
             'table_of_contents' => [
                 'html_class' => 'table-of-contents',
                 'position' => 'top',
@@ -62,13 +63,14 @@ class Markdown2html
                 'aria_hidden' => false,
             ],
         ];
+        */
 
         // Configure the Environment with all the CommonMark and GFM parsers/renderers
-        $environment = new Environment($config);
+        $environment = new Environment(); //$config);
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
-        $environment->addExtension(new HeadingPermalinkExtension());
-        $environment->addExtension(new TableOfContentsExtension());
+        //$environment->addExtension(new HeadingPermalinkExtension());
+        //$environment->addExtension(new TableOfContentsExtension());
 
         $converter = new MarkdownConverter($environment);
         return $converter->convert($md);
