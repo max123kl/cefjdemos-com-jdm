@@ -39,7 +39,7 @@ if (
 
 // Compose the file path for the requested file
 $filename = __DIR__ . '/' . $lang . '/' . $key_index[$key];
-if (file_exists($filename)) {
+if (is_file($filename)) {
     // Send it
     echo file_get_contents($filename);
     exit;
@@ -47,7 +47,7 @@ if (file_exists($filename)) {
 
 // If the requested file language was not English try the English version
 $filename = __DIR__ . '/en/' . $key_index[$key];
-if (file_exists($filename)) {
+if (is_file($filename)) {
     // Send it
     $contents = file_get_contents($filename);
     // Add a message after the <main> tag.
@@ -65,6 +65,23 @@ if (file_exists($filename)) {
 }
 
 // Otherwise send an error message
-echo "\n\nThe Help page you requested was not available in the original language or in English.";
+$msg =<<<EOF
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Joomla! Help Screens</title>
+        <link rel="stylesheet" href="https://help.joomla.org/media/css/help.css">
+        <link href="/jdm4/media/templates/administrator/atum/css/vendor/fontawesome-free/fontawesome.css" rel="stylesheet" data-asset-name="fontawesome" />
+        <link rel="stylesheet" href="/jdm4/proxy/help.css">
+    </head>
+    <body>
+        <main>
+        The Help page you requested is missing!";
+        </main>
+    </body>
+</html>
+EOF;
 
-exit();
+echo $msg;

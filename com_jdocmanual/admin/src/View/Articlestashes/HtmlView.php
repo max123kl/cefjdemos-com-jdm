@@ -114,7 +114,7 @@ class HtmlView extends BaseHtmlView
 
         $user  = $this->getCurrentUser();
 
-        // Change this to use custome group.
+        // Change this to use custom group.
         if ($user->authorise('jdocmanual.publish', 'com_jdocmanual')) {
             $this->pull_requests = $model->getPullrequests();
         }
