@@ -34,17 +34,16 @@ class InthispageHelper
         // The text of the article needs to have anchors (id values) added to headings
         foreach ($headings2 as $i => $heading) {
             $old = '<h' . $heading[1] . '>' . $heading[2] . '</h' . $heading[1] . '>';
-            $item = str_replace(' ', '-', $heading[2]);
-            $menu[] = array($heading[1], $item, $heading[2]);
-            $new = '<h' . $heading[1] . ' id="' . $item . '">' . $heading[2] . '</h' . $heading[1] . '>';
+            $menu[] = array($heading[1], $i, $heading[2]);
+            $new = '<h' . $heading[1] . ' id="' . $i . '">' . $heading[2] . '</h' . $heading[1] . '>';
             $html = str_replace($heading[0], $new, $html);
         }
 
         $in_this_page = '<h2 class="toc fs-4">' . Text::_('COM_JDOCMANUAL_MANUAL_TOC_IN_THIS_ARTICLE') . '</h2>' . "\n";
-        $in_this_page .= '<ul class="table-of-contents">' . "\n";
+        $in_this_page .= '<ul>' . "\n";
         foreach ($menu as $i => $item) {
             $in_this_page .= '<li class="fs-' . $item[0] + 3 . ' ps-' . ($item[0] - 2) * 2 . '">' . "\n";
-            $in_this_page .= '<a href="#' . $item[1] .'" class="link-underline-light">' . $item[2] . '</a>' . "\n";
+            $in_this_page .= '<a href="#' . $i .'" class="link-underline-light">' . $item[2] . '</a>' . "\n";
             $in_this_page .= '</li>'. "\n";
         }
         $in_this_page .= '</ul>' . "\n";

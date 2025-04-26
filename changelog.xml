@@ -3,6 +3,14 @@
         <element>com_jdocmanual</element>
         <type>component</type>
         <version>4.5.1</version>
+        <change>
+            <item>Updated method to generate ToC.</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
+        <version>4.5.1</version>
         <fix>
             <item>Fixed bug in proxy where help file is missing.</item>
         </fix>

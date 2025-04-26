@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\Filesystem\File;
 use Joomla\Database\ParameterType;
 use Cefjdemos\Component\Jdocmanual\Administrator\Helper\BuildHelper;
+use Cefjdemos\Component\Jdocmanual\Administrator\Helper\InthispageHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('JPATH_PLATFORM') or die;
@@ -207,10 +208,13 @@ class Buildproxy
 
         $counts = [];
         foreach ($rows as $row) {
+            list($inthispage, $content) = InthispageHelper::doToc($row->html);
+
             $outfile = str_replace('.md', '.html', $row->filename);
             $html = $this->top;
             $html .= '<h1>' . $row->display_title . '</h1>';
-            $html .= $row->html;
+            $html .= '<div id="toc" class="table-of-contents">';
+            $html .= "{$inthispage}\n</div>\n{$content}";
             $html .= $this->bottom;
             if (!is_dir(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading)) {
                 mkdir(JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading, 0755, true);
