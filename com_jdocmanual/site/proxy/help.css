@@ -38,3 +38,18 @@ a:hover {
     color: #4d82dc;
     text-decoration: underline;
 }
+
+.back-to-top-link {
+    z-index: 10000;
+    color: #112855;
+    pointer-events: all;
+    background-color: #fff;
+    border: 1px solid #112855;
+    opacity: 1;
+    inset-inline-end: 1rem;
+    border-radius: .25rem;
+    padding: .5em;
+    transition: opacity .2s ease-in;
+    position: fixed;
+    bottom: 1rem;
+  }

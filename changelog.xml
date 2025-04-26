@@ -2,9 +2,10 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
-        <version>4.5.1</version>
+        <version>4.5.3</version>
         <change>
             <item>Updated method to generate ToC.</item>
+            <item>Added Back to Top to Help proxy pages.</item>
         </change>
     </changelog>
     <changelog>

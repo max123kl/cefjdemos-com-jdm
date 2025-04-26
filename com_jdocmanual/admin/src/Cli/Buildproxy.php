@@ -308,8 +308,9 @@ EOF;
                     Open Source Matters, Inc.</a> All rights reserved.
                 </div>
             </div>
-            <hr/>
-            <a href="#Top">Top</a>
+            <a href="#top" id="back-top" class="back-to-top-link" aria-label="Top">
+                <span class="icon-arrow-up icon-fw" aria-hidden="true"></span>
+            </a>
         </main>
     </body>
 </html>
