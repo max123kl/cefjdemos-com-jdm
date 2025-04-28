@@ -273,6 +273,7 @@ class Buildproxy
         <title>Joomla! Help Screens</title>
         <link rel="stylesheet" href="https://help.joomla.org/media/css/help.css">
         <link href="{$this->installation_subfolder}/media/templates/administrator/atum/css/vendor/fontawesome-free/fontawesome.css" rel="stylesheet" data-asset-name="fontawesome" />
+        <link rel="stylesheet" href="{$this->installation_subfolder}/media/com_jdocmanual/css/a11y-light.css">
         <link rel="stylesheet" href="{$this->installation_subfolder}/proxy/help.css">
     </head>
     <body>

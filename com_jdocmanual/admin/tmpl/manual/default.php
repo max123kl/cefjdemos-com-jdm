@@ -29,7 +29,8 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 $wa->addInlineStyle('.subhead { position: inherit; ');
 
 // Register and attach a custom item in one run
-$wa->registerAndUseStyle('codehighlight', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css', [], [], []);
+$wa->registerAndUseStyle('codehighlight-light', 'media/com_jdocmanual/css/a11y-light.min.css', [], [], []);
+//$wa->registerAndUseStyle('codehighlight-dark', 'media/com_jdocmanual/css/a11y-dark.min.css', [], [], []);
 
 // Register and attach a custom item in one run
 $wa->registerAndUseScript('codehighlight', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js', [], [], ['core']);

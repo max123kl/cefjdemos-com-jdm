@@ -26,7 +26,7 @@ class InthispageHelper
         $html = preg_replace($pattern, '<!-- ', $html);
 
         // Get a list of headings in the article.
-        $pattern = '/<h([1-6])>([^<]*).*?h[1-6]>/s';
+        $pattern = '/<h([1-6])>(.*?)<\/h[1-6]>/s';
         //$pattern = '/<h([1-6])[^>]*>(.*?)<a.*><\/h[1-6]>/i';
         preg_match_all($pattern, $html, $headings2, PREG_SET_ORDER);
 

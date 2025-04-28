@@ -2,8 +2,19 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.6.0</version>
+        <change>
+            <item>Fixed ToC bugs</item>
+            <item>Changed highlight theme for accessibility</item>
+            <item>All articles must be rebuilt from the command line</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.5.3</version>
         <change>
+            <item>Updated syntax highlighting.</item>
             <item>Updated method to generate ToC.</item>
             <item>Added Back to Top to Help proxy pages.</item>
         </change>

@@ -288,18 +288,19 @@ blockquote span{
 }
 
 pre {
-  background-color: #f8f8f8;
-  padding: 6px 10px;
-  word-wrap: normal;
-}
-
-pre, code, tt {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  word-wrap: normal;
   border-radius: 3px;
   line-height: 19px;
+  border: 1px solid navy;
 }
 
+p code,
+li code,
+ol code {
+    color: var(--highlight-a11y-color-text-red);
+}
 .offcanvas.show {
   -webkit-transform: none;
   transform: none;
@@ -407,10 +408,6 @@ ul.table-of-contents li {
 
 details summary, details ul li {
     padding: 0.25rem;
-}
-
-code {
-    color: #bb0000 ! important;
 }
 
 .site-logo {

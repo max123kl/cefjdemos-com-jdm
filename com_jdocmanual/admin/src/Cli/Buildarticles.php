@@ -41,7 +41,7 @@ class Buildarticles
      *
      * @var     string
      *
-     * Example link: ![action logs module form](../../../images/en/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
+     * Example link: ![action logs module form](../../../images/en/admin-modules/modules-actionlogs-latest-screenshot.png "Action Logs Module Form")
      * In the pattern:
      * First bracket is alt text.
      * Second bracket is img url to be added to root/manual/
@@ -502,7 +502,7 @@ class Buildarticles
     private function fiximages($manual, $contents)
     {
         // links are like this and must be on one line
-        // ![action logs module form](../../../help/en/images/admin-modules/modules-actionlogs-latest-screenshot.png) "Action Logs Module Form"
+        // ![action logs module form](../../../help/en/images/admin-modules/modules-actionlogs-latest-screenshot.png "Action Logs Module Form")
         $test = preg_match_all($this->pattern, $contents, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             // $match[0] is the whole line to be replaced with a picture tag.
