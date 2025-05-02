@@ -44,6 +44,8 @@ class Buildproxy
      */
     protected $installation_subfolder;
 
+    protected $key_index;
+
     /**
      * Regex pattern to select first GFM H1 (#) string.
      *
@@ -192,18 +194,40 @@ class Buildproxy
      */
     protected function html4lingo($manual)
     {
-        $count = 0;
         $db = $this->db;
 
-        // get the already converted html from the database
+        // Get the already converted html from the database.
+        // Do English first.
         $query = $db->getQuery(true);
         $query->select($db->quoteName(array('source_url', 'language', 'heading', 'filename', 'display_title', 'html')))
         ->from('#__jdm_articles')
         ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
-        //->where($db->quoteName('language') . ' = ' . $db->quote('en'))
+        ->where($db->quoteName('language') . ' = ' . $db->quote('en'))
         ->order($db->quoteName(array('language', 'heading', 'filename')));
         $db->setQuery($query);
         $rows = $db->loadObjectList();
+
+        $counts = $this->do_rows($rows);
+        $this->fix_urls($rows);
+
+        // Do the other languages second.
+        $query = $db->getQuery(true);
+        $query->select($db->quoteName(array('source_url', 'language', 'heading', 'filename', 'display_title', 'html')))
+            ->from('#__jdm_articles')
+            ->where($db->quoteName('manual') . ' = ' . $db->quote('help'))
+            ->where($db->quoteName('language') . ' != ' . $db->quote('en'))
+            ->order($db->quoteName(array('language', 'heading', 'filename')));
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+
+        $counts = array_merge($counts, $this->do_rows($rows));
+        $this->fix_urls($rows);
+
+        return $counts;
+    }
+
+    protected function do_rows($rows) {
+        $save_key_index = 0;
         $key_index = "<?php\n\$key_index = [\n";
 
         $counts = [];
@@ -239,8 +263,12 @@ class Buildproxy
                     // A source_url may contain single quotes
                     $key = str_replace("'", "\'", $parts[1]);
                     $filename = str_replace('.md', '.html', $row->filename);
-                    $key_index .= "    '{$key}' => '{$row->heading}/{$filename}',\n";
+                    $key_index .= "'{$key}' => '{$row->heading}/{$filename}',\n";
+
+                    // save the key index flipped for use later
+                    $this->key_index[$row->heading . '/' . $filename] = $key;
                 }
+                $save_key_index = 1;
             }
             // for testing - do one file from each language
             // return $counts;
@@ -250,9 +278,37 @@ class Buildproxy
         $key_index .= "    'dummy' => 'dummy'\n];\n";
 
         // Write a new key-index.php file.
-        File::write(JPATH_ROOT . '/proxy/key-index.php', $key_index);
+        if ($save_key_index) {
+            File::write(JPATH_ROOT . '/proxy/key-index.php', $key_index);
+        }
 
         return $counts;
+    }
+
+    /**
+     * Transfix docmanual internal URLs
+     * html file: <li><a href="/jdm4/jdocmanual?article=help/common-elements/toolbars">Toolbars</a>.</li>
+     * To become: <li><a href="/jdm4/proxy/index.php?keyref=Help53:Toolbars&lang=en">Toolbars</a>.</li>
+     * source_url = "Help4.x:Articles:_Categories"
+     * key_index = 'Toolbars' => 'common-elements/toolbars.html'
+     */
+    protected function fix_urls($rows) {
+        $pattern = '/(href=".*?)(jdocmanual.*=help\/)(.*?)(">.*?<\/a>)/';
+        $part2 = 'proxy/index.php?keyref=Help50:';
+        foreach ($rows as $row) {
+            $lang = '&lang=' . $row->language;
+            $file = JPATH_ROOT . '/proxy/' . $row->language . '/' . $row->heading . '/' . str_replace('.md', '.html', $row->filename);
+            $html = file_get_contents($file);
+            $test = preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
+            foreach ($matches as $match) {
+                // Get the original link from the link index
+                $link = $this->key_index[$match[3] . '.html'];
+                // keep $match[1] and $match[4] and replace $match[3]
+                $stop = 1;
+                $html = str_replace($match[0], $match[1] . $part2 . $link . $lang . $match[4], $html);
+            }
+            file_put_contents($file, $html);
+        }
     }
 
     /**

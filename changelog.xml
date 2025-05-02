@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.6.1</version>
+        <fix>
+            <item>Fixed Proxy so internal links also point to proxy</item>
+        </fix>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.6.0</version>
         <change>
             <item>Fixed ToC bugs</item>
