@@ -236,20 +236,24 @@ function menuHighlight(heading, filename)
     filename = filename.replace('.md', '');
     let link = document.querySelector('a[href*="/' + heading + '/' + filename + '"]');
     if (link) {
+        // Set the list item class for the article, the parent of the link.
         link.parentElement.classList.add("article-active");
-        // Expand the nearest <details> tag.
-        el = link.closest("details");
-        el.setAttribute('open', '');
 
-        // Traverse up the DOM tree to find all ancestor <details> elements
+        // Set the class for the <ul> containing the article <li>
+        let currentUL = link.closest('ul');
+        currentUL.classList.add('mm-show');
 
-        while (el && el.tagName === "DETAILS") {
-            // Set the desired attribute on the <details>
-            el.setAttribute('open', 'true');
-
-            // Move up to the next parent <details>
-            el = el.parentElement.closest("details");
+        // Get the parents of the current <ul> and show them too.
+        let parent = currentUL.parentElement;
+        while (parent && parent.tagName.toLowerCase() === 'li') {
+            parent.classList.add('mm-active');
+            let parentUL = parent.parentElement;
+            if (parentUL.tagName.toLowerCase() === 'ul') {
+                parentUL.classList.add('mm-show');
+            }
+            parent = parentUL.parentElement;
         }
+
         // Get a highlight value from the url bar if present
         // Example URL: https://example.com?highlight=WyJuZXdzZmVlZHMiXQ==
 

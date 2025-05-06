@@ -9,9 +9,7 @@
  */
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\Route;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -20,25 +18,22 @@ use Joomla\CMS\Router\Route;
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
 $wa->useStyle('com_jdocmanual.jdocmanual')
-->useScript('com_jdocmanual.jdocmanual');
-//->addInlineScript($scripts);
+->useScript('com_jdocmanual.jdocmanual')
+->useScript('metismenujs');
 
-//$wa->registerAndUseStyle('jdocmanual-site', 'com_jdocmanual/jdocmanual-site.css', [], [], []);
-// Register and attach a custom item in one run
+$wa->registerAndUseStyle('metismenujscss', 'media/com_jdocmanual/css/metismenujs.css', [], [], []);
+$wa->registerAndUseStyle('mm-vertical', 'media/com_jdocmanual/css/mm-vertical.css', [], [], []);
 $wa->registerAndUseStyle('codehighlight-light', 'media/com_jdocmanual/css/a11y-light.min.css', [], [], []);
-//$wa->registerAndUseStyle('codehighlight-dark', 'media/com_jdocmanual/css/a11y-dark.min.css', [], [], []);
 
-// Register and attach a custom item in one run
-$wa->registerAndUseScript('codehighlight', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js', [], [], ['core']);
-
-// Add an inline content as usual, will be rendered in flow after all assets
-$wa->addInlineScript('hljs.highlightAll();');
+$wa->addInlineScript(
+'document.addEventListener("DOMContentLoaded", function(event) {
+    new MetisMenu(\'#jdmmenu\', {
+    toggle: false
+  });
+});'
+);
 
 $proxy = false;
-
-//HTMLHelper::_('formbehavior.chosen', 'select');
-HTMLHelper::_('bootstrap.dropdown', 'select', []);
-HTMLHelper::_('bootstrap.collapse');
 
 $app = Factory::getApplication();
 $sitemenu = $app->getMenu();

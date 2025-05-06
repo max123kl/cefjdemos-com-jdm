@@ -183,7 +183,7 @@ class Buildmenus
         $order_id = [];
         $order_path = [];
         $order_display_title = [];
-        $html = '';
+        $html = '<ul id="jdmmenu" class="jdm-metismenu">' . "\n";
         $total_translated = 0;
         $total_articles = 0;
         $previous_heading_level = 0;
@@ -241,10 +241,10 @@ class Buildmenus
                     // Output a warning
                     $this->summary .=  "No translated heading for {$heading}. Using {$alt}\n";
                     // Output an accordion heading.
-                    $html .= $this->accordionStart($accordionid, $alt);
+                    $html .= $this->accordionStart($accordionid, $new_heading_level, $alt);
                 } else {
                     // Output an accordion heading.
-                    $html .= $this->accordionStart($accordionid, $display_titles[$heading]);
+                    $html .= $this->accordionStart($accordionid, $new_heading_level, $display_titles[$heading]);
                 }
             } else {
                 // Output an accordion item - get the id from the database.
@@ -305,6 +305,8 @@ class Buildmenus
             $html .= $this->accordionEnd();
             $previous_heading_level--;
         }
+
+        $html .= "\n</ul>\n";
 
         $this->summary .=  "Summary: {$manual}/{$language} translated/total: {$total_translated}/{$total_articles}\n";
         $this->saveMenu($manual, $language, $html);
@@ -411,7 +413,52 @@ class Buildmenus
      *
      * @return  $html   The required html code.
      */
-    protected function accordionStart($id, $label)
+    protected function accordionStart($id, $depth, $label)
+    {
+        $depth = $depth + 2;
+        $html = "<li>\n";
+        $html .= '<a class="has-arrow" href="#" aria-expanded="false">';
+        $html .= "{$label}</a>\n<ul class=\"ps-{$depth}\">\n";
+        return $html;
+    }
+
+    /**
+     * Create an accordian end code.
+     *
+     * @return  string  The required html code.
+     */
+    protected function accordionEnd()
+    {
+        return "\n</ul>\n</li>\n";
+    }
+
+    /**
+     * Create an accordian item code.
+     *
+     * @param   integer     $id             The sequence number of the accordion.
+     * @param   string      $display_title  The display title.
+     * @param   string      $path           The link path
+     *
+     * @return  string      The required html code.
+     */
+    protected function accordionItem($id, $display_title, $path)
+    {
+        // Escape any " character in the link.
+        //'<li><span class="icon-file-alt icon-fw icon-jdocmanual" aria-hidden="true"></span>';
+        $html = '<li id="article-' . $id . '">';
+        $html .= '<a href="jdocmanual?' . $path . '" class="content-link">' . $display_title . '</a></li>' . "\n";
+        return $html;
+    }
+
+    /**
+     * Create an accordian start code.
+     *
+     * @param   integer $id     The sequence number of the accordion.
+     * @param   string  $label  A summary label.
+     *
+     * @return  $html   The required html code.
+     */
+    protected function oldaccordionStart($id, $depth, $label)
     {
         $html = "<details class=\"jdm\">\n<summary>{$label}</summary>\n<ul>\n";
         return $html;
@@ -436,7 +483,7 @@ EOF;
      *
      * @return  string  The required html code.
      */
-    protected function accordionEnd()
+    protected function oldaccordionEnd()
     {
         return "\n</ul>\n</details>\n";
     }
@@ -450,7 +497,7 @@ EOF;
      *
      * @return  string      The required html code.
      */
-    protected function accordionItem($id, $display_title, $path)
+    protected function oldaccordionItem($id, $display_title, $path)
     {
         // Escape any " character in the link.
         //'<li><span class="icon-file-alt icon-fw icon-jdocmanual" aria-hidden="true"></span>';

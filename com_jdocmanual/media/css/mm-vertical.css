@@ -1,0 +1,66 @@
+.sidebar-nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebar-nav .jdm-metismenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav .jdm-metismenu li + li {
+  margin-top: 5px;
+}
+
+.sidebar-nav .jdm-metismenu li:first-child {
+  margin-top: 5px;
+}
+.sidebar-nav .jdm-metismenu li:last-child {
+  margin-bottom: 5px;
+}
+
+.sidebar-nav .jdm-metismenu > li {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.sidebar-nav .jdm-metismenu a {
+  position: relative;
+  display: block;
+  padding: 0px 0px;
+  color: #212529;
+  transition: all 0.3s ease-out;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+.sidebar-nav .jdm-metismenu ul a,
+.sidebar-nav .jdm-metismenu li a {
+  padding: 0.25rem 0.5rem;
+}
+
+.sidebar-nav .jdm-metismenu a:hover,
+.sidebar-nav .jdm-metismenu a:focus,
+.sidebar-nav .jdm-metismenu a:active,
+.sidebar-nav .jdm-metismenu .mm-active > a {
+  color: #0c63e4;
+  text-decoration: none;
+}
+
+.sidebar-nav .jdm-metismenu .mm-active > a {
+  background: #e7f1ff;
+  border-radius: 3px;
+}
+
+/* For jdocmanual*/
+
+#jdocmanual-wrapper {
+    padding: 0;
+}
+.sidebar-nav #jdmmenu a:before {
+    content: "";
+    margin-inline-end: 0;
+}
+

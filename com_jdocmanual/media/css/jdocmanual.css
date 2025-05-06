@@ -375,7 +375,6 @@ details.jdm {
 li.article-active {
     background-color: lightcyan;
     border-right: 4px solid #000099;
-    border-left: 4px solid #000099;
 }
 
 details.jdm ul {
