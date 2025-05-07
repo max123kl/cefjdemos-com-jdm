@@ -188,6 +188,10 @@ p.ambox {
     }
 }
 
+#toc-panel li {
+    border-bottom: 1px dotted navy;
+}
+
 .accordion-button {
     padding: 0.5rem 0.5rem ! important;
 }
@@ -234,7 +238,7 @@ div#toc-panel ul {
 }
 
 h2.toc {
-    font-size: medium;
+    font-size: 1.5rem;
 }
 
 .jdocmanual-container {
@@ -373,7 +377,7 @@ details.jdm {
 }
 
 li.article-active {
-    background-color: lightcyan;
+    background-color: #e7f1ff;
     border-right: 4px solid #000099;
 }
 
@@ -423,4 +427,24 @@ details summary, details ul li {
 
 .container-below-top {
     align-items: center !important;
+}
+
+.jdmindent-0 {
+    margin-inline-start: 0 ! important;
+}
+
+.jdmindent-1 {
+    margin-inline-start: 1rem ! important;
+}
+
+.jdmindent-2 {
+    margin-inline-start: 2rem ! important;
+}
+
+.jdmindent-3 {
+    margin-inline-start: 3rem ! important;
+}
+
+.jdmindent-4 {
+    margin-inline-start: 4rem ! important;
 }

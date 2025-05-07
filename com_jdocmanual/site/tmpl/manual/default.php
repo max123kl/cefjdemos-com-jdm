@@ -23,6 +23,7 @@ $wa->useStyle('com_jdocmanual.jdocmanual')
 
 $wa->registerAndUseStyle('metismenujscss', 'media/com_jdocmanual/css/metismenujs.css', [], [], []);
 $wa->registerAndUseStyle('mm-vertical', 'media/com_jdocmanual/css/mm-vertical.css', [], [], []);
+$wa->registerAndUseScript('codehighlight', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js', [], [], ['core']);
 $wa->registerAndUseStyle('codehighlight-light', 'media/com_jdocmanual/css/a11y-light.min.css', [], [], []);
 
 $wa->addInlineScript(

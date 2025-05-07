@@ -415,10 +415,9 @@ class Buildmenus
      */
     protected function accordionStart($id, $depth, $label)
     {
-        $depth = $depth + 2;
         $html = "<li>\n";
         $html .= '<a class="has-arrow" href="#" aria-expanded="false">';
-        $html .= "{$label}</a>\n<ul class=\"ps-{$depth}\">\n";
+        $html .= "{$label}</a>\n<ul class=\"jdmindent-1\">\n";
         return $html;
     }
 

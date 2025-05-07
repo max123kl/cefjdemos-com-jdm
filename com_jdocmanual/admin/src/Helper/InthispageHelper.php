@@ -42,7 +42,7 @@ class InthispageHelper
         $in_this_page = '<h2 class="toc fs-4">' . Text::_('COM_JDOCMANUAL_MANUAL_TOC_IN_THIS_ARTICLE') . '</h2>' . "\n";
         $in_this_page .= '<ul>' . "\n";
         foreach ($menu as $i => $item) {
-            $in_this_page .= '<li class="fs-' . $item[0] + 3 . ' ps-' . ($item[0] - 2) * 2 . '">' . "\n";
+            $in_this_page .= '<li class="fs-' . $item[0] + 3 . ' mt-1 mb-1 ps-' . ($item[0] - 2) * 2 . '">' . "\n";
             $in_this_page .= '<a href="#' . $i .'" class="link-underline-light">' . $item[2] . '</a>' . "\n";
             $in_this_page .= '</li>'. "\n";
         }
