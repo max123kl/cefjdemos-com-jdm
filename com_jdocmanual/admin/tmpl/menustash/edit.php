@@ -21,8 +21,10 @@ $wa = $this->document->getWebAssetManager();
 $wa->useStyle('com_jdocmanual.jdocmanual')
     ->useScript('keepalive')
     ->useScript('com_jdocmanual.stash');
-// Register and attach a custom item in one run
-//$wa->registerAndUseStyle('diff-table', 'com_jdocmanual/css/diff-table.css', [], [], []);
+
+$wa->registerAndUseStyle('metismenujscss', 'media/com_jdocmanual/css/metismenujs.css', [], [], []);
+$wa->registerAndUseStyle('mm-vertical', 'media/com_jdocmanual/css/mm-vertical.css', [], [], []);
+
 $wa->useStyle('com_jdocmanual.diff-table');
 
 $wa->registerAndUseStyle(
@@ -62,6 +64,16 @@ $wa->registerAndUseScript(
     ['defer' => true],
     []
 );
+
+$wa->useScript('metismenujs');
+
+$wa->addInlineScript(
+    'document.addEventListener("DOMContentLoaded", function(event) {
+        new MetisMenu(\'#jdmmenu\', {
+        toggle: false
+      });
+    });'
+    );
 
 ?>
 
@@ -123,7 +135,16 @@ $wa->registerAndUseScript(
             'preview',
             Text::_('COM_JDOCMANUAL_ARTICLE_TAB_PREVIEW')
         ); ?>
-            <?php echo $this->preview; ?>
+            <div class="alert alert-info">
+                The preview is for information only! It has no functionality.
+                The item titles use placeholder text. The real titles are
+                obtained from the individual articles.
+            </div>
+            <div class="sidebar-nav p-0" style="max-width: 250px;">
+                <ul id="jdmmenu" class="jdm-metismenu metismenu mm-show">
+                    <?php echo $this->preview; ?>
+                </ul>
+            </div>
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
         <?php echo HTMLHelper::_(

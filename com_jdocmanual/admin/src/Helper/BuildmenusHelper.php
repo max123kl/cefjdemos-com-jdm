@@ -72,10 +72,14 @@ class BuildmenusHelper
                 }
                 // Example: heading=getting-started=Getting Started
                 $count_headings += 1;
-                $html .= $this->accordionstart($language, $parts[2]);
+                $html .= $this->accordionstart($parts[2]);
             } else {
+                $count_articles += 1;
+
                 // Example: developer=getting-started=developer-required-software.md
-                $html .= $this->accordionitem($language, $parts);
+                $title = str_replace('.md', '', $parts[2]);
+                $title = ucwords(str_replace('-', ' ', $title));
+                $html .= $this->accordionitem($count_articles, $title);
             }
         }
         $html .= $this->accordionend();
@@ -85,26 +89,16 @@ class BuildmenusHelper
     /**
      * Create an accordian start code.
      *
-     * @param   int     $id     The sequence number of the accordion.
+     * @param   integer $id     The sequence number of the accordion.
      * @param   string  $label  A summary label.
      *
-     * @return  string  The required html code.
-     *
-     * @since   1.0.0
+     * @return  $html   The required html code.
      */
-    protected function accordionstart($language, $heading)
+    protected function accordionStart($label)
     {
-        // First set the English display title
-        /*
-        $result = $this->heading_english();
-        if ($language === 'en') {
-
-        } else {
-
-        }
-        */
-        // If language not English get the heading from ...
-        $html = "<details class=\"jdm\">\n<summary>{$heading}</summary>\n<ul>\n";
+        $html = "<li>\n";
+        $html .= '<a class="has-arrow" href="#" aria-expanded="false">';
+        $html .= "{$label}</a>\n<ul class=\"jdmindent-1\">\n";
         return $html;
     }
 
@@ -112,48 +106,27 @@ class BuildmenusHelper
      * Create an accordian end code.
      *
      * @return  string  The required html code.
-     *
-     * @since   1.0.0
      */
-    protected function accordionend()
+    protected function accordionEnd()
     {
-        return "\n</ul>\n</details>\n";
+        return "\n</ul>\n</li>\n";
     }
 
     /**
      * Create an accordian item code.
      *
-     * @param   int     $id             The sequence number of the accordion.
-     * @param   string  $display_title  The display title.
+     * @param   integer     $id             The sequence number of the accordion.
+     * @param   string      $display_title  The display title.
+     * @param   string      $path           The link path
      *
-     * @return  string  The required html code.
-     *
-     * @since   1.0.0
+     * @return  string      The required html code.
      */
-    protected function accordionitem($language, $parts)
+    protected function accordionItem($id, $display_title)
     {
-        // Example: developer=getting-started=developer-required-software.md
-        $id = 0;
-        $source_url = '';
-        list($id, $title, $source_url) = $this->getArticleData($parts[0], $language, $parts[1]);
-        if (empty($title) && $language !== 'en') {
-            list($id, $title, $source_url) = $this->getArticleData($parts[0], 'en', $parts[1]);
-        }
-        if (empty($title)) {
-            $title = substr($parts[2], 0, strpos($parts[2], '.md'));
-            $title = str_replace('-', ' ', $title);
-            $title = ucwords($title);
-        }
-
-        // escape any " character in the link
-        // $link = str_replace('"', '', $link);
-        $html = ''; //'<li><span class="icon-file-alt icon-fw icon-jdocmanual" aria-hidden="true"></span>';
-
-        // Including the view here causes the sef router not to break!
-        $route = 'index.php?option=com_jdocmanual&view=manual' . $id;
-        $html .= '<li id="article-' . $id . '">';
-        $html .= '<a href="' . $route . '" class="content-link" data-content-id="' . $source_url . '">';
-        $html .= $title . '</a></li>' . "\n";
+        // Escape any " character in the link.
+        //'<li><span class="icon-file-alt icon-fw icon-jdocmanual" aria-hidden="true"></span>';
+        $html = '<li id="article-' . $id . '">';
+        $html .= '<a href="#">' . $display_title . '</a></li>' . "\n";
         return $html;
     }
 
