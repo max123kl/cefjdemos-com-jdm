@@ -138,7 +138,8 @@ $wa->addInlineScript(
             <div class="alert alert-info">
                 The preview is for information only! It has no functionality.
                 The item titles use placeholder text. The real titles are
-                obtained from the individual articles.
+                obtained from the individual articles. The Preview only works
+                on saved content. <strong>Save you Stash to see the Preview!</strong>
             </div>
             <div class="sidebar-nav p-0" style="max-width: 250px;">
                 <ul id="jdmmenu" class="jdm-metismenu metismenu mm-show">

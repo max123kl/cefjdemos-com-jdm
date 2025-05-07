@@ -36,7 +36,7 @@ class BuildmenusHelper
      *
      * @since  1.0.0
      */
-    public function buildmenus($manual, $menu, $language = 'en')
+    public function buildmenus($manual, $menu)
     {
         // if any parameter is missing return false
         if (empty($manual) || empty($menu)) {
@@ -44,18 +44,16 @@ class BuildmenusHelper
         }
 
         // Fetch a list of article headings in English.
-        $headings_english = $this->setHeadings($manual);
-
-        // Fetch a list of headings in the specified language.
-        if ($language !== 'en') {
-            $headings_language = $this->setHeadings($manual, $language);
-        }
+        $heading_titles = $this->setHeadings($manual);
 
         // Split the menu into lines.
         $lines = preg_split("/((\r?\n)|(\r\n?))/", $menu);
+        $accordionid = 0;
         $count = count($lines);
         $count_headings = 0;
         $count_articles = 0;
+        $previous_heading_level = 0;
+        $new_heading_level = 0;
         $html = '';
 
         foreach ($lines as $line) {
@@ -64,25 +62,69 @@ class BuildmenusHelper
             if (empty($line) || strpos($line, ';') === 0) {
                 continue;
             }
-            $parts = explode('=', $line);
-            // If the line starts with 'heading=' start a new accordion.
-            if ($parts[0] === 'heading') {
-                if ($count_headings > 0) {
-                    $html .= $this->accordionend();
+
+            // skip lines containing close-n-headings
+            if (strpos($line, 'close-') === 0) {
+                // get the number of headings to close
+                $n = (int) substr($line, 6, 1);
+                for ($i = 0; $i < $n; $i++) {
+                    $html .= $this->accordionEnd();
+                    $previous_heading_level--;
                 }
-                // Example: heading=getting-started=Getting Started
-                $count_headings += 1;
-                $html .= $this->accordionstart($parts[2]);
+                continue;
+            }
+
+            list($key, $heading, $filename) = explode('=', $line);
+
+            // Does the key have a heading level? heading or heading-1 or heading-2
+            if (strpos($key, 'heading') === 0) {
+                if (
+                    strpos($key, '-') &&
+                    list($k, $l) = explode('-', $key)
+                ) {
+                    // This is a new subheading of level l
+                    $new_heading_level = $l;
+                    $key = $k;
+                } else {
+                    $new_heading_level = 0;
+                }
+            }
+
+            if ($key == 'heading') {
+                // If the line starts with 'heading=' start a new accordion
+                if ($accordionid > 0) {
+                    // End the previous accordion
+                    while ($previous_heading_level >= $new_heading_level) {
+                        $html .= $this->accordionEnd();
+                        $previous_heading_level--;
+                    }
+                    $previous_heading_level++;
+                }
+                $accordionid += 1;
+                // If the display_title is missing
+                if (empty($heading_titles[$heading])) {
+                    $alt = ucwords(str_replace('-', ' ', $heading));
+                    // Output a warning
+                    //$this->summary .=  "No translated heading for {$heading}. Using {$alt}\n";
+                    // Output an accordion heading.
+                    $html .= $this->accordionStart($alt);
+                } else {
+                    // Output an accordion heading.
+                    $html .= $this->accordionStart($heading_titles[$heading]);
+                }
             } else {
                 $count_articles += 1;
-
                 // Example: developer=getting-started=developer-required-software.md
-                $title = str_replace('.md', '', $parts[2]);
+                $title = str_replace('.md', '', $filename);
                 $title = ucwords(str_replace('-', ' ', $title));
                 $html .= $this->accordionitem($count_articles, $title);
             }
         }
-        $html .= $this->accordionend();
+        // End the previous accordion
+        while ($previous_heading_level >= $new_heading_level) {
+            $html .= $this->accordionEnd();
+            $previous_heading_level--;
+        }
         return $html;
     }
 
