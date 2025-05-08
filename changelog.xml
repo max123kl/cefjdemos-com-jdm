@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.7.3</version>
+        <change>
+            <item>Style changes to Menus</item>
+        </change>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.7.2</version>
         <fix>
             <item>Fixed Menu Stash Preview.</item>

@@ -52,10 +52,10 @@ HTMLHelper::_('bootstrap.offcanvas', '.offcanvas', []);
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-9" id="document-panel" tabindex="0">
+                <div class="col-12 col-lg-9" id="document-panel" tabindex="0">
                     <?php echo $this->page_content; ?>
                 </div>
-                <nav class="col-12 col-md-3 d-none d-lg-block"
+                <nav class="col-12 col-lg-3 d-none d-lg-block"
                     aria-label="Page Menu" id="toc-panel">
                     <?php echo $this->in_this_page; ?>
                 </nav>

@@ -190,8 +190,13 @@ p.ambox {
 
 #toc-panel li {
     border-bottom: 1px dotted navy;
+    margin-top: 5px;
+    padding-bottom: 5px;
 }
 
+#toc-panel li a {
+    text-decoration: none;
+}
 .accordion-button {
     padding: 0.5rem 0.5rem ! important;
 }
@@ -429,22 +434,26 @@ details summary, details ul li {
     align-items: center !important;
 }
 
-.jdmindent-0 {
-    margin-inline-start: 0 ! important;
+.jdm-indent-0 {
+    padding-left: 0 ! important;
 }
 
-.jdmindent-1 {
-    margin-inline-start: 1rem ! important;
+.jdm-indent-1 {
+    padding-left: 1rem ! important;
 }
 
-.jdmindent-2 {
-    margin-inline-start: 2rem ! important;
+.jdm-indent-2 {
+    padding-left: 2rem ! important;
 }
 
-.jdmindent-3 {
-    margin-inline-start: 3rem ! important;
+.jdm-indent-3 {
+    padding-left: 3rem ! important;
 }
 
-.jdmindent-4 {
-    margin-inline-start: 4rem ! important;
+.jdm-indent-4 {
+    padding-left: 4rem ! important;
+}
+
+.jdm-menu-link {
+    font-size: 1.25rem ! important;
 }

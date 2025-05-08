@@ -416,8 +416,8 @@ class Buildmenus
     protected function accordionStart($id, $depth, $label)
     {
         $html = "<li>\n";
-        $html .= '<a class="has-arrow" href="#" aria-expanded="false">';
-        $html .= "{$label}</a>\n<ul class=\"jdmindent-1\">\n";
+        $html .= '<a class="has-arrow jdm-menu-link" href="#" aria-expanded="false">';
+        $html .= "{$label}</a>\n<ul class=\"jdm-indent-1\">\n";
         return $html;
     }
 
@@ -445,7 +445,7 @@ class Buildmenus
         // Escape any " character in the link.
         //'<li><span class="icon-file-alt icon-fw icon-jdocmanual" aria-hidden="true"></span>';
         $html = '<li id="article-' . $id . '">';
-        $html .= '<a href="jdocmanual?' . $path . '" class="content-link">' . $display_title . '</a></li>' . "\n";
+        $html .= '<a href="jdocmanual?' . $path . '" class="jdm-menu-link">' . $display_title . '</a></li>' . "\n";
         return $html;
     }
 
