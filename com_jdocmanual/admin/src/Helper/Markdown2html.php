@@ -10,6 +10,10 @@
 
 namespace Cefjdemos\Component\Jdocmanual\Administrator\Helper;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\Database\ParameterType;
 use Joomla\CMS\Factory;
 
