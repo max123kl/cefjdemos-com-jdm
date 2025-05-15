@@ -2,6 +2,14 @@
     <changelog>
         <element>com_jdocmanual</element>
         <type>component</type>
+        <version>4.7.5</version>
+        <fix>
+            <item>Spinner layout was corrupt.</item>
+        </fix>
+    </changelog>
+    <changelog>
+        <element>com_jdocmanual</element>
+        <type>component</type>
         <version>4.7.4</version>
         <change>
             <item>Added min and gz versions of css and js</item>

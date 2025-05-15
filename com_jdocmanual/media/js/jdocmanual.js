@@ -168,11 +168,11 @@ async function setPanelContent(manual, heading, filename)
     });
 
     let document_panel = document.getElementById('document-panel');
-    document_panel.innerHTML = ` < div class = "text-center" >
-    < div class = "spinner-border m-5" role = "status" >
-      < span class = "sr-only" > Loading... < / span >
-    <  / div >
-    <  / div > `;
+    document_panel.innerHTML = `<div class="text-center">
+    <div class="spinner-border m-5" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    </div>`;
     let toc_panel = document.getElementById('toc-panel');
 
   // get token from javascript loaded in the page
